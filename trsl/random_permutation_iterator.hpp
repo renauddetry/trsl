@@ -56,12 +56,12 @@ namespace trsl
    *
    * This class is a fork of <a
    * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
-   * >boost::iterator::permutation_iterator</a>.  With
+   * >boost::permutation_iterator</a>.  With
    * <a
    * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
-   * >boost::iterator::permutation_iterator</a>, the user provides a
-   * population, and an range of ordered index that define a
-   * permutation over the population. This allows for much flexibility, but the user is
+   * >boost::permutation_iterator</a>, the user provides a
+   * population, and a range of ordered index that define a
+   * permutation over the population. This allows for much flexibility, but leaves the user
    * responsible for generating and storing an array of index. When
    * only random permutations are needed, the array of index could be
    * managed internally; this is what trsl::random_permutation_iterator

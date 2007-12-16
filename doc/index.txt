@@ -20,7 +20,8 @@
  * TRSL is in a usable state. However, as its version number suggests,
  * it is likely to grow and change interface in the future. For download
  * and project services, see the <a href="http://sourceforge.net/projects/trsl" >
- * Sourceforge Project Page</a>.
+ * Sourceforge Project Page</a>. Users are encouraged to keep up with the
+ * <a href="http://sourceforge.net/svn/?group_id=212585" >Subversion repository</a>.
  *
  * The central TRSL product is trsl::is_picked_systematic, a functor
  * to use in combination with trsl::persistent_filter_iterator to form
