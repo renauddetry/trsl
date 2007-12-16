@@ -1,0 +1,17 @@
+// (C) Copyright Renaud Detry   2007.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+/** @defgroup random Random Number Generators
+
+Some of the classes in TRSL need random numbers. If a class need only
+one random number (e.g. trsl::is_picked_systematic), it is generally
+possible to provide that random number directly. It's then up to the user
+to take care of the random generator and seeding.
+
+Another possibility is to use TRSL-internal random capabilities,
+implemented using the system random number generator (the
+<tt>random</tt> function).
+
+*/

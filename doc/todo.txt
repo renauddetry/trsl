@@ -1,0 +1,23 @@
+// (C) Copyright Renaud Detry   2007.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+/** @defgroup todo To Do List
+
+@section shortterm Short Term
+
+- module for systematic sampling, permutation
+- ask for user feedback
+- mention that BSL is being reviewed by osi
+- ask for platform feedback
+
+@section longterm Long Term
+
+- Add a module for boost::filter_iterator explaination (e.g. interoperability, constness, etc...).
+
+@section openquestions Open Questions
+
+- Change the library name?
+
+*/

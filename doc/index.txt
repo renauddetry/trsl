@@ -1,0 +1,90 @@
+// (C) Copyright Renaud Detry   2007.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+/** @mainpage
+ *
+ * TRSL is a C++ library that implements several sampling schemes
+ * behind an (STL-like) iterator interface. The library may be used
+ * e.g. in particle filtering or probabilistic inference frameworks.
+ *
+ * TRSL is distributed under the <a
+ * href="http://www.boost.org/LICENSE_1_0.txt" >Boost Software
+ * License</a> (BSL). BSL is a GPL-compatible <a
+ * href="http://www.fsf.org/licensing/licenses" >free software
+ * license</a>, very similar to the BSD license and the MIT license;
+ * see <a href="http://www.boost.org/more/license_info.html" >Boost
+ * Software License Background</a>.
+ *
+ * TRSL is in a usable state. However, as its version number suggests,
+ * it is likely to grow and change interface in the future. For download
+ * and project services, see the <a href="http://sourceforge.net/projects/trsl" >
+ * Sourceforge Project Page</a>.
+ *
+ * The central TRSL product is trsl::is_picked_systematic, a functor
+ * to use in combination with trsl::persistent_filter_iterator to form
+ * a <em>sample iterator</em>.  The sample iterator accesses a
+ * population of elements through a range defined by a pair of Forward
+ * Iterators (begin/end), and provides on-the-fly iteration through a
+ * sample of the population.
+ *
+ * Let us assume a particle filter implementation, in which we find a
+ * population of particles (<tt>struct Particle { weight; x; y;
+ * }</tt>) in a container <tt>ParticleCollection</tt>. The following
+ * bit of code shows an example of how to iterate through a
+ * sample of the population after having implemented
+ * <tt>ParticleCollection::sample_begin(size_t)</tt> and
+ * <tt>ParticleCollection::sample_end()</tt> using
+ * e.g. trsl::is_picked_systematic.
+ *
+@code
+const size_t POPULATION_SIZE = 100;
+const size_t SAMPLE_SIZE = 10;
+
+//-----------------------//
+// Generate a population //
+//-----------------------//
+
+ParticleCollection population;
+for (size_t i = 0; i < POPULATION_SIZE; ++i)
+{
+  Particle p(double(rand())/RAND_MAX,  // weight
+             double(rand())/RAND_MAX,  // position (x)
+             double(rand())/RAND_MAX); // position (y)
+  population.add(p);
+}
+
+//----------------------------//
+// Sample from the population //
+//----------------------------//
+
+ParticleCollection sample;
+
+//-- population contains 100 elements. --//
+
+for (ParticleCollection::const_sample_iterator
+       si = population.sample_begin(SAMPLE_SIZE),
+       se = population.sample_end();
+     si != se; ++si)
+{
+  Particle p = *si;
+  p.setWeight(1);
+  sample.add(p);
+
+  // ... or do something else with *si ...
+}
+
+//-- sample contains 10 elements. --//
+
+assert(sample.size() == SAMPLE_SIZE);
+@endcode
+ *
+ * The second TRSL product is trsl::random_permutation_iterator, which
+ * provides an iterator over a random permutation of a range.
+ *
+ * 
+ * @author TRSL is written by Renaud Detry, <tt>renaudjdetry -> airpost net</tt>.
+ *
+ */
+

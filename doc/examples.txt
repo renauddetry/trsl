@@ -1,0 +1,19 @@
+// (C) Copyright Renaud Detry   2007.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+/**
+ * @example trsl_example1.cpp
+ *
+ * This is the most basic example. See example1+.cpp for a slightly
+ * more advanced version of this example.
+ */
+/**
+ * @example trsl_example1+.cpp
+ *
+ * This example is an "advanced" version of example1.cpp. Instead of
+ * creating the sample iterators within the code body, we hide the
+ * creation detail within a population class.
+ */
+/** @example trsl_example2.cpp */
