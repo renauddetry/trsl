@@ -25,9 +25,7 @@ test: build
 
 clean:
 	rm -fr documentation
-	rm -fr $(BUILD_DIR)/CMakeFiles 
-	rm -f  $(BUILD_DIR)/*
-	rmdir $(BUILD_DIR)
+	rm -fr $(BUILD_DIR) 
 
 publish:
 	rsync -a --delete --delete-excluded -v documentation/html/ renauddetry@shell.sourceforge.net:/home/groups/t/tr/trsl/htdocs
