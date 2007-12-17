@@ -5,7 +5,7 @@
 
 /** @defgroup notes Notes
  *
- * @section naming_conventions Naming Conventions
+ * @section notes_naming_conventions Naming Conventions
  *
  * Since TRSL is closely tied to Boost, it's intended to follow
  * naming conventions from <a

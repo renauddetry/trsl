@@ -9,23 +9,54 @@
  * behind an (STL-like) iterator interface. The library may be used
  * e.g. in particle filtering or probabilistic inference frameworks.
  *
+ * @section index_license License
+ *
  * TRSL is distributed under the <a
  * href="http://www.boost.org/LICENSE_1_0.txt" >Boost Software
  * License</a> (BSL). BSL is a GPL-compatible <a
  * href="http://www.fsf.org/licensing/licenses" >free software
  * license</a>, very similar to the BSD license and the MIT license;
  * see <a href="http://www.boost.org/more/license_info.html" >Boost
- * Software License Background</a>.
+ * Software License Background</a>. BSL is currently being reviewed for OSI approval, 
+ * see the end of <a href="http://groups.google.com/group/comp.lang.c++.moderated/browse_thread/thread/1963de1fba1e9cf8/643e5618c0f7574e" >this thread</a>,
+ * and <a href="https://osi.osuosl.org/ticket/45" >this ticket</a>.
+ *
+ * @section index_services Source
  *
  * TRSL is in a usable state. However, as its version number suggests,
- * it is likely to grow and change interface in the future. For download
- * and project services, see the <a href="http://sourceforge.net/projects/trsl" >
- * Sourceforge Project Page</a>. Users are encouraged to keep up with the
- * <a href="http://sourceforge.net/svn/?group_id=212585" >Subversion repository</a>.
+ * it is likely to grow and change interface in the future.
  *
- * The central TRSL product is trsl::is_picked_systematic, a functor
- * to use in combination with trsl::persistent_filter_iterator to form
- * a <em>sample iterator</em>.  The sample iterator accesses a
+ * <dl>
+ *
+ * <dt><b>Downloads</b></dt>
+ *
+ * <dd>Releases are available at the Sourceforge <a
+ * href="http://sourceforge.net/project/showfiles.php?group_id=212585&package_id=255741&release_id=561630"
+ * >download page</a>. The latest sources are available through
+ * Subversion:<br><tt>svn co
+ * https://trsl.svn.sourceforge.net/svnroot/trsl/trunk trsl</tt></dd>
+ *
+ * <dt><b>Project Services</b></dt>
+ *
+ * <dd>Sourceforge <a href="http://sourceforge.net/projects/trsl" >project page</a>.</dd>
+ *
+ * </dl>
+ *
+ * TRSL is meant to be OS Portable (Source code to work with many OS
+ * platforms). However, I could only test it with GCC (under Linux and
+ * under MacOS X). If anyone tries it with a different compiler,
+ * please comment!
+ *
+ * The source documentation is currently quite thin. Then again, me
+ * being the only know user so far, I haven't felt the thrill to write
+ * more :-). If there's anyone out there using TRSL, please let me
+ * know!
+ *
+ * @section index_products Products
+ *
+ * The central TRSL product is trsl::is_picked_systematic, a predicate
+ * functor to use in combination with trsl::persistent_filter_iterator
+ * to form a <em>sample iterator</em>.  The sample iterator accesses a
  * population of elements through a range defined by a pair of Forward
  * Iterators (begin/end), and provides on-the-fly iteration through a
  * sample of the population.
@@ -33,8 +64,8 @@
  * Let us assume a particle filter implementation, in which we find a
  * population of particles (<tt>struct Particle { weight; x; y;
  * }</tt>) in a container <tt>ParticleCollection</tt>. The following
- * bit of code shows an example of how to iterate through a
- * sample of the population after having implemented
+ * bit of code shows an example of how to iterate through a sample of
+ * the population after having implemented
  * <tt>ParticleCollection::sample_begin(size_t)</tt> and
  * <tt>ParticleCollection::sample_end()</tt> using
  * e.g. trsl::is_picked_systematic.
@@ -84,8 +115,12 @@ assert(sample.size() == SAMPLE_SIZE);
  * The second TRSL product is trsl::random_permutation_iterator, which
  * provides an iterator over a random permutation of a range.
  *
- * 
- * @author TRSL is written by Renaud Detry, <tt>renaudjdetry -> airpost net</tt>.
+ * @section index_author Authors
+ *
+ * TRSL is written by Renaud Detry, <tt>renaudjdetry -> airpost net</tt>.
+ *
+ * TRSL makes heavy use of the <a href="http://www.boost.org/libs/iterator/doc/index.html" >Boost
+ * Iterators Library</a>.
  *
  */
 

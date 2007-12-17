@@ -21,18 +21,13 @@
 namespace trsl {
     
   /**
-   * @brief Functor to use with persistent_filter_iterator for range
-   * sampling using systematic sampling.
+   * @brief Functor to use with persistent_filter_iterator for systematic sampling of a range.
    *
-   * This class is meant to allow iteration over a sample from a
-   * population. The sampling method is systematic sampling, see [1, 2].
+   * The sampling method is systematic sampling, see [1, 2].
    *
-   * This class may be used as a functor to the
-   * trsl::persistent_filter_iterator iterator adaptor. The
-   * persistent_filter_iterator should be given an original
-   * population, viewed as a range referenced by two Forward
-   * Iterators. The persistent_filter_iterator will then allow to
-   * iterate over a sample of the original population.
+   * This class is intended to be used as a predicate functor to
+   * trsl::persistent_filter_iterator. When provided with two Forward Iterators referencing a population and the predicate is_picked_systematic, persistent_filter_iterator will allow to
+   * iterate over a sample of that population.
    *
    * Note that the iterator to use with this class is
    * trsl::persistent_filter_iterator, and not <a

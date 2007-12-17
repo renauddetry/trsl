@@ -5,7 +5,7 @@
 
 /** @defgroup history Version History
 
-@section v010 Version 0.1
+@section version_history_v010 Version 0.1.0
 
 Begins with trsl::is_picked_systematic, trsl::persistent_filter_iterator,
 trsl::random_permutation_iterator.

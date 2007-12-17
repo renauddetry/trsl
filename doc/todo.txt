@@ -5,19 +5,12 @@
 
 /** @defgroup todo To Do List
 
-@section shortterm Short Term
-
-- module for systematic sampling, permutation
-- ask for user feedback
-- mention that BSL is being reviewed by osi
-- ask for platform feedback
-
-@section longterm Long Term
+@section todo_short_term Short Term
 
 - Add a module for boost::filter_iterator explaination (e.g. interoperability, constness, etc...).
 
-@section openquestions Open Questions
+@section todo_long_term Long Term
 
-- Change the library name?
+@section todo_open_questions Open Questions
 
 */

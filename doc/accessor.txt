@@ -6,11 +6,11 @@
 /** @defgroup accessor Accessors
 
 Accessors are often called at least once for each element of the
-target collection. Hence, they should be designed carefully in any
+accessed collection. Hence, they should be designed carefully in every
 situation where performance is an issue. For example, one can gain a
-lot by using an accessor that are be inlined by the compiler.
+lot by having the compiler inline accessors.
 
-@section accessor_types Accessor Types
+@section accessor_accessor_types Accessor Types
 
 This section describes different types of accessor.
 In the following, we assume elements to be <tt>Particle</tt>s.
@@ -48,7 +48,7 @@ struct functor_weight_accessor {
 </dl>
 
 An example of functor accessor is trsl::weight_accessor, which always
-returns 1 -- useful if elements don't have weights, i.e. they all have
+returns 1 &ndash; useful if elements don't have weights, i.e. they all have
 the same weight.
 
 @subsection functionpointer Function Pointer
@@ -75,24 +75,24 @@ double function_pointer_weight_accessor(const Particle& p)
 </dl>
 
 Method pointer is currently the default in trsl::is_picked_systematic
-(but subject to change, see @ref discussion).  The implementation in
+(but subject to change, see @ref accessor_discussion).  The implementation used in
 TRSL is not std::const_mem_fun_ref however, but
 trsl::mp_weight_accessor which allows a default construction without
-implying segfault when called -- that comes with a price, see
+implying segfault when called &ndash; that comes with a price, see
 trsl::mp_weight_accessor.
 
 <dl>
 <dt>Accessor Type</dt>
 <dd><tt>trsl::mp_weight_accessor<double, const Particle&></tt></dd>
 <dt>Accessor object, to pass to the object that needs access</dt>
-<dd><tt>&Paticle::getWeight</tt></dd>
+<dd><tt>&Paticle::getWeight</tt> (implicit conversion)</dd>
 </dl>
 
 The pointer to <tt>getWeight</tt> implicitely constructs a
 trsl::mp_weight_accessor. (Why does the std counterpart have an
 explicit constructor?)
 
-@section discussion Discussion
+@section accessor_discussion Discussion
 
 I had the impression that GCC was able to &ldquo;inline fuction
 pointers&rdquo;. Performance tests on accessors (see
