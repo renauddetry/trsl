@@ -8,6 +8,7 @@
 @section todo_short_term Short Term
 
 - Add a module for boost::filter_iterator explaination (e.g. interoperability, constness, etc...).
+- Add a FAQ, answer "What if my population data structure doesn't have iterators?".
 
 @section todo_long_term Long Term
 

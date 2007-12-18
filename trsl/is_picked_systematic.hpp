@@ -21,20 +21,23 @@
 namespace trsl {
     
   /**
-   * @brief Functor to use with persistent_filter_iterator for systematic sampling of a range.
+   * @brief Functor to use with persistent_filter_iterator for
+   * systematic sampling of a range.
    *
    * The sampling method is systematic sampling, see [1, 2].
    *
    * This class is intended to be used as a predicate functor to
-   * trsl::persistent_filter_iterator. When provided with two Forward Iterators referencing a population and the predicate is_picked_systematic, persistent_filter_iterator will allow to
+   * trsl::persistent_filter_iterator. When provided with two Forward
+   * Iterators referencing a population and the predicate
+   * is_picked_systematic, persistent_filter_iterator will allow to
    * iterate over a sample of that population.
    *
-   * Note that the iterator to use with this class is
+   * Note that the iterator adaptor to use with this class is
    * trsl::persistent_filter_iterator, and not <a
    * href="http://www.boost.org/libs/iterator/doc/filter_iterator.html"
-   * >boost::filter_iterator</a>.
-   * See the doc on trsl::persistent_filter_iterator for a description of
-   * the difference between these.
+   * >boost::filter_iterator</a>.  See the doc on
+   * trsl::persistent_filter_iterator for a description of the
+   * difference between these.
    *
    * Systematic sampling may perform very badly if the population
    * sequence follows a pattern.  If a pattern is likely to occur in

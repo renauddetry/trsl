@@ -17,9 +17,11 @@
  * href="http://www.fsf.org/licensing/licenses" >free software
  * license</a>, very similar to the BSD license and the MIT license;
  * see <a href="http://www.boost.org/more/license_info.html" >Boost
- * Software License Background</a>. BSL is currently being reviewed for OSI approval, 
- * see the end of <a href="http://groups.google.com/group/comp.lang.c++.moderated/browse_thread/thread/1963de1fba1e9cf8/643e5618c0f7574e" >this thread</a>,
- * and <a href="https://osi.osuosl.org/ticket/45" >this ticket</a>.
+ * Software License Background</a>. BSL is currently being reviewed
+ * for OSI approval, see the end of <a
+ * href="http://groups.google.com/group/comp.lang.c++.moderated/browse_thread/thread/1963de1fba1e9cf8/643e5618c0f7574e"
+ * >this thread</a>, and <a href="https://osi.osuosl.org/ticket/45"
+ * >this ticket</a>.
  *
  * @section index_services Source
  *
@@ -38,19 +40,27 @@
  *
  * <dt><b>Project Services</b></dt>
  *
- * <dd>Sourceforge <a href="http://sourceforge.net/projects/trsl" >project page</a>.</dd>
+ * <dd>Sourceforge <a href="http://sourceforge.net/projects/trsl"
+ * >project page</a>.</dd>
  *
  * </dl>
  *
  * TRSL is meant to be OS Portable (Source code to work with many OS
  * platforms). However, I could only test it with GCC (under Linux and
- * under MacOS X). If anyone tries it with a different compiler,
- * please comment!
+ * under MacOS X). If anyone tries it with a different compiler, <a
+ * href="http://sourceforge.net/forum/?group_id=212585" >please
+ * comment</a>!
  *
  * The source documentation is currently quite thin. Then again, me
  * being the only know user so far, I haven't felt the thrill to write
- * more :-). If there's anyone out there using TRSL, please let me
- * know!
+ * more :-). If there's anyone out there using TRSL, <a href="http://sourceforge.net/forum/?group_id=212585" >please let me
+ * know</a>!
+ *
+ * @section index_feedback Feedback
+ *
+ * The preferred mean of communication is currently the Sourceforge <a
+ * href="http://sourceforge.net/forum/?group_id=212585" >forums</a>
+ * (anonymous posts allowed).
  *
  * @section index_products Products
  *
@@ -117,10 +127,11 @@ assert(sample.size() == SAMPLE_SIZE);
  *
  * @section index_author Authors
  *
- * TRSL is written by Renaud Detry, <tt>renaudjdetry -> airpost net</tt>.
+ * TRSL is written by <a href="http://sourceforge.net/users/renauddetry/"
+ * >Renaud Detry</a>.
  *
- * TRSL makes heavy use of the <a href="http://www.boost.org/libs/iterator/doc/index.html" >Boost
+ * TRSL is based on the excellent <a
+ * href="http://www.boost.org/libs/iterator/doc/index.html" >Boost
  * Iterators Library</a>.
  *
  */
-
