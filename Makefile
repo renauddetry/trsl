@@ -19,16 +19,14 @@ install: build
 doc:
 	doxygen doc/Doxyfile
 	cp LICENSE_1_0.txt documentation/html
-	ln -fs documentation/html/index.html documentation.html
 
 test: build
 	./$(BUILD_DIR)/test_is_picked_systematic
 
 clean:
 	rm -fr documentation
-	rm -fr documentation.html
 	rm -fr $(BUILD_DIR)
 	rm -fr build
 
-publish:
-	rsync -a --delete --delete-excluded -v documentation/html/ renauddetry@shell.sourceforge.net:/home/groups/t/tr/trsl/htdocs
+publish: doc
+	rsync -rl --delete --delete-excluded documentation/html/ renauddetry@shell.sourceforge.net:/home/groups/t/tr/trsl/htdocs

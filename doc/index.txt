@@ -132,6 +132,6 @@ assert(sample.size() == SAMPLE_SIZE);
  *
  * TRSL is based on the excellent <a
  * href="http://www.boost.org/libs/iterator/doc/index.html" >Boost
- * Iterators Library</a>.
+ * Iterator Library</a>.
  *
  */
