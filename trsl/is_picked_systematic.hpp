@@ -27,35 +27,27 @@ namespace trsl {
    * The sampling method is systematic sampling, see [1, 2].
    *
    * This class is intended to be used as a predicate functor to
-   * trsl::persistent_filter_iterator. When provided with two Forward
-   * Iterators referencing a population and the predicate
-   * is_picked_systematic, persistent_filter_iterator will allow to
-   * iterate over a sample of that population.
-   *
-   * Note that the iterator adaptor to use with this class is
-   * trsl::persistent_filter_iterator, and not <a
-   * href="http://www.boost.org/libs/iterator/doc/filter_iterator.html"
-   * >boost::filter_iterator</a>.  See the doc on
-   * trsl::persistent_filter_iterator for a description of the
-   * difference between these.
+   * trsl::persistent_filter_iterator to form a <em>sample
+   * iterator</em>. The sample iterator accesses a population of
+   * elements through a range defined by a pair of Forward Iterators
+   * (begin/end), and provides on-the-fly iteration through a sample
+   * of the population.
    *
    * Systematic sampling may perform very badly if the population
    * sequence follows a pattern.  If a pattern is likely to occur in
-   * the population, the user may want to pipe the sampling iterator
+   * the population, the user may want to pipe the sample iterator
    * after a trsl::random_permutation_iterator.
    *
-   * @param ElementType Type of the elements in the original
-   * population.  Just put the type here, e.g. MyClass; const and
-   * reference modifiers are handled internally.
+   * @param ElementType Type of the elements in the 
+   * population. Constness and
+   * reference modifiers are handled internally; this parameter should be
+   * a bare type, e.g. <tt>Particle</tt> and <em>not</em> <tt>const Particle&</tt>.
    *
-   * @param WeightType Type of the element weight. Defaults to double.
+   * @param WeightType Element weight type. Defaults to <tt>double</tt>.
    *
-   * @param WeightAccessorType Type of an accessor that will allow to
-   * extract the weight from an element. You would probably use the
-   * default mp_weight_accessor<>, or
-   * <tt>std::pointer_to_unary_function<const MyClass&,
-   * double></tt>. Maybe pointer_to_unary_function should be the
-   * default accessor?
+   * @param WeightAccessorType Type of the accessor that will allow to
+   * extract weights from elements. Defaults to <tt>mp_weight_accessor</tt>,
+   * see @ref accessor for further details on accessors.
    *
    * <b>References:</b>
    *
@@ -80,23 +72,58 @@ namespace trsl {
     typedef WeightAccessorType weight_accessor_type;
     
     /**
-     * @brief Construction with user-provided random number.
+     * @brief Construction with system-provided random number.
      *
-     * @param sampleSize Number of elements to pick out of
-     * the population.
+     * The systematic sampling predicate initialization needs a random
+     * number in <tt>[0,1[</tt>.  This constructor uses the system
+     * function <tt>random</tt> to produce that number.
+     *
+     * @param sampleSize Number of elements in the sample.
      *
      * @param populationWeight Total weight of the
      * population. Generally equal to 1.
      *
-     * @param uniform01 Random number in <tt>[0,1[</tt>. This argument
-     * is provided to allow the use a fancy random number
-     * generator, such as boost or GSL.
+     * @param wac Weight accessor. Defaults to
+     * mp_weight_accessor (). Note that if you don't pass explicitly a
+     * mp_weight_accessor(<tt>&ElementType::GETWEIGHTMETHOD</tt>), the
+     * default constructor for mp_weight_accessor will set it to
+     * always return 1, ignoring element weights. See @ref accessor
+     * for accessor details.
+     */
+    is_picked_systematic(size_t sampleSize,
+                         WeightType populationWeight,
+                         WeightAccessorType const& wac = WeightAccessorType()) :
+      wac_(wac), sampleSize_(sampleSize),
+      populationWeight_(populationWeight), step_(populationWeight_ / sampleSize_)
+      {
+        initialize( (random() / (RAND_MAX+WeightType(1.0))) * step_);
+      }
+
+    /**
+     * @brief Construction with user-provided random number.
+     *
+     * The systematic sampling predicate initialization needs a random
+     * number in <tt>[0,1[</tt>.  This constructor allows the user to
+     * provide that number directly; the user is free to choose a
+     * fancy random number generator, such as the <a
+     * href="http://www.boost.org/libs/random/index.html" >Boost
+     * Random Number Library</a> or <a
+     * href="http://www.gnu.org/software/gsl/manual/html_node/Random-Number-Generation.html"
+     * >GSL</a>.
+     *
+     * @param sampleSize Number of elements in the sample.
+     *
+     * @param populationWeight Total weight of the
+     * population. Generally equal to 1.
+     *
+     * @param uniform01 Random number in <tt>[0,1[</tt>.
      *
      * @param wac Weight accessor. Defaults to
-     * mp_weight_accessor. Note that if you don't pass a
-     * mp_weight_accessor, the default constructor for
-     * mp_weight_accessor will make it always return 1, ignoring
-     * element weights. See @ref accessor for accessor details.
+     * mp_weight_accessor (). Note that if you don't pass explicitly a
+     * mp_weight_accessor(<tt>&ElementType::GETWEIGHTMETHOD</tt>), the
+     * default constructor for mp_weight_accessor will set it to
+     * always return 1, ignoring element weights. See @ref accessor
+     * for accessor details.
      */
     is_picked_systematic(size_t sampleSize,
                          WeightType populationWeight,
@@ -109,38 +136,9 @@ namespace trsl {
       }
 
     /**
-     * @brief Construction with system-provided random number.
+     * @brief Decides whether <tt>e</tt> should be picked or not.
      *
-     * @param sampleSize Number of elements to pick out of
-     * the population.
-     *
-     * @param populationWeight Total weight of the
-     * population. Generally equal to 1.
-     *
-     * @param wac Weight accessor. Defaults to
-     * mp_weight_accessor. Note that if you don't pass a
-     * mp_weight_accessor, the default constructor for
-     * mp_weight_accessor will make it always return 1, ignoring
-     * element weights. See @ref accessor for accessor details.
-     *
-     * Construction needs a random number in <tt>[0,1[</tt>. This
-     * constructor uses the system function <tt>random</tt> for that
-     * purpose.
-     */
-    is_picked_systematic(size_t sampleSize,
-                         WeightType populationWeight,
-                         WeightAccessorType const& wac = WeightAccessorType()) :
-      wac_(wac), sampleSize_(sampleSize),
-      populationWeight_(populationWeight), step_(populationWeight_ / sampleSize_)
-      {
-        initialize( (random() / (RAND_MAX+WeightType(1.0))) * step_);
-      }
-
-    
-    /**
-     * @brief Decides whether this element should be picked or not.
-     *
-     * Part of the requirements for persistent_filter_iterator functors.
+     * Part of the requirements for persistent_filter_iterator predicates.
      */
     bool operator()(const ElementType & e)
       {
@@ -148,7 +146,7 @@ namespace trsl {
         // This algorithm is the intuitive implementation of
         // systematic sampling, where one pictures a wheel with
         // N_SAMPLE spokes and distributes the population around the
-        // wheel as segments of tire of lenght proportional to their
+        // wheel as segments of tire of length proportional to their
         // weight; the spokes point to picked elements.
         WeightType arrow = k_*step_;
     
