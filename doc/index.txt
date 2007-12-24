@@ -45,8 +45,7 @@
  *
  * </dl>
  *
- * TRSL is meant to be OS Portable (Source code to work with many OS
- * platforms). However, I could only test it with GCC (under Linux and
+ * TRSL is meant to be OS Portable. However, I could only test it with GCC (under Linux and
  * under MacOS X). If anyone tries it with a different compiler, <a
  * href="http://sourceforge.net/forum/?group_id=212585" >please
  * comment</a>!

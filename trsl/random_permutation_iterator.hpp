@@ -14,10 +14,11 @@
 #ifndef TRSL_PERMUTATION_ITERATOR_HPP
 #define TRSL_PERMUTATION_ITERATOR_HPP
 
+#include "trsl/error_handling.hpp"
+
 #include <iterator>
 #include <vector>
 #include <algorithm>
-
 #include <boost/iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
@@ -56,25 +57,27 @@ namespace trsl
    *
    * This class is a fork of <a
    * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
-   * >boost::permutation_iterator</a>.  With
-   * <a
+   * >boost::permutation_iterator</a>.  With <a
    * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
-   * >boost::permutation_iterator</a>, the user provides a
-   * population, and a range of ordered index that define a
-   * permutation over the population. This allows for much flexibility, but leaves the user
+   * >boost::permutation_iterator</a>, the user provides a population,
+   * and a range of ordered index that define a permutation over the
+   * population. It allows for much flexibility, but leaves the user
    * responsible for generating and storing an array of index. When
-   * only random permutations are needed, the array of index could be
-   * managed internally; this is what trsl::random_permutation_iterator
-   * does. The array is stored within each iterator, by means of a <a
+   * only <em>random</em> permutations are needed, the array of index
+   * can be managed internally; this is what
+   * trsl::random_permutation_iterator does.
+   *
+   * The index array is stored within the iterator, by means of a <a
    * href="http://www.boost.org/libs/smart_ptr/shared_ptr.htm"
-   * >boost::shared_ptr</a>.
+   * >boost::shared_ptr</a>; thus, all copies of a random permutation
+   * iterator share the same index array.
    *
    * When iterating over a permutation of a population range using an
    * index range, the iteration is actually performed over the index
-   * range; the population range is only used when dereferencing. Thus, every
-   * trsl::random_permutation_iterator knows where it begins and where it
-   * ends, hence provided trsl::random_permutation_iterator::begin() and
-   * trsl::random_permutation_iterator::end() methods.
+   * range; the population range is only used when
+   * dereferencing. Thus, every trsl::random_permutation_iterator
+   * knows where it begins and where it ends, hence provided begin()
+   * and end() methods.
    */
   template<class ElementIterator>
   class random_permutation_iterator
@@ -92,11 +95,15 @@ namespace trsl
   public:
     random_permutation_iterator() : m_elt_iter() {}
     
-    explicit random_permutation_iterator(ElementIterator begin,
-                                         ElementIterator end)
-      : m_elt_iter(begin), m_index_collection(new index_collection)
+    /**
+     * @brief Construction of an iterator over a permutation of
+     * the population referenced by @p first and @p last.
+     */
+    explicit random_permutation_iterator(ElementIterator first,
+                                         ElementIterator last)
+      : m_elt_iter(first), m_index_collection(new index_collection)
       {
-        index_t size = std::distance(begin, end);
+        index_t size = std::distance(first, last);
         m_index_collection->resize(size);
         for (index_t i = 0; i < size; ++i)
           (*m_index_collection)[i] = i;
@@ -105,12 +112,28 @@ namespace trsl
         this->base_reference() = m_index_collection->begin();
       }
     
-    explicit random_permutation_iterator(ElementIterator begin,
-                                         ElementIterator end,
+    /**
+     * @brief Construction of an iterator over the first @p
+     * permutationSize elements of a permutation of the population
+     * referenced with @p first and @p last.
+     *
+     * Let \f$n\f$ be the size of the population. This constructor
+     * shuffles an array of \f$n\f$ index, then discards its last
+     * \f$n-permutationSize\f$ elements. It will thus be inefficient
+     * if \f$permutationSize\f$ small compared to \f$n\f$.
+     */
+    explicit random_permutation_iterator(ElementIterator first,
+                                         ElementIterator last,
                                          index_t permutationSize)
-      : m_elt_iter(begin), m_index_collection(new index_collection)
+      : m_elt_iter(first), m_index_collection(new index_collection)
       {
-        index_t size = std::distance(begin, end);
+        index_t size = std::distance(first, last);
+        if (permutationSize > size)
+        {
+          throw bad_parameter_value(
+            "random_permutation_iterator: "
+            "parameter permutationSize out of range.");
+        }
         m_index_collection->resize(size);
         for (index_t i = 0; i < size; ++i)
           (*m_index_collection)[i] = i;
@@ -129,6 +152,7 @@ namespace trsl
       m_index_collection(r.m_index_collection)
       {}
     
+    /** @brief begin */
     random_permutation_iterator<ElementIterator> begin() const
       {
         random_permutation_iterator<ElementIterator> indexIterator(*this);
@@ -137,6 +161,7 @@ namespace trsl
         return indexIterator;
       }
     
+    /** @brief end */
     random_permutation_iterator<ElementIterator> end() const
       {
         random_permutation_iterator<ElementIterator> indexIterator(*this);
@@ -155,15 +180,16 @@ namespace trsl
   public:
 #endif 
     ElementIterator m_elt_iter;
+  private:
     index_collection_ptr m_index_collection;
   };
   
   
   template<class ElementIterator>
   random_permutation_iterator<ElementIterator> 
-  make_random_permutation_iterator(ElementIterator begin, ElementIterator end)
+  make_random_permutation_iterator(ElementIterator first, ElementIterator last)
   {
-    return random_permutation_iterator<ElementIterator>(begin, end);
+    return random_permutation_iterator<ElementIterator>(first, last);
   }
   
   

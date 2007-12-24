@@ -6,6 +6,7 @@
 #include "tests/common.hpp"
 using namespace trsl::test;
 #include <string>
+#include <cassert>
 
 static const size_t NB_ROUNDS = 100000;
 static const size_t POPULATION_SIZE = 1000;

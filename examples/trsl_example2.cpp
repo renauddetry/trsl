@@ -92,13 +92,24 @@ int main()
 
   typedef trsl::random_permutation_iterator
     <population_iterator> permutation_iterator;
-
-  permutation_iterator pi(populationIteratorBegin, populationIteratorEnd);
-
-  std::copy(pi,
-            pi.end(),
-            std::ostream_iterator<float>(std::cout, " "));
-  std::cout << std::endl;
-
+  
+  {
+    permutation_iterator pi(populationIteratorBegin, populationIteratorEnd);
+    
+    std::copy(pi,
+              pi.end(),
+              std::ostream_iterator<float>(std::cout, " "));
+    std::cout << std::endl;
+  }
+  {
+    permutation_iterator pi(populationIteratorBegin,
+                            populationIteratorEnd,
+                            SAMPLE_SIZE);
+    
+    std::copy(pi,
+              pi.end(),
+              std::ostream_iterator<float>(std::cout, " "));
+    std::cout << std::endl;
+  }
   return 0;
 }

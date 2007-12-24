@@ -48,7 +48,7 @@ struct functor_weight_accessor {
 </dl>
 
 An example of functor accessor is trsl::weight_accessor, which always
-returns 1 &ndash; useful if elements don't have weights, i.e. they all have
+returns 1 &mdash; useful if elements don't have weights, i.e. they all have
 the same weight.
 
 @subsection accessor_functionpointer Function Pointer
@@ -78,7 +78,7 @@ Method pointer is currently the default in trsl::is_picked_systematic
 (but subject to change, see @ref accessor_discussion).  The implementation used in
 TRSL is not std::const_mem_fun_ref_t however, but
 trsl::mp_weight_accessor which allows a default construction without
-implying segfault when called &ndash; that comes with a price, see
+implying segfault when called &mdash; that comes with a price, see
 trsl::mp_weight_accessor.
 
 <dl>

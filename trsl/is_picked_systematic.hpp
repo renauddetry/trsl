@@ -96,7 +96,7 @@ namespace trsl {
       wac_(wac), sampleSize_(sampleSize),
       populationWeight_(populationWeight), step_(populationWeight_ / sampleSize_)
       {
-        initialize( (random() / (RAND_MAX+WeightType(1.0))) * step_);
+        initialize( (std::random() / (RAND_MAX+WeightType(1.0))) * step_);
       }
 
     /**

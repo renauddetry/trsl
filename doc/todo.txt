@@ -8,9 +8,18 @@
 @section todo_short_term Short Term
 
 - Add a module for boost::filter_iterator explaination (e.g. interoperability, constness, etc...).
-- Add a FAQ, answer "What if my population data structure doesn't have iterators?".
+- Add precise parameter requirements (e.g. sample size in [0,...])
+- Document random_permutation_iterator.
 
 @section todo_long_term Long Term
+
+- Add debug stubs. One good thing to check for would be that
+  is_picked_systematic doesn't return more elements than requested,
+  and that it has returned the exact number of elements upon destruction.
+  This will call for an extra bool <em>beenCalled</em> to prevent
+  errors in temporary instantiations of is_picked_systematic.
+- Add an iterator that combines permutation and systematic sampling.
+
 
 @section todo_open_questions Open Questions
 
