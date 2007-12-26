@@ -60,7 +60,7 @@ namespace trsl
    * >boost::permutation_iterator</a>.  With <a
    * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
    * >boost::permutation_iterator</a>, the user provides a population,
-   * and a range of ordered index that define a permutation over the
+   * and a range of index that define a permutation over the
    * population. It allows for much flexibility, but leaves the user
    * responsible for generating and storing an array of index. When
    * only <em>random</em> permutations are needed, the array of index
@@ -96,8 +96,9 @@ namespace trsl
     random_permutation_iterator() : m_elt_iter() {}
     
     /**
-     * @brief Construction of an iterator over a permutation of
-     * the population referenced by @p first and @p last.
+     * @brief Constructs an iterator that will iterate through a
+     * permutation of the population referenced by @p first and @p
+     * last.
      */
     explicit random_permutation_iterator(ElementIterator first,
                                          ElementIterator last)
@@ -113,9 +114,9 @@ namespace trsl
       }
     
     /**
-     * @brief Construction of an iterator over the first @p
-     * permutationSize elements of a permutation of the population
-     * referenced with @p first and @p last.
+     * @brief Constructs an iterator that will iterate through the
+     * first @p permutationSize elements of a permutation of the
+     * population referenced by @p first and @p last.
      *
      * Let \f$n\f$ be the size of the population. This constructor
      * shuffles an array of \f$n\f$ index, then discards its last
@@ -143,6 +144,16 @@ namespace trsl
         this->base_reference() = m_index_collection->begin();
       }
     
+    /**
+     * @brief Allows conversion from a random_permutation_iterator to
+     * a const random_permutation_iterator, won't allow conversion
+     * from a const random_permutation_iterator to a
+     * random_permutation_iterator.
+     *
+     * By &ldquo;const random_permutation_iterator&rdquo;, we mean that the @p
+     * ElementIterator is const, e.g.
+     * <tt>std::vector<Particle>::const_iterator</tt>.
+     */
     template<class OtherElementIterator>
     random_permutation_iterator
     (random_permutation_iterator<OtherElementIterator> const& r,
@@ -152,7 +163,10 @@ namespace trsl
       m_index_collection(r.m_index_collection)
       {}
     
-    /** @brief begin */
+    /**
+     * @brief Returns a random_permutation_iterator pointing to
+     * the begining of the permutation.
+     */
     random_permutation_iterator<ElementIterator> begin() const
       {
         random_permutation_iterator<ElementIterator> indexIterator(*this);
@@ -161,7 +175,10 @@ namespace trsl
         return indexIterator;
       }
     
-    /** @brief end */
+    /**
+     * @brief Returns a random_permutation_iterator pointing to
+     * the end of the permutation.
+     */
     random_permutation_iterator<ElementIterator> end() const
       {
         random_permutation_iterator<ElementIterator> indexIterator(*this);

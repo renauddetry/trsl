@@ -12,15 +12,20 @@
 
 namespace trsl {
 
+  /** @brief Exception for runtime errors in TRSL. */
   class runtime_error : public std::runtime_error
   {
     runtime_error(const std::string& s) : std::runtime_error(s) {}
-  }
+  };
 
+  /**
+   * @brief Thrown when a TRSL component receives a parameter
+   * that has a forbidden value.
+   */
   class bad_parameter_value : public runtime_error
   {
-    bad_parameter_value(const std::string& s) : std::runtime_error(s) {}
-  }
+    bad_parameter_value(const std::string& s) : runtime_error(s) {}
+  };
 
 }
 

@@ -19,6 +19,7 @@ install: build
 doc:
 	doxygen doc/Doxyfile
 	cp LICENSE_1_0.txt documentation/html
+	cp doc/trsl_logo.jpg documentation/html
 
 test: build
 	./$(BUILD_DIR)/test_is_picked_systematic

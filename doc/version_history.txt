@@ -7,11 +7,12 @@
 
 @section version_history_v011 Version 0.1.1 (not released yet)
 
-This release features almost exclusively documentation fixes (corrections, rephrasing and additions).
+This release features almost exclusively documentation fixes
+(corrections, rephrasing and additions).
 
 The only change in the code is in trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t).
 This constructor now checks that the permutation size is smaller or equal to the population size, and aborts if it is not the case.
-See the \link trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t) doc\endlink for further info
+See the \link trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t) doc\endlink for further info.
 
 @section version_history_v010 Version 0.1.0
 
