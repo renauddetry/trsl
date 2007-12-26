@@ -99,7 +99,7 @@ namespace trsl {
       wac_(wac), sampleSize_(sampleSize),
       populationWeight_(populationWeight), step_(populationWeight_ / sampleSize_)
       {
-        initialize( random::uniform_01<WeightType>() * step_);
+        initialize( rand_gen::uniform_01<WeightType>() * step_);
       }
 
     /**

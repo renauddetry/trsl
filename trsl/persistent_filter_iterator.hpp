@@ -70,8 +70,8 @@ namespace trsl
    * <em>always</em> advance of at least one element. In
    * persistent_filter_iterator, an incrementation will not advance to
    * a next element until the predicate becomes false on the current
-   * element. This implies that the predicate should have some memory,
-   * or a random-y behavior.
+   * element. This implies that the predicate should have either some memory,
+   * or a pseudo-random behavior.
    */
   template <class Predicate, class Iterator>
   class persistent_filter_iterator

@@ -8,6 +8,14 @@
 @section todo_short_term Short Term
 
 - Add a module for boost::filter_iterator explaination (e.g. interoperability, constness, etc...).
+- Re-read.
+- Indent.
+- Test with Linux GCC.
+- Change version number.
+- Change version_history.
+- Generate doc.
+- Commit, tag, publish.
+- Edit version number (in devel).
 
 @section todo_long_term Long Term
 
@@ -17,7 +25,6 @@
   This will call for an extra bool <em>beenCalled</em> to prevent
   errors in temporary instantiations of is_picked_systematic.
 - Add an iterator that combines permutation and systematic sampling.
-
 
 @section todo_open_questions Open Questions
 

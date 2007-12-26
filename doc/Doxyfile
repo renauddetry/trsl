@@ -496,6 +496,7 @@ WARN_LOGFILE           =
 INPUT                  = trsl \
                          doc/index.txt \
                          doc/examples.txt \
+                         doc/products.txt \
                          doc/accessor.txt \
                          doc/random.txt \
                          doc/faq.txt \

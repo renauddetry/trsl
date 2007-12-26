@@ -9,6 +9,7 @@
 #define TRSL_TEST_COMMON_HPP
 
 #include "trsl/is_picked_systematic.hpp"
+#include "trsl/random_permutation_iterator.hpp"
 #include "examples/Particle.hpp"
 
 #include <list>

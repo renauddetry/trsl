@@ -1,0 +1,23 @@
+// (C) Copyright Renaud Detry   2007.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+/** @defgroup products Products
+ *
+ * This module presents the functionalities offered by TRSL.
+ *
+ * @section products_systematic_sampling Systematic Sampling
+ *
+ * Systematic sampling is provided through trsl::is_picked_systematic, a predicate
+ * functor to use in combination with trsl::persistent_filter_iterator
+ * to form a <em>sample iterator</em>.  The sample iterator accesses a
+ * population of elements through a range defined by a pair of Forward
+ * Iterators (begin/end), and provides on-the-fly iteration through a
+ * sample of the population.
+ *
+ * @section products_permutation Random Permutation
+ *
+ * trsl::random_permutation_iterator
+ * provides an iterator over a random permutation of a range.
+ */

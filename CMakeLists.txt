@@ -16,6 +16,8 @@ ADD_EXECUTABLE(${PROJECT_NAMESPACE}_example2
                examples/${PROJECT_NAMESPACE}_example2.cpp)
 ADD_EXECUTABLE(test_is_picked_systematic
                tests/test_is_picked_systematic.cpp)
+ADD_EXECUTABLE(test_random_permutation_iterator
+               tests/test_random_permutation_iterator.cpp)
 ADD_EXECUTABLE(accessor_efficiency
                tests/accessor_efficiency.cpp tests/accessor_no_inline.cpp)
 

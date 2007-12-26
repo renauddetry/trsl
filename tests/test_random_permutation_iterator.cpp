@@ -13,7 +13,7 @@ int main()
   srandom(random_seed);
   srand(random_seed);
   
-  typedef std::list<PickCountParticle> ParticleArray;
+  typedef std::vector<PickCountParticle> ParticleArray;
   
   // ---------------------------------------------------- //
   // Test 1: large population --------------------------- //
@@ -24,10 +24,8 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::is_picked_systematic<PickCountParticle> is_picked;
-
-    typedef trsl::persistent_filter_iterator
-      <is_picked, ParticleArray::const_iterator> sample_iterator;
+    typedef trsl::random_permutation_iterator
+      <ParticleArray::const_iterator> permutation_iterator;
 
     //-----------------------//
     // Generate a population //
@@ -42,12 +40,11 @@ int main()
     //------------------------------//
     {
       ParticleArray sample;
-      // Create the systemtatic sampling functor.
-      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
       
-      sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
-      sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
-      for (sample_iterator si = sb; si != se; ++si)
+      permutation_iterator sb = permutation_iterator
+        (const_pop.begin(), const_pop.end(), SAMPLE_SIZE);
+      for (permutation_iterator si = sb,
+             se = sb.end(); si != se; ++si)
       {
         sample.push_back(*si);
       }
@@ -57,22 +54,23 @@ int main()
         std::cout << TRSL_NVP(sample.size()) << "\n" << TRSL_NVP(SAMPLE_SIZE) << std::endl;
       }
     }
-    
-    //-------------------------------//
-    // Test 1b: deteministic picking //
-    //-------------------------------//
     {
       ParticleArray sample;
-      // Create the systemtatic sampling functor.
-      is_picked predicate1(SAMPLE_SIZE, 1.0, .3, &PickCountParticle::getWeight);
-      is_picked predicate2(SAMPLE_SIZE, 1.0, .3, &PickCountParticle::getWeight);
       
-      if ( !(*sample_iterator(predicate1, const_pop.begin(), const_pop.end()) ==
-             *sample_iterator(predicate2, const_pop.begin(), const_pop.end())) )
+      permutation_iterator sb = permutation_iterator
+        (const_pop.begin(), const_pop.end());
+      for (permutation_iterator si = sb,
+             se = sb.end(); si != se; ++si)
+      {
+        sample.push_back(*si);
+      }
+      if (! (sample.size() == POPULATION_SIZE) )
       {
         TRSL_TEST_FAILURE;
+        std::cout << TRSL_NVP(sample.size()) << "\n" << TRSL_NVP(POPULATION_SIZE) << std::endl;
       }
     }
+    
   }
   
   // ---------------------------------------------------- //
@@ -84,10 +82,8 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::is_picked_systematic<PickCountParticle> is_picked;
-
-    typedef trsl::persistent_filter_iterator
-      <is_picked, std::vector<PickCountParticle>::iterator> sample_iterator;
+    typedef trsl::random_permutation_iterator
+      <ParticleArray::iterator> permutation_iterator;
 
     //-----------------------//
     // Generate a population //
@@ -104,22 +100,15 @@ int main()
       // element pick proportions correspond to element weights.
       const unsigned N_ROUNDS = 1000000;
       unsigned pickCount = 0;
-      
-      boost::mt19937 rng((unsigned)random_seed);
-      boost::uniform_01<boost::mt19937> uni_dist(rng);
-      
+            
       for (unsigned round = 0; round < N_ROUNDS; round++)
-      {
-        // Create the systemtatic sampling functor.
-        is_picked predicate(SAMPLE_SIZE, 1.0, uni_dist(), &PickCountParticle::getWeight);
-        
-        sample_iterator sb = sample_iterator(predicate,
-                                             population.begin(),
-                                             population.end());
-        sample_iterator se = sample_iterator(predicate,
-                                             population.end(),
-                                             population.end());
-        for (sample_iterator si = sb; si != se; ++si)
+      {        
+        permutation_iterator sb =
+          permutation_iterator(population.begin(),
+                               population.end(),
+                               SAMPLE_SIZE);
+        permutation_iterator se = sb.end();
+        for (permutation_iterator si = sb; si != se; ++si)
         {
           si->pick();
           pickCount++;
@@ -138,12 +127,12 @@ int main()
       {
         double pickProp = double(e->getPickCount()) / (N_ROUNDS * SAMPLE_SIZE);
         div += std::fabs(e->getWeight() - pickProp);
-        if (! ( std::fabs(POPULATION_SIZE * e->getWeight() -
+        if (! ( std::fabs(1 -
                           POPULATION_SIZE * pickProp) <= 1e-1) )
         {
           TRSL_TEST_FAILURE;
         }
-        if (! ( std::fabs(POPULATION_SIZE * e->getWeight() -
+        if (! ( std::fabs(1 -
                           POPULATION_SIZE * pickProp) <= 1e-1) ||
             TEST_VERBOSE > 0)
           std::cout << "Element " << std::distance(population.begin(), e)

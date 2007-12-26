@@ -13,7 +13,7 @@
 namespace trsl {
 
   /** @brief Random number wrapper functions. */
-  namespace random {
+  namespace rand_gen {
 
     /**
      * @brief Returns an integer in <tt>[0,n[</tt>.

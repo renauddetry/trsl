@@ -111,7 +111,7 @@ namespace trsl
           (*m_index_collection)[i] = i;
         std::random_shuffle(m_index_collection->begin(),
                             m_index_collection->end(),
-                            random::uniform_int);
+                            rand_gen::uniform_int);
         this->base_reference() = m_index_collection->begin();
       }
     
@@ -148,7 +148,7 @@ namespace trsl
           (*m_index_collection)[i] = i;
         std::random_shuffle(m_index_collection->begin(),
                             m_index_collection->end(),
-                            random::uniform_int);
+                            rand_gen::uniform_int);
         m_index_collection->resize(permutationSize);
         this->base_reference() = m_index_collection->begin();
       }
@@ -210,7 +210,7 @@ namespace trsl
     index_collection_ptr m_index_collection;
   };
   
-  
+  /** @brief Makes a random_permutation_iterator */
   template<class ElementIterator>
   random_permutation_iterator<ElementIterator> 
   make_random_permutation_iterator(ElementIterator first, ElementIterator last)
