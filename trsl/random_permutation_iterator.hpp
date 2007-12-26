@@ -14,6 +14,7 @@
 #ifndef TRSL_PERMUTATION_ITERATOR_HPP
 #define TRSL_PERMUTATION_ITERATOR_HPP
 
+#include "trsl/common.hpp"
 #include "trsl/error_handling.hpp"
 
 #include <iterator>
@@ -109,7 +110,8 @@ namespace trsl
         for (index_t i = 0; i < size; ++i)
           (*m_index_collection)[i] = i;
         std::random_shuffle(m_index_collection->begin(),
-                            m_index_collection->end());
+                            m_index_collection->end(),
+                            random::uniform_int);
         this->base_reference() = m_index_collection->begin();
       }
     
@@ -120,9 +122,15 @@ namespace trsl
      *
      * Let \f$n\f$ be the size of the population. This constructor
      * shuffles an array of \f$n\f$ index, then discards its last
-     * \f$n-permutationSize\f$ elements. It will thus be inefficient
-     * if \f$permutationSize\f$ small compared to \f$n\f$.
+     * \f$n-permutationSize\f$ elements. If
+     * \f$permutationSize\f$ small compared to \f$n\f$, there are
+     * probably more efficient ways to get a few elements out.
+     *
+     * The @p permutationSize should be smaller or equal to the
+     * size of the population. If it is not the case, a bad_parameter_value
+     * is thrown.
      */
+
     explicit random_permutation_iterator(ElementIterator first,
                                          ElementIterator last,
                                          index_t permutationSize)
@@ -139,7 +147,8 @@ namespace trsl
         for (index_t i = 0; i < size; ++i)
           (*m_index_collection)[i] = i;
         std::random_shuffle(m_index_collection->begin(),
-                            m_index_collection->end());
+                            m_index_collection->end(),
+                            random::uniform_int);
         m_index_collection->resize(permutationSize);
         this->base_reference() = m_index_collection->begin();
       }

@@ -4,19 +4,39 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 /** @defgroup history Version History
-
-@section version_history_v011 Version 0.1.1 (not released yet)
-
-This release features almost exclusively documentation fixes
-(corrections, rephrasing and additions).
-
-The only change in the code is in trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t).
-This constructor now checks that the permutation size is smaller or equal to the population size, and aborts if it is not the case.
-See the \link trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t) doc\endlink for further info.
-
-@section version_history_v010 Version 0.1.0
-
-Begins with trsl::is_picked_systematic, trsl::persistent_filter_iterator,
-trsl::random_permutation_iterator.
-
-*/
+ *
+ * @section version_history_v011 Version 0.1.1 (not released yet)
+ *
+ * This release features almost exclusively documentation fixes
+ * (corrections, rephrasing and additions).
+ *
+ * The few chages made to the code are:
+ *
+ * -
+ * trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t)
+ * now checks that the permutation size is smaller or
+ * equal to the population size, and throws an exception if it is not the case.
+ * See the \link
+ * trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t)
+ * doc\endlink for further info.
+ * 
+ * - trsl/error_handling.hpp: TRSL exceptions.
+ *
+ * - trsl/common.hpp: random number wrappers.
+ *
+ * - Now using functions from trsl/common.hpp in
+ * trsl::is_picked_systematic and trsl::random_permutation_iterator.
+ * trsl::random_permutation_iterator was previously using the random
+ * generator built in <tt>std::random_shuffle</tt>, which is usually
+ * <tt>rand</tt>. trsl::is_picked_systematic was using
+ * <tt>random</tt>. Both will now use <tt>rand</tt> by default, and
+ * <tt>random</tt> if TRSL_USE_BSD_BETTER_RANDOM_GENERATOR is
+ * defined. See @ref random for more details.
+ *
+ * 
+ * @section version_history_v010 Version 0.1.0
+ *
+ * Begins with trsl::is_picked_systematic, trsl::persistent_filter_iterator,
+ * trsl::random_permutation_iterator.
+ * 
+ */

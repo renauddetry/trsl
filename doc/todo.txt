@@ -8,8 +8,6 @@
 @section todo_short_term Short Term
 
 - Add a module for boost::filter_iterator explaination (e.g. interoperability, constness, etc...).
-- Add precise parameter requirements (e.g. sample size in [0,...])
-- Document random_permutation_iterator.
 
 @section todo_long_term Long Term
 

@@ -1,5 +1,5 @@
 *---------------------------------*
-- Template Range Sampling Library -
+- Template Range Sampling Library -       http://trsl.sourceforge.net/
 *---------------------------------*
 
 
@@ -28,4 +28,18 @@ somewhere else, type
 
   make INSTALL_PREFIX=/install/prefix clean install
 
-Refer to documentation.html for mor info.
+
+* Documentation *
+
+`make doc` will generate documentation locally; see
+documentation/html/index.html.
+
+Online documentation is regularly updated, see
+http://trsl.sourceforge.net/.
+
+
+* License *
+
+TRSL is distributed under the Boost Software License, Version
+1.0. (See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)

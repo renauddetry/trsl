@@ -8,6 +8,7 @@
 #ifndef TRSL_IS_PICKED_SYSTEMATIC_HPP
 #define TRSL_IS_PICKED_SYSTEMATIC_HPP
 
+#include "trsl/common.hpp"
 #include "trsl/persistent_filter_iterator.hpp"
 #include "trsl/weight_accessor.hpp"
 
@@ -43,7 +44,8 @@ namespace trsl {
    * reference modifiers are handled internally; this parameter should be
    * a bare type, e.g. <tt>Particle</tt> and <em>not</em> <tt>const Particle&</tt>.
    *
-   * @param WeightType Element weight type. Defaults to <tt>double</tt>.
+   * @param WeightType Element weight type, should be a floating point type.
+   * Defaults to <tt>double</tt>.
    *
    * @param WeightAccessorType Type of the accessor that will allow to
    * extract weights from elements. Defaults to <tt>mp_weight_accessor</tt>,
@@ -75,10 +77,11 @@ namespace trsl {
      * @brief Construction with system-provided random number.
      *
      * The systematic sampling predicate initialization needs a random
-     * number in <tt>[0,1[</tt>.  This constructor uses the system
-     * function <tt>random</tt> to produce that number.
+     * number in <tt>[0,1[</tt>.  This constructor uses
+     * trsl::random::uniform_01 to generate that number.  See @ref
+     * random for more details.
      *
-     * @param sampleSize Number of elements in the sample.
+     * @param sampleSize Number of elements in the sample, within <tt>[0, infinity[</tt>.
      *
      * @param populationWeight Total weight of the
      * population. Generally equal to 1.
@@ -96,7 +99,7 @@ namespace trsl {
       wac_(wac), sampleSize_(sampleSize),
       populationWeight_(populationWeight), step_(populationWeight_ / sampleSize_)
       {
-        initialize( (std::random() / (RAND_MAX+WeightType(1.0))) * step_);
+        initialize( random::uniform_01<WeightType>() * step_);
       }
 
     /**
@@ -111,7 +114,7 @@ namespace trsl {
      * href="http://www.gnu.org/software/gsl/manual/html_node/Random-Number-Generation.html"
      * >GSL</a>.
      *
-     * @param sampleSize Number of elements in the sample.
+     * @param sampleSize Number of elements in the sample, within <tt>[0, infinity[</tt>.
      *
      * @param populationWeight Total weight of the
      * population. Generally equal to 1.
@@ -136,7 +139,7 @@ namespace trsl {
       }
 
     /**
-     * @brief Decides whether <tt>e</tt> should be picked or not.
+     * @brief Decides whether <tt>e</tt> should be picked or not (used by persistent_filter_iterator).
      *
      * Part of the requirements for persistent_filter_iterator predicates.
      */

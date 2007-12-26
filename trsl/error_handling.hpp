@@ -15,6 +15,7 @@ namespace trsl {
   /** @brief Exception for runtime errors in TRSL. */
   class runtime_error : public std::runtime_error
   {
+  public:
     runtime_error(const std::string& s) : std::runtime_error(s) {}
   };
 
@@ -24,6 +25,7 @@ namespace trsl {
    */
   class bad_parameter_value : public runtime_error
   {
+  public:
     bad_parameter_value(const std::string& s) : runtime_error(s) {}
   };
 
