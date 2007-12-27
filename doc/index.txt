@@ -10,7 +10,8 @@
  * TRSL is a C++ library that implements several sampling schemes
  * behind an (STL-like) iterator interface. The library may be used
  * e.g. in particle filtering or probabilistic inference frameworks.
- *
+ * For an overview of the functionalities provided by TRSL, refer to
+ * the @ref products page.
  *
  * @section index_license License
  *
@@ -66,7 +67,7 @@
  *
  * @section index_products Products
  *
- * See Section @ref products for the complete list of functionalities offered by TRSL.
+ * See the @ref products page for the complete list of functionalities offered by TRSL.
  *
  * The central TRSL product is trsl::is_picked_systematic, a predicate
  * functor to use in combination with trsl::persistent_filter_iterator
@@ -85,9 +86,6 @@
  * e.g. trsl::is_picked_systematic.
  *
  * @include example_stub.cpp
- *
- * The second TRSL product is trsl::random_permutation_iterator, which
- * provides an iterator over a random permutation of a range.
  *
  * @section index_author Authors
  *

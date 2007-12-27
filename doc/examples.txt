@@ -6,14 +6,16 @@
 /**
  * @example trsl_example1.cpp
  *
- * This is the most basic example. See example1+.cpp for a slightly
- * more advanced version of this example.
+ * This is the most basic example. See @ref trsl_example1plus.cpp
+ * "trsl_example1plus.cpp" for a slightly advanced version of this
+ * example.
  */
 /**
- * @example trsl_example1+.cpp
+ * @example trsl_example1plus.cpp
  *
- * This example is an "advanced" version of example1.cpp. Instead of
- * creating the sample iterators within the code body, we hide the
- * creation detail within a population class.
+ * This example is an "advanced" version of @ref trsl_example1.cpp
+ * "trsl_example1.cpp". Instead of creating the sample iterators
+ * within the code body, we hide the creation detail within a
+ * population class.
  */
 /** @example trsl_example2.cpp */

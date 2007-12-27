@@ -10,7 +10,7 @@
  * This release features almost exclusively documentation fixes
  * (corrections, rephrasing and additions).
  *
- * The few chages made to the code are:
+ * The few changes made to the code are:
  *
  * -
  * trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t)

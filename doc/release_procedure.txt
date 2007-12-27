@@ -1,0 +1,9 @@
+- Read documentation.
+- Spellcheck.
+- Indent.
+- make test, GCC Linux & Darwin.
+- Change version number on mainpage.
+- Change version_history (remove "in devel").
+- Generate doc.
+- Commit, tag, publish.
+- Edit version number (in devel).

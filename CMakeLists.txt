@@ -10,8 +10,8 @@ FILE(GLOB HEADERS ${PROJECT_NAMESPACE}/*.hpp)
 
 ADD_EXECUTABLE(${PROJECT_NAMESPACE}_example1
                examples/${PROJECT_NAMESPACE}_example1.cpp)
-ADD_EXECUTABLE(${PROJECT_NAMESPACE}_example1+
-               examples/${PROJECT_NAMESPACE}_example1+.cpp)
+ADD_EXECUTABLE(${PROJECT_NAMESPACE}_example1plus
+               examples/${PROJECT_NAMESPACE}_example1plus.cpp)
 ADD_EXECUTABLE(${PROJECT_NAMESPACE}_example2
                examples/${PROJECT_NAMESPACE}_example2.cpp)
 ADD_EXECUTABLE(test_is_picked_systematic

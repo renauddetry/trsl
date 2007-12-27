@@ -27,8 +27,8 @@ int main()
   // Generate a population //
   //-----------------------//
   
-#define C_ARRAY_ITERATOR_SAMPLING
-//#define STD_VECTOR_ITERATOR_SAMPLING
+//#define C_ARRAY_ITERATOR_SAMPLING
+#define STD_VECTOR_ITERATOR_SAMPLING
 
 #if defined(C_ARRAY_ITERATOR_SAMPLING)
   float population[] = { 0, 1, 4, 3, 5, 8, 2 };
@@ -46,9 +46,9 @@ int main()
     boost::uniform_real<float>
     > uni(rng, dist);
 
-  std::vector<float> population(10000000);
+  std::vector<float> population(100);
   std::generate(population.begin(), population.end(), uni);
-  const size_t SAMPLE_SIZE = 100;
+  const size_t SAMPLE_SIZE = 10;
   
   typedef std::vector<float>::iterator population_iterator;
   population_iterator populationIteratorBegin = population.begin(),
@@ -56,6 +56,15 @@ int main()
 #else 
 #  error Please choose an example.
 #endif
+
+  std::cout << "Population ("
+            << std::distance(populationIteratorBegin,
+                             populationIteratorEnd)
+            << " elements):" << std::endl;
+  std::copy(populationIteratorBegin,
+            populationIteratorEnd,
+            std::ostream_iterator<float>(std::cout, " "));
+  std::cout << std::endl;
 
   //----------------------------//
   // Sample from the population //
@@ -86,6 +95,12 @@ int main()
                                     populationIteratorEnd,
                                     populationIteratorEnd);
   
+  std::cout << "Sample of " << SAMPLE_SIZE << " elements:" << std::endl;
+  std::copy(sampleIteratorBegin,
+            sampleIteratorEnd,
+            std::ostream_iterator<float>(std::cout, " "));
+  std::cout << std::endl;
+
   //-------------------------------------//
   // Get a permutation of the population //
   //-------------------------------------//
@@ -94,8 +109,10 @@ int main()
     <population_iterator> permutation_iterator;
   
   {
-    permutation_iterator pi(populationIteratorBegin, populationIteratorEnd);
+    permutation_iterator pi(populationIteratorBegin,
+                            populationIteratorEnd);
     
+    std::cout << "Permutation:" << std::endl;
     std::copy(pi,
               pi.end(),
               std::ostream_iterator<float>(std::cout, " "));
@@ -106,6 +123,8 @@ int main()
                             populationIteratorEnd,
                             SAMPLE_SIZE);
     
+    std::cout << "Permutation of a subset of " << SAMPLE_SIZE
+              << " elements:" << std::endl;
     std::copy(pi,
               pi.end(),
               std::ostream_iterator<float>(std::cout, " "));

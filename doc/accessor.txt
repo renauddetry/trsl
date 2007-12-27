@@ -5,7 +5,7 @@
 
 /** @defgroup accessor Accessors
 
-Accessors are often called at least once for each element of the
+Accessors are usually called at least once for each element of the
 accessed collection. Hence, they should be designed carefully in every
 situation where performance is an issue. For example, one can gain a
 lot by having the compiler inline accessors.
@@ -88,7 +88,7 @@ trsl::mp_weight_accessor.
 <dd><tt>&Particle::getWeight</tt> (implicit conversion)</dd>
 </dl>
 
-The pointer to <tt>getWeight</tt> implicitely constructs a
+The pointer to <tt>getWeight</tt> implicitly constructs a
 trsl::mp_weight_accessor. (Why does the std counterpart have an
 explicit constructor?)
 

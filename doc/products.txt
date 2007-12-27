@@ -16,8 +16,13 @@
  * Iterators (begin/end), and provides on-the-fly iteration through a
  * sample of the population.
  *
+ * @sa @ref trsl_example1.cpp "trsl_example1.cpp" for a basic example.
+ *
  * @section products_permutation Random Permutation
  *
  * trsl::random_permutation_iterator
  * provides an iterator over a random permutation of a range.
+ *
+ * @sa @ref trsl_example2.cpp "trsl_example2.cpp" for a basic example.
+ *
  */
