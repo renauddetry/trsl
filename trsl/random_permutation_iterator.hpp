@@ -94,6 +94,8 @@ namespace trsl
     
     friend class boost::iterator_core_access;
   public:
+    typedef ElementIterator element_iterator;
+  
     random_permutation_iterator() : m_elt_iter() {}
     
     /**

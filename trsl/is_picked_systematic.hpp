@@ -12,13 +12,12 @@
 #include "trsl/persistent_filter_iterator.hpp"
 #include "trsl/weight_accessor.hpp"
 
-#include <boost/static_assert.hpp>
-
 #include <algorithm>
 #include <functional>
 #include <utility>
 #include <cstdlib> // rand & random
 #include <limits>
+#include <boost/static_assert.hpp>
 
 /** @brief Public namespace. */
 namespace trsl {

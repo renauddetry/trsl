@@ -3,7 +3,8 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-/** @defgroup history Version History
+/**
+ * @defgroup history Version History
  *
  * @section version_history_v011 Version 0.1.1 (not released yet)
  *
@@ -14,8 +15,8 @@
  *
  * -
  * trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t)
- * now checks that the permutation size is smaller or
- * equal to the population size, and throws an exception if it is not the case.
+ * now checks that the permutation size is smaller or equal to the
+ * population size, and throws an exception if it is not the case.
  * See the \link
  * trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t)
  * doc\endlink for further info.
@@ -24,9 +25,8 @@
  *
  * - trsl/common.hpp: random number wrappers.
  *
- * -
- * trsl::is_picked_systematic and trsl::random_permutation_iterator are
- * now using functions from trsl/common.hpp.
+ * - trsl::is_picked_systematic and trsl::random_permutation_iterator
+ * are now using functions from trsl/common.hpp.
  * trsl::random_permutation_iterator was previously using the random
  * generator built in <tt>std::random_shuffle</tt>, which is usually
  * <tt>rand</tt>. trsl::is_picked_systematic was using
@@ -34,12 +34,13 @@
  * <tt>random</tt> if TRSL_USE_BSD_BETTER_RANDOM_GENERATOR is
  * defined. See @ref random for more details.
  *
- * - trsl::is_picked_systematic is now explicitly handling the case
- * @p sampleSize==0.
+ * - trsl::is_picked_systematic is now explicitly handling the case @p
+ * sampleSize==0.
  *
  * @section version_history_v010 Version 0.1.0
  *
- * Begins with trsl::is_picked_systematic, trsl::persistent_filter_iterator,
+ * Begins with trsl::is_picked_systematic,
+ * trsl::persistent_filter_iterator,
  * trsl::random_permutation_iterator.
  * 
  */

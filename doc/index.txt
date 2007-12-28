@@ -3,9 +3,11 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-/** @mainpage
+/**
+ * @mainpage
  *
- * <center><a href="http://trsl.sourceforge.net/" >http://trsl.sourceforge.net/</a></center>
+ * <center><a href="http://trsl.sourceforge.net/"
+ * >http://trsl.sourceforge.net/</a></center>
  *
  * TRSL is a C++ library that implements several sampling schemes
  * behind an (STL-like) iterator interface. The library may be used
@@ -49,14 +51,16 @@
  *
  * </dl>
  *
- * TRSL is meant to be OS Portable. However, I could only test it with GCC (under Linux and
- * under MacOS X). If anyone tries it with a different compiler, <a
+ * TRSL is meant to be OS Portable. However, I could only test it with
+ * GCC 4 (under Linux and under MacOS X). If anyone tries it with a
+ * different compiler, <a
  * href="http://sourceforge.net/forum/?group_id=212585" >please
  * comment</a>!
  *
  * The source documentation is currently quite thin. Then again, me
  * being the only know user so far, I haven't felt the thrill to write
- * more :-). If there's anyone out there using TRSL, <a href="http://sourceforge.net/forum/?group_id=212585" >please let me
+ * more :-). If there's anyone out there using TRSL, <a
+ * href="http://sourceforge.net/forum/?group_id=212585" >please let me
  * know</a>!
  *
  * @section index_feedback Feedback
@@ -67,7 +71,8 @@
  *
  * @section index_products Products
  *
- * See the @ref products page for the complete list of functionalities offered by TRSL.
+ * See the @ref products page for the complete list of functionalities
+ * offered by TRSL.
  *
  * The central TRSL product is trsl::is_picked_systematic, a predicate
  * functor to use in combination with trsl::persistent_filter_iterator
