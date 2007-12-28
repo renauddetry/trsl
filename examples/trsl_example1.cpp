@@ -3,6 +3,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+//#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
 #include "trsl/is_picked_systematic.hpp"
 #include "examples/Particle.hpp"
 

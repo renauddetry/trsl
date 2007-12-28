@@ -3,6 +3,9 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+//#define TRSL_USE_BSD_BETTER_RANDOM_GENERATORS
+//#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
+
 #include "tests/common.hpp"
 using namespace trsl::test;
 
@@ -108,6 +111,7 @@ int main()
       boost::mt19937 rng((unsigned)random_seed);
       boost::uniform_01<boost::mt19937> uni_dist(rng);
       
+      //clock_t start = clock();
       for (unsigned round = 0; round < N_ROUNDS; round++)
       {
         // Create the systemtatic sampling functor.
@@ -125,6 +129,7 @@ int main()
           pickCount++;
         }
       }
+      //clock_t end = clock(); std::cerr << end-start << std::endl;
       if (! (pickCount == N_ROUNDS * SAMPLE_SIZE) )
       {
         TRSL_TEST_FAILURE;
@@ -155,6 +160,45 @@ int main()
       }
       if (TEST_VERBOSE > 0)
         std::cout << TRSL_NVP(div) << std::endl;
+    }
+  }
+
+  // ---------------------------------------------------- //
+  // Test 3: empty sample ------------------------------- //
+  // ---------------------------------------------------- //
+  {
+    const size_t POPULATION_SIZE = 1000;
+    const size_t SAMPLE_SIZE = 0;
+    
+    // Type definitions, once and for all.
+
+    typedef trsl::is_picked_systematic<PickCountParticle> is_picked;
+
+    typedef trsl::persistent_filter_iterator
+      <is_picked, ParticleArray::const_iterator> sample_iterator;
+
+    //-----------------------//
+    // Generate a population //
+    //-----------------------//
+    
+    ParticleArray population;
+    generatePopulation(POPULATION_SIZE, population);
+    ParticleArray const& const_pop = population;
+    
+    //------------------------------//
+    // Test 1a: correct sample size //
+    //------------------------------//
+    {
+      ParticleArray sample;
+      // Create the systemtatic sampling functor.
+      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+      
+      sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
+      sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
+      if (sb != se)
+      {
+        TRSL_TEST_FAILURE;
+      }
     }
   }
 

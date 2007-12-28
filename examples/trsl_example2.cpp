@@ -3,6 +3,9 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+//#define TRSL_USE_BSD_BETTER_RANDOM_GENERATORS
+//#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
+
 #include "trsl/is_picked_systematic.hpp"
 #include "trsl/random_permutation_iterator.hpp"
 
@@ -27,8 +30,8 @@ int main()
   // Generate a population //
   //-----------------------//
   
-//#define C_ARRAY_ITERATOR_SAMPLING
-#define STD_VECTOR_ITERATOR_SAMPLING
+#define C_ARRAY_ITERATOR_SAMPLING
+//#define STD_VECTOR_ITERATOR_SAMPLING
 
 #if defined(C_ARRAY_ITERATOR_SAMPLING)
   float population[] = { 0, 1, 4, 3, 5, 8, 2 };
@@ -46,7 +49,8 @@ int main()
     boost::uniform_real<float>
     > uni(rng, dist);
 
-  std::vector<float> population(100);
+  const size_t POPULATION_SIZE = 100;
+  std::vector<float> population(POPULATION_SIZE);
   std::generate(population.begin(), population.end(), uni);
   const size_t SAMPLE_SIZE = 10;
   
@@ -83,9 +87,6 @@ int main()
                       std::accumulate(populationIteratorBegin,
                                       populationIteratorEnd,
                                       float(0)),
-                      /* here, you may use a fancy Mersenne Twister
-                         generated number, e.g. from boost or GSL */
-                      rand()/(RAND_MAX+1.0),
                       std::ptr_fun(wac));
   
   sample_iterator sampleIteratorBegin(predicate,

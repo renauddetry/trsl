@@ -24,8 +24,9 @@
  *
  * - trsl/common.hpp: random number wrappers.
  *
- * - Now using functions from trsl/common.hpp in
- * trsl::is_picked_systematic and trsl::random_permutation_iterator.
+ * -
+ * trsl::is_picked_systematic and trsl::random_permutation_iterator are
+ * now using functions from trsl/common.hpp.
  * trsl::random_permutation_iterator was previously using the random
  * generator built in <tt>std::random_shuffle</tt>, which is usually
  * <tt>rand</tt>. trsl::is_picked_systematic was using
@@ -33,7 +34,9 @@
  * <tt>random</tt> if TRSL_USE_BSD_BETTER_RANDOM_GENERATOR is
  * defined. See @ref random for more details.
  *
- * 
+ * - trsl::is_picked_systematic is now explicitly handling the case
+ * @p sampleSize==0.
+ *
  * @section version_history_v010 Version 0.1.0
  *
  * Begins with trsl::is_picked_systematic, trsl::persistent_filter_iterator,

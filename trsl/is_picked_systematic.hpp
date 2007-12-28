@@ -12,13 +12,15 @@
 #include "trsl/persistent_filter_iterator.hpp"
 #include "trsl/weight_accessor.hpp"
 
+#include <boost/static_assert.hpp>
+
 #include <algorithm>
 #include <functional>
 #include <utility>
-#include <cassert>
 #include <cstdlib> // rand & random
+#include <limits>
 
-/** @brief public namespace */
+/** @brief Public namespace. */
 namespace trsl {
     
   /**
@@ -37,18 +39,18 @@ namespace trsl {
    * Systematic sampling may perform very badly if the population
    * sequence follows a pattern.  If a pattern is likely to occur in
    * the population, the user may want to pipe the sample iterator
-   * after a trsl::random_permutation_iterator.
+   * <em>after</em> a trsl::random_permutation_iterator.
    *
    * @param ElementType Type of the elements in the 
    * population. Constness and
    * reference modifiers are handled internally; this parameter should be
-   * a bare type, e.g. <tt>Particle</tt> and <em>not</em> <tt>const Particle&</tt>.
+   * a bare type, e.g. <tt>Particle</tt> (<em>not</em> <tt>const Particle&</tt>).
    *
    * @param WeightType Element weight type, should be a floating point type.
    * Defaults to <tt>double</tt>.
    *
    * @param WeightAccessorType Type of the accessor that will allow to
-   * extract weights from elements. Defaults to <tt>mp_weight_accessor</tt>,
+   * extract weights from elements. Defaults to mp_weight_accessor,
    * see @ref accessor for further details on accessors.
    *
    * <b>References:</b>
@@ -68,6 +70,8 @@ namespace trsl {
     typename WeightAccessorType = mp_weight_accessor<WeightType, ElementType>
   > class is_picked_systematic
   {
+  private:
+    BOOST_STATIC_ASSERT((std::numeric_limits<WeightType>::is_integer == false));
   public:
     typedef ElementType element_type;
     typedef WeightType weight_type;
@@ -78,28 +82,33 @@ namespace trsl {
      *
      * The systematic sampling predicate initialization needs a random
      * number in <tt>[0,1[</tt>.  This constructor uses
-     * trsl::random::uniform_01 to generate that number.  See @ref
+     * trsl::rand_gen::uniform_01 to generate that number.  See @ref
      * random for more details.
      *
-     * @param sampleSize Number of elements in the sample, within <tt>[0, infinity[</tt>.
+     * @param sampleSize Number of elements in the sample, within
+     * <tt>[0, infinity[</tt>.
      *
      * @param populationWeight Total weight of the
-     * population. Generally equal to 1.
+     * population, within <tt>]0, infinity[</tt>. Generally equal to 1.
      *
      * @param wac Weight accessor. Defaults to
-     * mp_weight_accessor (). Note that if you don't pass explicitly a
+     * mp_weight_accessor. Note that if you don't pass explicitly a
      * mp_weight_accessor(<tt>&ElementType::GETWEIGHTMETHOD</tt>), the
-     * default constructor for mp_weight_accessor will set it to
-     * always return 1, ignoring element weights. See @ref accessor
-     * for accessor details.
+     * default constructor for mp_weight_accessor will setup to always
+     * return 1, ignoring element weights. See @ref accessor for
+     * further details.
+     *
+     * The population weight has to be strictly larger than 0. Also,
+     * @p WeightType should be fine enough to allow the sum of all
+     * element weights to be close to @p populationWeight.
      */
     is_picked_systematic(size_t sampleSize,
                          WeightType populationWeight,
                          WeightAccessorType const& wac = WeightAccessorType()) :
       wac_(wac), sampleSize_(sampleSize),
-      populationWeight_(populationWeight), step_(populationWeight_ / sampleSize_)
+      populationWeight_(populationWeight)
       {
-        initialize( rand_gen::uniform_01<WeightType>() * step_);
+        initialize( rand_gen::uniform_01<WeightType>() );
       }
 
     /**
@@ -114,28 +123,33 @@ namespace trsl {
      * href="http://www.gnu.org/software/gsl/manual/html_node/Random-Number-Generation.html"
      * >GSL</a>.
      *
-     * @param sampleSize Number of elements in the sample, within <tt>[0, infinity[</tt>.
+     * @param sampleSize Number of elements in the sample, within
+     * <tt>[0, infinity[</tt>.
      *
      * @param populationWeight Total weight of the
-     * population. Generally equal to 1.
+     * population, within <tt>]0, infinity[</tt>. Generally equal to 1.
      *
      * @param uniform01 Random number in <tt>[0,1[</tt>.
      *
      * @param wac Weight accessor. Defaults to
-     * mp_weight_accessor (). Note that if you don't pass explicitly a
+     * mp_weight_accessor. Note that if you don't pass explicitly a
      * mp_weight_accessor(<tt>&ElementType::GETWEIGHTMETHOD</tt>), the
-     * default constructor for mp_weight_accessor will set it to
+     * default constructor for mp_weight_accessor will setup to
      * always return 1, ignoring element weights. See @ref accessor
-     * for accessor details.
+     * for further details.
+     *
+     * The population weight has to be strictly larger than 0. Also,
+     * @p WeightType should be fine enough to allow the sum of all
+     * element weights to be close to @p populationWeight.
      */
     is_picked_systematic(size_t sampleSize,
                          WeightType populationWeight,
                          WeightType uniform01,
                          WeightAccessorType const& wac = WeightAccessorType()) :
       wac_(wac), sampleSize_(sampleSize),
-      populationWeight_(populationWeight), step_(populationWeight_ / sampleSize_)
+      populationWeight_(populationWeight)
       {
-        initialize(uniform01*step_);
+        initialize(uniform01);
       }
 
     /**
@@ -145,12 +159,15 @@ namespace trsl {
      */
     bool operator()(const ElementType & e)
       {
-#ifdef TRSL_USE_INTUITIVE_ALGORITHM
+        if (sampleSize_ == 0) return false;
+        
+#ifdef TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
         // This algorithm is the intuitive implementation of
         // systematic sampling, where one pictures a wheel with
         // N_SAMPLE spokes and distributes the population around the
         // wheel as segments of tire of length proportional to their
         // weight; the spokes point to picked elements.
+        
         WeightType arrow = k_*step_;
     
         if (cumulative_ <= arrow && arrow < cumulative_ + wac_(e))
@@ -177,11 +194,34 @@ namespace trsl {
       }
 
   private:
-    void initialize(WeightType randomWeight)
+    void initialize(WeightType randomReal)
       {
-        assert(step_ <= populationWeight_);
-  
-#ifdef TRSL_USE_INTUITIVE_ALGORITHM
+        // If one could rely on
+        //
+        //   (x!=0.0)/0.0 == inf (with the sign of x)
+        //
+        // and on
+        //
+        //   0.0 * inf == NaN,
+        //
+        // neither of these throwing exceptions, then the following
+        // block could be avoided, and the case sampleSize_ == 0 would
+        // be implicitly handled by inf/NaN arithmetic.
+        //
+        // However, it would be necessary to maintain two different
+        // implementations depending on
+        // std::numeric_limits<double>::is_iec559, and even then I'm
+        // not sure if inf/NaN arithmetic is reliable.
+        if (sampleSize_ != 0)
+          step_ = populationWeight_ / sampleSize_;
+        else
+          // A semantically correct value for step_ would be inf, but
+          // we don't want to get into has_infinity trouble...
+          // When sampleSize_==0, step_ should be considered undefined.
+          step_ = 0;
+        
+        WeightType randomWeight = randomReal * step_;
+#ifdef TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
         cumulative_ = -randomWeight;
         k_ = 0;
 #else
@@ -195,7 +235,7 @@ namespace trsl {
     WeightType populationWeight_;
     WeightType step_;
   
-#ifdef TRSL_USE_INTUITIVE_ALGORITHM
+#ifdef TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
     WeightType cumulative_;
     size_t k_;
 #else

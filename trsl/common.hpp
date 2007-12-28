@@ -10,6 +10,8 @@
 
 #include <cstdlib>
 
+#define TRSL_VERSION "0.1.0 (dev)"
+
 namespace trsl {
 
   /** @brief Random number wrapper functions. */
@@ -29,7 +31,7 @@ namespace trsl {
     }
   
     /**
-     * @brief Returns an float in <tt>[0,1[</tt>.
+     * @brief Returns a float in <tt>[0,1[</tt>.
      * Used internally.
      */
     template<typename Real>

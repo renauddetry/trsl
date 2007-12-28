@@ -74,7 +74,8 @@ void stl_loop(WeightAccessorType acc,
     double sum = 0;
     clock_t clock_start = clock();
     for (size_t count = 0; count < NB_ROUNDS; count++)
-      for (std::vector<PickCountParticle>::const_iterator i = const_pop.begin(); i != const_pop.end(); ++i)
+      for (std::vector<PickCountParticle>::const_iterator i = const_pop.begin();
+           i != const_pop.end(); ++i)
       {
         sum += acc(*i);
       }
@@ -130,49 +131,49 @@ int main()
   srand(random_seed);
   
     
-//  std::cout << "trsl_loop:" << std::endl;
-//  
-//  trsl_loop
-//    <std::pointer_to_unary_function<const PickCountParticle&, double> >
-//    (std::ptr_fun(wac_function), "wac_function");
-//
-//  trsl_loop
-//    <std::pointer_to_unary_function<const PickCountParticle&, double> >
-//    (std::ptr_fun(wac_function_no_inline), "wac_function_no_inline");
-//
-//  trsl_loop
-//    <wac_functor>
-//    (wac_functor(), "wac_functor");
-//
-//  trsl_loop
-//    <wac_functor_no_inline>
-//    (wac_functor_no_inline(), "wac_functor_no_inline");
-//
-//  trsl_loop
-//    <trsl::mp_weight_accessor<double, PickCountParticle> >
-//    (&PickCountParticle::getWeight, "mp_weight_accessor");
-//
-//  std::cout << "stl_loop:" << std::endl;
-//
-//  stl_loop
-//    <std::pointer_to_unary_function<const PickCountParticle&, double> >
-//    (std::ptr_fun(wac_function), "wac_function");
-//
-//  stl_loop
-//    <std::pointer_to_unary_function<const PickCountParticle&, double> >
-//    (std::ptr_fun(wac_function_no_inline), "wac_function_no_inline");
-//
-//  stl_loop
-//    <wac_functor>
-//    (wac_functor(), "wac_functor");
-//
-//  stl_loop
-//    <wac_functor_no_inline>
-//    (wac_functor_no_inline(), "wac_functor_no_inline");
-//
-//  stl_loop
-//    <trsl::mp_weight_accessor<double, PickCountParticle> >
-//    (&PickCountParticle::getWeight, "mp_weight_accessor");
+  std::cout << "trsl_loop:" << std::endl;
+  
+  trsl_loop
+    <std::pointer_to_unary_function<const PickCountParticle&, double> >
+    (std::ptr_fun(wac_function), "wac_function");
+
+  trsl_loop
+    <std::pointer_to_unary_function<const PickCountParticle&, double> >
+    (std::ptr_fun(wac_function_no_inline), "wac_function_no_inline");
+
+  trsl_loop
+    <wac_functor>
+    (wac_functor(), "wac_functor");
+
+  trsl_loop
+    <wac_functor_no_inline>
+    (wac_functor_no_inline(), "wac_functor_no_inline");
+
+  trsl_loop
+    <trsl::mp_weight_accessor<double, PickCountParticle> >
+    (&PickCountParticle::getWeight, "mp_weight_accessor");
+
+  std::cout << "stl_loop:" << std::endl;
+
+  stl_loop
+    <std::pointer_to_unary_function<const PickCountParticle&, double> >
+    (std::ptr_fun(wac_function), "wac_function");
+
+  stl_loop
+    <std::pointer_to_unary_function<const PickCountParticle&, double> >
+    (std::ptr_fun(wac_function_no_inline), "wac_function_no_inline");
+
+  stl_loop
+    <wac_functor>
+    (wac_functor(), "wac_functor");
+
+  stl_loop
+    <wac_functor_no_inline>
+    (wac_functor_no_inline(), "wac_functor_no_inline");
+
+  stl_loop
+    <trsl::mp_weight_accessor<double, PickCountParticle> >
+    (&PickCountParticle::getWeight, "mp_weight_accessor");
 
   std::cout << "drop_in_call" << std::endl;
     

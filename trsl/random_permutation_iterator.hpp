@@ -98,8 +98,12 @@ namespace trsl
     
     /**
      * @brief Constructs an iterator that will iterate through a
-     * permutation of the population referenced by @p first and @p
+     * random permutation of the population referenced by @p first and @p
      * last.
+     *
+     * Performing a random permutation requires a series of random
+     * integers, these are provided by rand_gen::uniform_int; see @ref
+     * random for further details.
      */
     explicit random_permutation_iterator(ElementIterator first,
                                          ElementIterator last)
@@ -117,7 +121,7 @@ namespace trsl
     
     /**
      * @brief Constructs an iterator that will iterate through the
-     * first @p permutationSize elements of a permutation of the
+     * first @p permutationSize elements of a random permutation of the
      * population referenced by @p first and @p last.
      *
      * Let \f$n\f$ be the size of the population. This constructor
@@ -129,8 +133,11 @@ namespace trsl
      * The @p permutationSize should be smaller or equal to the
      * size of the population. If it is not the case, a bad_parameter_value
      * is thrown.
+     *
+     * Performing a random permutation requires a series of random
+     * integers, these are provided by rand_gen::uniform_int; see @ref
+     * random for further details.
      */
-
     explicit random_permutation_iterator(ElementIterator first,
                                          ElementIterator last,
                                          index_t permutationSize)

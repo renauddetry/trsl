@@ -14,13 +14,17 @@ Another possibility is to use TRSL-internal random capabilities,
 implemented using system random number generators. By default, the
 <tt>rand</tt> function is used.
 
-The <tt>rand</tt> generator that comes with BSD systems (including MacOS X) has some
-issues &mdash; some bits of the returned numbers are not
-usable. However, BSD systems provide a second, better random number
-generator through a function named <tt>%random</tt>. This function
-will be used instead of <tt>rand</tt> if
-TRSL_USE_BSD_BETTER_RANDOM_GENERATORS is defined. Note that in Linux,
-both <tt>rand</tt> and <tt>%random</tt> use the same generator.
+The <tt>rand</tt> generator that comes with BSD systems (including
+MacOS X) has slight issues &mdash; e.g. some bits of the returned
+numbers are not usable. However, BSD systems provide a second, better
+random number generator through a function named
+<tt>%random</tt>. This function will be used instead of <tt>rand</tt>
+if TRSL_USE_BSD_BETTER_RANDOM_GENERATORS is defined. In that case,
+seeding should be done through <tt>srandom</tt>. Note that in
+GNU/Linux systems, both <tt>rand</tt> and <tt>%random</tt> use the
+same generator.
 
+When relying on TRSL-internal <tt>rand/random</tt> calls, the user is
+still responsible for seeding the random number generator.
 
 */
