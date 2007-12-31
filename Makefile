@@ -17,9 +17,9 @@ install: build
 	$(MAKE) -C $(BUILD_DIR) install
 
 doc:
-	doxygen doc/Doxyfile
+	doxygen doc_src/Doxyfile
 	cp LICENSE_1_0.txt documentation/html
-	cp doc/trsl_logo.jpg documentation/html
+	cp doc_src/trsl_logo.jpg documentation/html
 
 test: build
 	./$(BUILD_DIR)/test_is_picked_systematic
