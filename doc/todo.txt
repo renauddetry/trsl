@@ -8,9 +8,6 @@
  *
  * @section todo_short_term Short Term
  * 
- * - Add a module for boost::filter_iterator explanation
- * (e.g. interoperability, constness, etc...).
- * 
  * @section todo_long_term Long Term
  * 
  * - Add debug stubs. One good thing to check for would be that
@@ -23,6 +20,15 @@
  * - Add an iterator that combines permutation and systematic
  * sampling.
  * 
+ * - Add a module for boost::filter_iterator explanation
+ * (e.g. interoperability, constness, etc...).
+ * 
+ * - Write a <tt>partial_random_shuffle</tt> function, use it in
+ * trsl::random_permutation_iterator.
+ *
+ * - Allow passing a RandomNumberGenerator to the constructor of
+ * trsl::random_permutation_iterator.
+ *
  * @section todo_open_questions Open Questions
  * 
  */

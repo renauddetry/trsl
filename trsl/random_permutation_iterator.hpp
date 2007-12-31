@@ -11,8 +11,8 @@
 
 /** @file */
 
-#ifndef TRSL_PERMUTATION_ITERATOR_HPP
-#define TRSL_PERMUTATION_ITERATOR_HPP
+#ifndef TRSL_RANDOM_PERMUTATION_ITERATOR_HPP
+#define TRSL_RANDOM_PERMUTATION_ITERATOR_HPP
 
 #include "trsl/common.hpp"
 #include "trsl/error_handling.hpp"
@@ -79,6 +79,12 @@ namespace trsl
    * dereferencing. Thus, every trsl::random_permutation_iterator
    * knows where it begins and where it ends, hence provided begin()
    * and end() methods.
+   *
+   * @p ElementIterator should model <em>Random Access Iterator</em>.
+   * random_permutation_iterator models <em>Random Access Iterator</em>.
+   * See the doc on <a
+   * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
+   * >boost::permutation_iterator</a> for further details.
    */
   template<class ElementIterator>
   class random_permutation_iterator
@@ -95,9 +101,7 @@ namespace trsl
     friend class boost::iterator_core_access;
   public:
     typedef ElementIterator element_iterator;
-  
-    random_permutation_iterator() : m_elt_iter() {}
-    
+      
     /**
      * @brief Constructs an iterator that will iterate through a
      * random permutation of the population referenced by @p first and @p
@@ -128,9 +132,8 @@ namespace trsl
      *
      * Let \f$n\f$ be the size of the population. This constructor
      * shuffles an array of \f$n\f$ index, then discards its last
-     * \f$n-permutationSize\f$ elements. If
-     * \f$permutationSize\f$ small compared to \f$n\f$, there are
-     * probably more efficient ways to get a few elements out.
+     * \f$n-permutationSize\f$ elements. A more efficient method
+     * will be implemented for the next release.
      *
      * The @p permutationSize should be smaller or equal to the
      * size of the population. If it is not the case, a bad_parameter_value
@@ -219,7 +222,7 @@ namespace trsl
     index_collection_ptr m_index_collection;
   };
   
-  /** @brief Makes a random_permutation_iterator */
+  /** @brief Makes a random_permutation_iterator. */
   template<class ElementIterator>
   random_permutation_iterator<ElementIterator> 
   make_random_permutation_iterator(ElementIterator first, ElementIterator last)

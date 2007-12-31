@@ -133,9 +133,9 @@ namespace trsl {
      * @param wac Weight accessor. Defaults to
      * mp_weight_accessor. Note that if you don't pass explicitly a
      * mp_weight_accessor(<tt>&ElementType::GETWEIGHTMETHOD</tt>), the
-     * default constructor for mp_weight_accessor will setup to
-     * always return 1, ignoring element weights. See @ref accessor
-     * for further details.
+     * default constructor for mp_weight_accessor will setup to always
+     * return 1, ignoring element weights. See @ref accessor for
+     * further details.
      *
      * The population weight has to be strictly larger than 0. Also,
      * @p WeightType should be fine enough to allow the sum of all

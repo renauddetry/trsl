@@ -63,15 +63,20 @@ namespace trsl
    * href="http://www.boost.org/libs/iterator/doc/filter_iterator.html"
    * >boost::filter_iterator</a> is an example of <a
    * href="http://www.boost.org/libs/iterator/doc/iterator_adaptor.html"
-   * >boost::iterator_adaptor</a> that allows to iterate through a
-   * range, skipping elements that do not verify a predicate. In <a
+   * >boost::iterator_adaptor</a> that allows iterating through a
+   * range, skipping elements that don't verify a predicate. In <a
    * href="http://www.boost.org/libs/iterator/doc/filter_iterator.html"
    * >boost::filter_iterator</a>, incrementing the iterator will
    * <em>always</em> advance of at least one element. In
    * persistent_filter_iterator, an incrementation will not advance to
    * a next element until the predicate becomes false on the current
-   * element. This implies that the predicate should have either some memory,
+   * element. This implies that the predicate has either some memory,
    * or a pseudo-random behavior.
+   *
+   * The doc on <a
+   * href="http://www.boost.org/libs/iterator/doc/filter_iterator.html"
+   * >boost::filter_iterator</a> applies for this class, except
+   * for the small difference noted above.
    */
   template <class Predicate, class Iterator>
   class persistent_filter_iterator

@@ -23,7 +23,7 @@ namespace trsl {
      */
     inline unsigned int uniform_int(unsigned int n)
     {
-#ifdef TRSL_USE_BSD_BETTER_RANDOM_GENERATORS
+#ifdef TRSL_USE_BSD_BETTER_RANDOM_GENERATOR
       return ::random()%n;
 #else
       return std::rand()%n;
@@ -37,7 +37,7 @@ namespace trsl {
     template<typename Real>
     inline Real uniform_01()
     {
-#ifdef TRSL_USE_BSD_BETTER_RANDOM_GENERATORS
+#ifdef TRSL_USE_BSD_BETTER_RANDOM_GENERATOR
       return (::random() / (RAND_MAX+Real(1.0)));
 #else
       return (std::rand() / (RAND_MAX+Real(1.0)));

@@ -35,9 +35,28 @@ int main()
     generatePopulation(POPULATION_SIZE, population);
     ParticleArray const& const_pop = population;
     
-    //------------------------------//
-    // Test 1a: correct sample size //
-    //------------------------------//
+    //-------------------------------------------------//
+    // Test 1a: correct sample size, first constructor //
+    //-------------------------------------------------//
+    {
+      ParticleArray sample;
+      
+      permutation_iterator sb = permutation_iterator
+        (const_pop.begin(), const_pop.end());
+      for (permutation_iterator si = sb,
+             se = sb.end(); si != se; ++si)
+      {
+        sample.push_back(*si);
+      }
+      if (! (sample.size() == POPULATION_SIZE) )
+      {
+        TRSL_TEST_FAILURE;
+        std::cout << TRSL_NVP(sample.size()) << "\n" << TRSL_NVP(POPULATION_SIZE) << std::endl;
+      }
+    }
+    //--------------------------------------------------//
+    // Test 1b: correct sample size, second constructor //
+    //--------------------------------------------------//
     {
       ParticleArray sample;
       
@@ -54,6 +73,9 @@ int main()
         std::cout << TRSL_NVP(sample.size()) << "\n" << TRSL_NVP(SAMPLE_SIZE) << std::endl;
       }
     }
+    //------------------------//
+    // Test 1c: random access //
+    //------------------------//
     {
       ParticleArray sample;
       
@@ -68,6 +90,13 @@ int main()
       {
         TRSL_TEST_FAILURE;
         std::cout << TRSL_NVP(sample.size()) << "\n" << TRSL_NVP(POPULATION_SIZE) << std::endl;
+      }
+      for (unsigned i = 0; i < POPULATION_SIZE; i++)
+      {
+        if (! (*(sb + i) == sample.at(i)) )
+        {
+          TRSL_TEST_FAILURE;
+        }
       }
     }
     

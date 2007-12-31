@@ -8,10 +8,7 @@
  *
  * @section version_history_v011 Version 0.1.1 (not released yet)
  *
- * This release features almost exclusively documentation fixes
- * (corrections, rephrasing and additions).
- *
- * The few changes made to the code are:
+ * Changes made to the code are:
  *
  * -
  * trsl::random_permutation_iterator::random_permutation_iterator(ElementIterator,ElementIterator,index_t)
@@ -36,6 +33,11 @@
  *
  * - trsl::is_picked_systematic is now explicitly handling the case @p
  * sampleSize==0.
+ *
+ * - Removed default constructor in trsl::random_permutation_iterator.
+ *
+ * This release also features many documentation fixes
+ * (corrections, rephrasing and additions).
  *
  * @section version_history_v010 Version 0.1.0
  *

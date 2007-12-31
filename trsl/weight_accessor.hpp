@@ -43,11 +43,10 @@ namespace trsl {
    * their weight through a method signed <tt>WeightType
    * (ElementType::*)() const</tt>.
    *
-   * This class is very similar to <a
-   * href="http://gcc.gnu.org/onlinedocs/libstdc++/libstdc++-html-USERS-4.2/classstd_1_1const__mem__fun__ref__t.html"
-   * >std::const_mem_fun_ref_t</a>. The only
-   * two differences are <ul><li>mp_weight_accessor provides a default
-   * constructor that initializes the method pointer to NULL;</li>
+   * This class is very similar to
+   * <tt>std::const_mem_fun_ref_t</tt>. The only two differences are
+   * <ul><li>mp_weight_accessor provides a default constructor that
+   * initializes the method pointer to NULL;</li>
    * <li>mp_weight_accessor checks if the method pointer is NULL
    * before dereferencing it.</li></ul> These differences allow
    * mp_weight_accessor to be used as a default type for
