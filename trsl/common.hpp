@@ -10,7 +10,7 @@
 
 #include <cstdlib>
 
-#define TRSL_VERSION "0.1.0 (dev)"
+#define TRSL_VERSION "0.1.1"
 
 namespace trsl {
 

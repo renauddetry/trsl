@@ -15,6 +15,14 @@
  * For an overview of the functionalities provided by TRSL, refer to
  * the @ref products page.
  *
+ * @section News
+ *
+ * <dl>
+ * <dt>2008-01-02</dt>
+ * <dd>TRSL 0.1.1 is out. See @ref version_history for a list of changes.
+ * </dd>
+ * </dl>
+ *
  * @section index_license License
  *
  * TRSL is distributed under the <a
