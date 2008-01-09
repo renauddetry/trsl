@@ -101,7 +101,12 @@ namespace trsl
     friend class boost::iterator_core_access;
   public:
     typedef ElementIterator element_iterator;
-      
+    
+    random_permutation_iterator() :
+      m_elt_iter(),
+      m_index_collection(new index_collection)
+    {}
+        
     /**
      * @brief Constructs an iterator that will iterate through a
      * random permutation of the population referenced by @p first and @p

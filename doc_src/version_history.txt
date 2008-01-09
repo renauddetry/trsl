@@ -6,6 +6,10 @@
 /**
  * @defgroup version_history Version History
  *
+ * @section version_history_v020 Version 0.2.0 (under development)
+ *
+ * - Restored default constructor in trsl::random_permutation_iterator.
+ *
  * @section version_history_v011 Version 0.1.1
  *
  * Changes made to the code are:

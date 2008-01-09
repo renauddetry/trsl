@@ -29,6 +29,13 @@
  * - Allow passing a RandomNumberGenerator to the constructor of
  * trsl::random_permutation_iterator.
  *
+ * - Write an importance_sample_iterator.
+ *
+ * - Write trsl::reorder_iterator from trsl::random_permutation_iterator,
+ * without constructor. Then trsl::random_permutation_iterator and
+ * trsl::random_sample_iterator inherit and define constructors
+ * that build the index array.
+ *
  * @section todo_open_questions Open Questions
  * 
  */
