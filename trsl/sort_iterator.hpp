@@ -5,15 +5,41 @@
 
 /** @file */
 
-#ifndef TRSL_RANDOM_PERMUTATION_ITERATOR_HPP
-#define TRSL_RANDOM_PERMUTATION_ITERATOR_HPP
+#ifndef TRSL_SORT_ITERATOR_HPP
+#define TRSL_SORT_ITERATOR_HPP
 
 #include "trsl/reorder_iterator.hpp"
 #include "trsl/common.hpp"
 #include "trsl/error_handling.hpp"
 
+#include <functional>
+
 namespace trsl
 {
+
+  namespace detail {
+  
+    template<
+      class RandomIterator,
+      class Comparator
+    > class at_index_comp
+    {
+    public:
+      
+      at_index_comp(const RandomIterator &first, const Comparator &comp) :
+        elements_(first), comp_(comp)
+        {}
+      
+      bool operator() (unsigned i, unsigned j)
+        {
+          return comp_(*(elements_+i), *(elements_+j));
+        }
+      
+      RandomIterator elements_;
+      Comparator comp_;
+    };
+  
+  }
 
   /**
    * @brief Constructs a reorder_iterator that will iterate through the
@@ -35,20 +61,21 @@ namespace trsl
 
    * @p ElementIterator should model <em>Random Access Iterator</em>.
    */
-  template<class ElementIterator>
+  template<class ElementIterator, class ElementComparator>
   reorder_iterator<ElementIterator>
-  random_permutation_iterator(ElementIterator first,
-                              ElementIterator last,
-                              unsigned permutationSize)
+  sort_iterator(ElementIterator first,
+                ElementIterator last,
+                ElementComparator comp,
+                unsigned permutationSize)
   {
     ptrdiff_t size = std::distance(first, last);
     if (size < 0)
       throw bad_parameter_value(
-        "random_permutation_iterator: "
+        "sort_iterator: "
         "bad input range.");
     if (permutationSize > unsigned(size))
       throw bad_parameter_value(
-        "random_permutation_iterator: "
+        "sort_iterator: "
         "parameter permutationSize out of range.");
         
     typedef
@@ -66,11 +93,22 @@ namespace trsl
     index_collection->resize(size);
     for (index_t i = 0; i < index_t(size); ++i)
       (*index_collection)[i] = i;
-    std::random_shuffle(index_collection->begin(),
+    
+    if (permutationSize == unsigned(size))
+      std::sort(index_collection->begin(),
+                index_collection->end(),
+                detail::at_index_comp
+                <ElementIterator, ElementComparator>(first, comp));
+    else
+    {
+      std::partial_sort(index_collection->begin(),
+                        index_collection->begin()+permutationSize,
                         index_collection->end(),
-                        rand_gen::uniform_int);
-    index_collection->resize(permutationSize);
-
+                        detail::at_index_comp
+                        <ElementIterator, ElementComparator>(first, comp));
+      index_collection->resize(permutationSize);
+    }
+    
     return reorder_iterator<ElementIterator>(first, index_collection);
   }
 
@@ -83,14 +121,28 @@ namespace trsl
    * integers, these are provided by rand_gen::uniform_int; see @ref
    * random for further details.
    */
+  template<class ElementIterator, class ElementComparator>
+  reorder_iterator<ElementIterator>
+  sort_iterator(ElementIterator first,
+                ElementIterator last,
+                ElementComparator comp)
+  {
+    return sort_iterator(first,
+                         last,
+                         comp,
+                         std::distance(first, last));
+  }
+
   template<class ElementIterator>
   reorder_iterator<ElementIterator>
-  random_permutation_iterator(ElementIterator first,
-                              ElementIterator last)
+  sort_iterator(ElementIterator first,
+                ElementIterator last)
   {
-    return random_permutation_iterator(first,
-                                       last,
-                                       std::distance(first, last));
+    return sort_iterator(first,
+                         last,
+                         std::less
+                         <typename std::iterator_traits
+                         <ElementIterator>::value_type>());
   }
 
 } // namespace trsl

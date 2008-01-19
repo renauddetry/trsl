@@ -24,7 +24,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::random_permutation_iterator
+    typedef trsl::reorder_iterator
       <ParticleArray::const_iterator> permutation_iterator;
 
     //-----------------------//
@@ -41,7 +41,7 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = permutation_iterator
+      permutation_iterator sb = trsl::random_permutation_iterator
         (const_pop.begin(), const_pop.end());
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
@@ -60,7 +60,7 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = permutation_iterator
+      permutation_iterator sb = trsl::random_permutation_iterator
         (const_pop.begin(), const_pop.end(), SAMPLE_SIZE);
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
@@ -79,7 +79,7 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = permutation_iterator
+      permutation_iterator sb = trsl::random_permutation_iterator
         (const_pop.begin(), const_pop.end());
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
@@ -111,7 +111,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::random_permutation_iterator
+    typedef trsl::reorder_iterator
       <ParticleArray::iterator> permutation_iterator;
 
     //-----------------------//
@@ -133,7 +133,7 @@ int main()
       for (unsigned round = 0; round < N_ROUNDS; round++)
       {        
         permutation_iterator sb =
-          permutation_iterator(population.begin(),
+          trsl::random_permutation_iterator(population.begin(),
                                population.end(),
                                SAMPLE_SIZE);
         permutation_iterator se = sb.end();

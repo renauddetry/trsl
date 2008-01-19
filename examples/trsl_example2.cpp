@@ -6,6 +6,7 @@
 //#define TRSL_USE_BSD_BETTER_RANDOM_GENERATOR
 //#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
 
+#include "trsl/sort_iterator.hpp"
 #include "trsl/is_picked_systematic.hpp"
 #include "trsl/random_permutation_iterator.hpp"
 
@@ -30,8 +31,8 @@ int main()
   // Generate a population //
   //-----------------------//
   
-#define C_ARRAY_ITERATOR_SAMPLING
-//#define STD_VECTOR_ITERATOR_SAMPLING
+//#define C_ARRAY_ITERATOR_SAMPLING
+#define STD_VECTOR_ITERATOR_SAMPLING
 
 #if defined(C_ARRAY_ITERATOR_SAMPLING)
   float population[] = { 0, 1, 4, 3, 5, 8, 2 };
@@ -70,66 +71,107 @@ int main()
             std::ostream_iterator<float>(std::cout, " "));
   std::cout << std::endl;
 
-  //----------------------------//
-  // Sample from the population //
-  //----------------------------//
+  {
+    //----------------------------//
+    // Sample from the population //
+    //----------------------------//
 
-  typedef trsl::is_picked_systematic<
-    float,
-    double,
-    std::pointer_to_unary_function<float, double>
-    > is_picked;
+    typedef trsl::is_picked_systematic<
+      float,
+      double,
+      std::pointer_to_unary_function<float, double>
+      > is_picked;
   
-  typedef trsl::persistent_filter_iterator
-    <is_picked, population_iterator> sample_iterator;
+    typedef trsl::persistent_filter_iterator
+      <is_picked, population_iterator> sample_iterator;
   
-  is_picked predicate(SAMPLE_SIZE,
-                      std::accumulate(populationIteratorBegin,
+    is_picked predicate(SAMPLE_SIZE,
+                        std::accumulate(populationIteratorBegin,
+                                        populationIteratorEnd,
+                                        float(0)),
+                        std::ptr_fun(wac));
+  
+    sample_iterator sampleIteratorBegin(predicate,
+                                        populationIteratorBegin,
+                                        populationIteratorEnd);
+    sample_iterator sampleIteratorEnd(predicate,
                                       populationIteratorEnd,
-                                      float(0)),
-                      std::ptr_fun(wac));
-  
-  sample_iterator sampleIteratorBegin(predicate,
-                                      populationIteratorBegin,
                                       populationIteratorEnd);
-  sample_iterator sampleIteratorEnd(predicate,
-                                    populationIteratorEnd,
-                                    populationIteratorEnd);
   
-  std::cout << "Sample of " << SAMPLE_SIZE << " elements:" << std::endl;
-  std::copy(sampleIteratorBegin,
-            sampleIteratorEnd,
-            std::ostream_iterator<float>(std::cout, " "));
-  std::cout << std::endl;
+    std::cout << "Sample of " << SAMPLE_SIZE << " elements:" << std::endl;
+    std::copy(sampleIteratorBegin,
+              sampleIteratorEnd,
+              std::ostream_iterator<float>(std::cout, " "));
+    std::cout << std::endl;
+  }
 
-  //-------------------------------------//
-  // Get a permutation of the population //
-  //-------------------------------------//
-
-  typedef trsl::random_permutation_iterator
-    <population_iterator> permutation_iterator;
-  
   {
-    permutation_iterator pi(populationIteratorBegin,
+    //-------------------------------------//
+    // Get a permutation of the population //
+    //-------------------------------------//
+
+    typedef trsl::reorder_iterator
+      <population_iterator> permutation_iterator;
+  
+    {
+      permutation_iterator pi =
+        trsl::random_permutation_iterator(populationIteratorBegin,
+                                          populationIteratorEnd);
+      
+      std::cout << "Permutation:" << std::endl;
+      std::copy(pi,
+                pi.end(),
+                std::ostream_iterator<float>(std::cout, " "));
+      std::cout << std::endl;
+    }
+    {
+      permutation_iterator pi =
+        trsl::random_permutation_iterator(populationIteratorBegin,
+                                          populationIteratorEnd,
+                                          SAMPLE_SIZE);
+      
+      std::cout << "Permutation of a subset of " << SAMPLE_SIZE
+                << " elements:" << std::endl;
+      std::copy(pi,
+                pi.end(),
+                std::ostream_iterator<float>(std::cout, " "));
+      std::cout << std::endl;
+    }
+  }
+
+  {
+    //---------------------//
+    // Sort the population //
+    //---------------------//
+
+    typedef trsl::reorder_iterator
+      <population_iterator> permutation_iterator;
+  
+    {
+      permutation_iterator pi =
+        trsl::sort_iterator(populationIteratorBegin,
                             populationIteratorEnd);
-    
-    std::cout << "Permutation:" << std::endl;
-    std::copy(pi,
-              pi.end(),
-              std::ostream_iterator<float>(std::cout, " "));
-    std::cout << std::endl;
-  }
-  {
-    permutation_iterator pi(populationIteratorBegin,
+      
+      std::cout << "Sorted:" << std::endl;
+      std::copy(pi,
+                pi.end(),
+                std::ostream_iterator<float>(std::cout, " "));
+      std::cout << std::endl;
+    }
+    {
+      permutation_iterator pi =
+        trsl::sort_iterator(populationIteratorBegin,
                             populationIteratorEnd,
-                            SAMPLE_SIZE);
-    
-    std::cout << "Permutation of a subset of " << SAMPLE_SIZE
-              << " elements:" << std::endl;
-    std::copy(pi,
-              pi.end(),
-              std::ostream_iterator<float>(std::cout, " "));
-    std::cout << std::endl;
+                            std::less<float>(), SAMPLE_SIZE);
+      
+      std::cout << "Sorted of a subset of " << SAMPLE_SIZE
+                << " elements:" << std::endl;
+      std::copy(pi,
+                pi.end(),
+                std::ostream_iterator<float>(std::cout, " "));
+      std::cout << std::endl;
+    }
   }
+
   return 0;
 }

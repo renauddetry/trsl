@@ -14,14 +14,14 @@ static const size_t SAMPLE_SIZE = 10;
 
 unsigned long random_seed = time(NULL)*getpid();
 
-template<typename WeightAccessorType>
-void trsl_loop(WeightAccessorType acc,
+template<typename WeightAccessor>
+void trsl_loop(WeightAccessor acc,
                const std::string msg)
 {
   typedef trsl::is_picked_systematic<
     PickCountParticle,
     double,
-    WeightAccessorType
+    WeightAccessor
     > is_picked;
 
   typedef trsl::persistent_filter_iterator
@@ -54,8 +54,8 @@ void trsl_loop(WeightAccessorType acc,
   }
 }
 
-template<typename WeightAccessorType>
-void stl_loop(WeightAccessorType acc,
+template<typename WeightAccessor>
+void stl_loop(WeightAccessor acc,
               const std::string msg)
 {
   //-----------------------//

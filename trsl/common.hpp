@@ -14,6 +14,21 @@
 
 namespace trsl {
 
+  /** @brief Implementation details. */
+  namespace detail {
+  
+  template<typename T>
+  class identity
+  {
+    public:
+    T operator() (const T& t)
+    {
+      return t;
+    }
+  };
+
+  }
+  
   /** @brief Random number wrapper functions. */
   namespace rand_gen {
 

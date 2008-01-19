@@ -48,7 +48,7 @@ namespace trsl {
    * @param WeightType Element weight type, should be a floating point type.
    * Defaults to <tt>double</tt>.
    *
-   * @param WeightAccessorType Type of the accessor that will allow to
+   * @param WeightAccessor Type of the accessor that will allow to
    * extract weights from elements. Defaults to mp_weight_accessor,
    * see @ref accessor for further details on accessors.
    *
@@ -66,7 +66,7 @@ namespace trsl {
   template<
     typename ElementType,
     typename WeightType = double,
-    typename WeightAccessorType = mp_weight_accessor<WeightType, ElementType>
+    typename WeightAccessor = mp_weight_accessor<WeightType, ElementType>
   > class is_picked_systematic
   {
   private:
@@ -74,7 +74,7 @@ namespace trsl {
   public:
     typedef ElementType element_type;
     typedef WeightType weight_type;
-    typedef WeightAccessorType weight_accessor_type;
+    typedef WeightAccessor weight_accessor_type;
     
     /**
      * @brief Construction with system-provided random number.
@@ -103,7 +103,7 @@ namespace trsl {
      */
     is_picked_systematic(size_t sampleSize,
                          WeightType populationWeight,
-                         WeightAccessorType const& wac = WeightAccessorType()) :
+                         WeightAccessor const& wac = WeightAccessor()) :
       wac_(wac), sampleSize_(sampleSize),
       populationWeight_(populationWeight)
       {
@@ -144,7 +144,7 @@ namespace trsl {
     is_picked_systematic(size_t sampleSize,
                          WeightType populationWeight,
                          WeightType uniform01,
-                         WeightAccessorType const& wac = WeightAccessorType()) :
+                         WeightAccessor const& wac = WeightAccessor()) :
       wac_(wac), sampleSize_(sampleSize),
       populationWeight_(populationWeight)
       {
@@ -229,7 +229,7 @@ namespace trsl {
       }
 
   private:
-    WeightAccessorType wac_;
+    WeightAccessor wac_;
     size_t sampleSize_;
     WeightType populationWeight_;
     WeightType step_;
