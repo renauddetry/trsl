@@ -10,6 +10,9 @@
  *
  * - Restored default constructor in trsl::random_permutation_iterator.
  *
+ * - Pulled trsl::reorder_iterator out of the old trsl::random_permutation_iterator.
+ * Added trsl::sort_iterator.
+ *
  * @section version_history_v011 Version 0.1.1
  *
  * Changes made to the code are:

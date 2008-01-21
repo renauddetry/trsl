@@ -9,24 +9,42 @@
 #define TRSL_COMMON_HPP
 
 #include <cstdlib>
+#include <algorithm> //iter_swap
 
 #define TRSL_VERSION "0.1.1 (dev)"
 
 namespace trsl {
-
+  
   /** @brief Implementation details. */
   namespace detail {
-  
-  template<typename T>
-  class identity
-  {
-    public:
-    T operator() (const T& t)
+    
+    template<typename T>
+    class identity
     {
-      return t;
+    public:
+      T operator() (const T& t)
+        {
+          return t;
+        }
+    };
+    
+    template<typename RandomAccessIterator, typename RandomNumberGenerator>
+    void partial_random_shuffle(RandomAccessIterator first,
+                                RandomAccessIterator middle,
+                                RandomAccessIterator last,
+                                RandomNumberGenerator &rg)
+    {
+      if (first == middle)
+        return;
+        
+      for (RandomAccessIterator i = first; i != middle; ++i)
+      {
+        std::iter_swap(i, i + rg(last - i));
+      }
     }
-  };
-
+    
+    
+    
   }
   
   /** @brief Random number wrapper functions. */

@@ -66,11 +66,19 @@ namespace trsl
     index_collection->resize(size);
     for (index_t i = 0; i < index_t(size); ++i)
       (*index_collection)[i] = i;
-    std::random_shuffle(index_collection->begin(),
-                        index_collection->end(),
-                        rand_gen::uniform_int);
-    index_collection->resize(permutationSize);
-
+    if (permutationSize == unsigned(size))
+      std::random_shuffle(index_collection->begin(),
+                          index_collection->end(),
+                          rand_gen::uniform_int);
+    else
+    {
+      detail::partial_random_shuffle(index_collection->begin(),
+                                     index_collection->begin()+permutationSize,
+                                     index_collection->end(),
+                                     rand_gen::uniform_int);
+      index_collection->resize(permutationSize);
+    }
+    
     return reorder_iterator<ElementIterator>(first, index_collection);
   }
 

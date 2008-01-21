@@ -102,11 +102,15 @@
  *
  * @section index_author Authors
  *
- * TRSL is written by <a href="http://sourceforge.net/users/renauddetry/"
+ * TRSL is developped by <a href="http://sourceforge.net/users/renauddetry/"
  * >Renaud Detry</a>.
+ *
+ * @section index_credits Credits
  *
  * TRSL is based on the excellent <a
  * href="http://www.boost.org/libs/iterator/doc/index.html" >Boost
  * Iterator Library</a>.
  *
+ * Several concept implementations (e.g. accessors) are inspired from <a
+ * href="http://libkdtree.alioth.debian.org">libkdtree++</a>.
  */
