@@ -73,10 +73,15 @@ namespace trsl
    * element. This implies that the predicate has either some memory,
    * or a pseudo-random behavior.
    *
+   * A persistent_filter_iterator thus iterates over a <em>virtual</em> range.
+   * Consequently, equality of two persistent_filter_iterator is only verified if
+   * they point to the same element in the original range <em>and</em> if
+   * their predicates are equal. Predicates must thus implement <tt>operator==</tt>.
+   *
    * The doc on <a
    * href="http://www.boost.org/libs/iterator/doc/filter_iterator.html"
    * >boost::filter_iterator</a> applies for this class, except
-   * for the small difference noted above.
+   * for the small differences noted above.
    */
   template <class Predicate, class Iterator>
   class persistent_filter_iterator
@@ -138,6 +143,17 @@ namespace trsl
         while (this->base() != this->m_end && !this->m_predicate(*this->base()))
           ++(this->base_reference());
       }
+
+    template<class OtherIterator>/* + */
+    bool equal(/* + */
+        persistent_filter_iterator<Predicate, OtherIterator> const& t/* + */
+      , typename boost::enable_if_convertible<OtherIterator, Iterator>::type* = 0/* + */
+      ) const/* + */
+      {/* + */
+        return (this->base() == t.base()) &&/* + */
+          ((this->base() == m_end) ||/* + */
+           (this->predicate() == t.predicate()));/* + */
+      }/* + */
 
     // Probably should be the initial base class so it can be
     // optimized away via EBO if it is an empty class.

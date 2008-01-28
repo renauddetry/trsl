@@ -192,6 +192,22 @@ namespace trsl {
 #endif
       }
 
+      bool operator== (const is_picked_systematic<ElementType, WeightType, WeightAccessor> &p) const
+      {
+        bool value = true;
+        value = value && sampleSize_ == p.sampleSize_;
+        value = value && populationWeight_ == p.populationWeight_;
+
+#ifdef TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
+        value = value && cumulative_ == p.cumulative_;
+        value = value && k_ == p.k_;
+#else
+        value = value && position_ == p.position_;
+#endif
+        
+        return value;
+      }
+      
   private:
     void initialize(WeightType randomReal)
       {

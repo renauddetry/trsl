@@ -43,8 +43,6 @@ namespace trsl {
       }
     }
     
-    
-    
   }
   
   /** @brief Random number wrapper functions. */
