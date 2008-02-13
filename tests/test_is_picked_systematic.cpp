@@ -186,7 +186,7 @@ int main()
     ParticleArray const& const_pop = population;
     
     //------------------------------//
-    // Test 1a: correct sample size //
+    // Test 3a: correct sample size //
     //------------------------------//
     {
       ParticleArray sample;
@@ -200,6 +200,72 @@ int main()
         TRSL_TEST_FAILURE;
       }
     }
+  }
+
+  // ---------------------------------------------------- //
+  // Test 4: sample larger than population -------------- //
+  // ---------------------------------------------------- //
+  {
+    const size_t POPULATION_SIZE = 3;
+    const size_t SAMPLE_SIZE = 10;
+    
+    // Type definitions, once and for all.
+
+    typedef trsl::is_picked_systematic<PickCountParticle> is_picked;
+
+    typedef trsl::persistent_filter_iterator
+      <is_picked, ParticleArray::const_iterator> sample_iterator;
+
+    //-----------------------//
+    // Generate a population //
+    //-----------------------//
+    
+    ParticleArray population;
+    generatePopulation(POPULATION_SIZE, population);
+    ParticleArray const& const_pop = population;
+    
+    //----------------------------//
+    // Test 4a: iterator equality //
+    //----------------------------//
+    {
+      ParticleArray sample;
+      // Create the systemtatic sampling functor.
+      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+      
+      sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
+      sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
+      sample_iterator sp = sb;
+      
+      if (sb == se)
+      {
+        std::cout << "Sample of at least one element needed for this test." << std::endl;
+        TRSL_TEST_FAILURE;
+      }
+      
+      int duplicates = 0;
+      for (sample_iterator si = ++sb; si != se; ++si)
+      {
+        if (si == sp)
+          TRSL_TEST_FAILURE;
+        
+        if (&*si == &*sp)
+        {
+          duplicates++;
+          if (si.base() != sp.base())
+            TRSL_TEST_FAILURE;
+        }
+        else
+        {
+          if (si.base() == sp.base())
+            TRSL_TEST_FAILURE;
+        }
+        
+        sp = si;
+      }
+      if (duplicates == 0)
+        TRSL_TEST_FAILURE;
+    }
+
   }
 
   return 0;

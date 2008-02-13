@@ -13,6 +13,8 @@
  * - Pulled trsl::reorder_iterator out of the old trsl::random_permutation_iterator.
  * Added trsl::sort_iterator.
  *
+ * - trsl::random_permutation_iterator uses a partial shuffle algorithm instead of std::random_shuffle. It is thus efficient to iterate over a permutation of a subset that is much smaller than the population.
+ *
  * - Fixed <tt>operator==</tt> bug in trsl::persistent_filter_iterator. Two trsl::persistent_filter_iterator are now equal if their base iterators are equal <em>and</em> if their predicates are equal.
  *
  * @section version_history_v011 Version 0.1.1

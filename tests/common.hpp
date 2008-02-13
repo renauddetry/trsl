@@ -37,7 +37,13 @@ namespace trsl {
     }
 #define TRSL_NVP(x) #x << ": " << x
 
-// Example element class.
+    inline std::ostream&
+    operator<<(std::ostream& out, const trsl::example::Particle& p)
+    {
+      out << "[(" << p.getX() << "," << p.getY() << ") " << p.getWeight() << "]";
+      return out;
+    }
+
     class PickCountParticle : public trsl::example::Particle
     {
     public:

@@ -25,6 +25,9 @@ namespace trsl {
       bool operator==(const Particle& p) const
         { return x_ == p.x_ && y_ == p.y_ && weight_ == p.weight_; }
 
+      double getX() const { return x_; }
+      double getY() const { return y_; }
+      
     private:
       double x_;
       double y_;

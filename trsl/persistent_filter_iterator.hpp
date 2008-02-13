@@ -151,6 +151,7 @@ namespace trsl
       ) const/* + */
       {/* + */
         return (this->base() == t.base()) &&/* + */
+          // There is always at most one end iterator/* + */
           ((this->base() == m_end) ||/* + */
            (this->predicate() == t.predicate()));/* + */
       }/* + */
