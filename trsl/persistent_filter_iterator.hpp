@@ -146,7 +146,7 @@ namespace trsl
 
     template<class OtherIterator>/* + */
     bool equal(/* + */
-        persistent_filter_iterator<Predicate, OtherIterator> const& t/* + */
+      persistent_filter_iterator<Predicate, OtherIterator> const& t/* + */
       , typename boost::enable_if_convertible<OtherIterator, Iterator>::type* = 0/* + */
       ) const/* + */
       {/* + */

@@ -89,25 +89,25 @@ namespace trsl
   class reorder_iterator
     : public detail::reorder_iterator_base<ElementIterator>::type
   {
-    friend class boost::iterator_core_access;
-    
-      public:
-
     typedef detail::reorder_iterator_base<ElementIterator> base_t;
     typedef typename base_t::type super_t;
+
+    friend class boost::iterator_core_access;
     
+  public:
+
     typedef typename base_t::index_t index_t;
     typedef typename base_t::index_container index_container;
     typedef typename base_t::index_container_ptr index_container_ptr;
     typedef typename base_t::index_iterator index_iterator;
 
     
-        typedef typename base_t::element_iterator element_iterator;
+    typedef typename base_t::element_iterator element_iterator;
 
     reorder_iterator() :
       m_elt_iter(),
       m_index_collection(new index_container)
-    {}
+      {}
       
     explicit reorder_iterator(ElementIterator first,
                               index_container_ptr index_collection)
@@ -158,32 +158,6 @@ namespace trsl
         return indexIterator;
       }
       
-  static reorder_iterator<ElementIterator> create_random_permutation(element_iterator first,
-                              element_iterator last,
-                              unsigned permutationSize = 0)
-      {
-        ptrdiff_t size = std::distance(first, last);
-        if (size < 0)
-          throw bad_parameter_value(
-            "random_permutation_iterator: "
-            "bad input range.");
-        if (permutationSize > size)
-          throw bad_parameter_value(
-            "random_permutation_iterator: "
-            "parameter permutationSize out of range.");
-        
-        index_container_ptr index_collection(new index_container);
-        
-        index_collection->resize(size);
-        for (index_t i = 0; i < size; ++i)
-          (*index_collection)[i] = i;
-        std::random_shuffle(index_collection->begin(),
-                            index_collection->end(),
-                            rand_gen::uniform_int);
-        index_collection->resize(permutationSize);
-        return reorder_iterator<ElementIterator>(first, index_collection);
-      }
-
   private:
       
     typename super_t::reference dereference() const

@@ -22,22 +22,22 @@ namespace trsl
     template<
       class RandomIterator,
       class Comparator
-    > class at_index_comp
-    {
-    public:
+      > class at_index_comp
+      {
+      public:
       
-      at_index_comp(const RandomIterator &first, const Comparator &comp) :
-        elements_(first), comp_(comp)
-        {}
+        at_index_comp(const RandomIterator &first, const Comparator &comp) :
+          elements_(first), comp_(comp)
+          {}
       
-      bool operator() (unsigned i, unsigned j)
-        {
-          return comp_(*(elements_+i), *(elements_+j));
-        }
+        bool operator() (unsigned i, unsigned j)
+          {
+            return comp_(*(elements_+i), *(elements_+j));
+          }
       
-      RandomIterator elements_;
-      Comparator comp_;
-    };
+        RandomIterator elements_;
+        Comparator comp_;
+      };
   
   }
 

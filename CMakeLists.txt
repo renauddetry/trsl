@@ -18,6 +18,8 @@ ADD_EXECUTABLE(test_is_picked_systematic
                tests/test_is_picked_systematic.cpp)
 ADD_EXECUTABLE(test_random_permutation_iterator
                tests/test_random_permutation_iterator.cpp)
+ADD_EXECUTABLE(test_sort_iterator
+               tests/test_sort_iterator.cpp)
 ADD_EXECUTABLE(accessor_efficiency
                tests/accessor_efficiency.cpp tests/accessor_no_inline.cpp)
 

@@ -9,6 +9,7 @@
 #include "trsl/sort_iterator.hpp"
 #include "trsl/is_picked_systematic.hpp"
 #include "trsl/random_permutation_iterator.hpp"
+#include "trsl/ppfilter_iterator.hpp"
 
 #include <boost/random/uniform_real.hpp>
 #include <boost/random/variate_generator.hpp>
@@ -31,8 +32,8 @@ int main()
   // Generate a population //
   //-----------------------//
   
-//#define C_ARRAY_ITERATOR_SAMPLING
-#define STD_VECTOR_ITERATOR_SAMPLING
+#define C_ARRAY_ITERATOR_SAMPLING
+//#define STD_VECTOR_ITERATOR_SAMPLING
 
 #if defined(C_ARRAY_ITERATOR_SAMPLING)
   float population[] = { 0, 1, 4, 3, 5, 8, 2 };
@@ -171,6 +172,38 @@ int main()
                 std::ostream_iterator<float>(std::cout, " "));
       std::cout << std::endl;
     }
+  }
+
+  {
+    //---------------------------------------------------//
+    // Get a sample from a permutation of the population //
+    //---------------------------------------------------//
+
+    typedef trsl::is_picked_systematic<
+      float,
+      double,
+      std::pointer_to_unary_function<float, double>
+      > is_picked;
+  
+    typedef trsl::ppfilter_iterator
+      <is_picked, population_iterator> sample_iterator;
+  
+    is_picked predicate(SAMPLE_SIZE,
+                        std::accumulate(populationIteratorBegin,
+                                        populationIteratorEnd,
+                                        float(0)),
+                        std::ptr_fun(wac));
+  
+    sample_iterator sampleIteratorBegin(predicate,
+                                        populationIteratorBegin,
+                                        populationIteratorEnd);
+    sample_iterator sampleIteratorEnd = sampleIteratorBegin.end();
+  
+    std::cout << "Sample of " << SAMPLE_SIZE << " elements:" << std::endl;
+    std::copy(sampleIteratorBegin,
+              sampleIteratorEnd,
+              std::ostream_iterator<float>(std::cout, " "));
+    std::cout << std::endl;
   }
 
   return 0;

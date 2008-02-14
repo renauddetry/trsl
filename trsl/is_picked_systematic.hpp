@@ -76,6 +76,12 @@ namespace trsl {
     typedef WeightType weight_type;
     typedef WeightAccessor weight_accessor_type;
     
+    is_picked_systematic() :
+      sampleSize_(0),
+      populationWeight_(0)
+      {
+        initialize( 0 );
+      }
     /**
      * @brief Construction with system-provided random number.
      *
@@ -192,7 +198,7 @@ namespace trsl {
 #endif
       }
 
-      bool operator== (const is_picked_systematic<ElementType, WeightType, WeightAccessor> &p) const
+    bool operator== (const is_picked_systematic<ElementType, WeightType, WeightAccessor> &p) const
       {
         bool value = true;
         value = value && sampleSize_ == p.sampleSize_;

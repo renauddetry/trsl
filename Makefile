@@ -24,6 +24,7 @@ doc:
 test: build
 	./$(BUILD_DIR)/test_is_picked_systematic
 	./$(BUILD_DIR)/test_random_permutation_iterator
+	./$(BUILD_DIR)/test_sort_iterator
 
 clean:
 	rm -fr documentation

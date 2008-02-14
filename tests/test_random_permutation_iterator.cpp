@@ -3,6 +3,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+#include "trsl/random_permutation_iterator.hpp"
 #include "tests/common.hpp"
 using namespace trsl::test;
 
@@ -134,8 +135,8 @@ int main()
       {        
         permutation_iterator sb =
           trsl::random_permutation_iterator(population.begin(),
-                               population.end(),
-                               SAMPLE_SIZE);
+                                            population.end(),
+                                            SAMPLE_SIZE);
         permutation_iterator se = sb.end();
         for (permutation_iterator si = sb; si != se; ++si)
         {
