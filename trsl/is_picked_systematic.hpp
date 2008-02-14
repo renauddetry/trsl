@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007.
+// (C) Copyright Renaud Detry   2007-2008.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -76,12 +76,19 @@ namespace trsl {
     typedef WeightType weight_type;
     typedef WeightAccessor weight_accessor_type;
     
+    /**
+     * @brief Default constructor, shoud not be used explicitely.
+     *
+     * This constructor makes an invalid predicate. It should only be used in
+     * cases where the predicate is never used.
+     */
     is_picked_systematic() :
       sampleSize_(0),
       populationWeight_(0)
       {
         initialize( 0 );
       }
+    
     /**
      * @brief Construction with system-provided random number.
      *

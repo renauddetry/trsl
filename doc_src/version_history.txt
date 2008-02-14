@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007.
+// (C) Copyright Renaud Detry   2007-2008.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,10 @@
  * - trsl::random_permutation_iterator uses a partial shuffle algorithm instead of std::random_shuffle. It is thus efficient to iterate over a permutation of a subset that is much smaller than the population.
  *
  * - Fixed <tt>operator==</tt> bug in trsl::persistent_filter_iterator. Two trsl::persistent_filter_iterator are now equal if their base iterators are equal <em>and</em> if their predicates are equal.
+ *
+ * - Added a default constructor to trsl::is_picked_systematic. Note that a default-constructed trsl::is_picked_systematic is invalid.
+ *
+ * - Added trsl::ppfilter_iterator.
  *
  * @section version_history_v011 Version 0.1.1
  *

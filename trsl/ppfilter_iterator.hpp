@@ -5,8 +5,8 @@
 
 /** @file */
 
-#ifndef TRSL_REORDER_PFILTER_ITERATOR_HPP
-#define TRSL_REORDER_PFILTER_ITERATOR_HPP
+#ifndef TRSL_PPFILTER_ITERATOR_HPP
+#define TRSL_PPFILTER_ITERATOR_HPP
 
 #include "trsl/error_handling.hpp"
 #include "trsl/common.hpp"
