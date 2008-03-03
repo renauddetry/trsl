@@ -38,7 +38,8 @@ namespace trsl {
    * Systematic sampling may perform very badly if the population
    * sequence follows a pattern.  If a pattern is likely to occur in
    * the population, the user may want to pipe the sample iterator
-   * <em>after</em> a trsl::random_permutation_iterator.
+   * <em>after</em> a trsl::random_permutation_iterator, or use is_picked_systematic
+   * with ppfilter_iterator.
    *
    * @param ElementType Type of the elements in the 
    * population. Constness and
@@ -165,9 +166,11 @@ namespace trsl {
       }
 
     /**
-     * @brief Decides whether <tt>e</tt> should be picked or not (used by persistent_filter_iterator).
+     * @brief Decides whether <tt>e</tt> should be picked or not (used
+     * by persistent_filter_iterator).
      *
-     * Part of the requirements for persistent_filter_iterator predicates.
+     * Part of the requirements for persistent_filter_iterator
+     * predicates.
      */
     bool operator()(const ElementType & e)
       {
@@ -205,6 +208,13 @@ namespace trsl {
 #endif
       }
 
+    /**
+     * @brief Returns whether two predicates are at the same sampling
+     * advancement.
+     *
+     * Part of the requirements for persistent_filter_iterator
+     * predicates.
+     */
     bool operator== (const is_picked_systematic<ElementType, WeightType, WeightAccessor> &p) const
       {
         bool value = true;

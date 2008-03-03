@@ -131,6 +131,7 @@ int main()
       const unsigned N_ROUNDS = 1000000;
       unsigned pickCount = 0;
             
+      //clock_t start = clock();
       for (unsigned round = 0; round < N_ROUNDS; round++)
       {        
         permutation_iterator sb =
@@ -144,6 +145,7 @@ int main()
           pickCount++;
         }
       }
+      //clock_t end = clock(); std::cerr << end-start << std::endl;
       if (! (pickCount == N_ROUNDS * SAMPLE_SIZE) )
       {
         TRSL_TEST_FAILURE;

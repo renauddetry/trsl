@@ -8,6 +8,8 @@
  *
  * This module presents the functionalities offered by TRSL.
  *
+ * <hr>
+ *
  * @section products_systematic_sampling Systematic Sampling
  *
  * Systematic sampling is provided through trsl::is_picked_systematic,
@@ -18,13 +20,37 @@
  * (begin/end), and provides on-the-fly iteration through a sample of
  * the population.
  *
+ * The predicate trsl::is_picked_systematic can also be used with
+ * trsl::ppfilter_iterator, effectively achieving
+ * <em>probability sampling</em>.
+ *
  * @sa @ref trsl_example1.cpp "trsl_example1.cpp" for a basic example.
  *
- * @section products_permutation Random Permutation
+ * <dl><dt><b>Implementation:</b></dt><dd>trsl::is_picked_systematic, trsl::persistent_filter_iterator, trsl::ppfilter_iterator.</dd></dl>
  *
- * trsl::random_permutation_iterator
- * provides an iterator over a random permutation of a range.
+ * <hr>
+ *
+ * @section products_reorder Range Reordering
+ *
+ * Iteration through an index-based reordering of a range can be
+ * obtained with trsl::reorder_iterator. TRSL provides several
+ * functions that generate reorder iterators for common reorderings.
+ *
+ * @subsection products_permutation Random Permutation
+ *
+ * trsl::random_permutation_iterator provides an iterator over a
+ * random permutation of a range.
+ *
+ * <dl><dt><b>Implementation:</b></dt><dd>trsl::reorder_iterator, trsl::random_permutation_iterator.</dd></dl>
  *
  * @sa @ref trsl_example2.cpp "trsl_example2.cpp" for a basic example.
  *
+ * @subsection products_sorting Sorted Permutation
+ *
+ * trsl::sort_iterator provides an iterator over a sorted permutation
+ * of a range.
+ *
+ * <dl><dt><b>Implementation:</b></dt><dd>trsl::reorder_iterator, trsl::sort_iterator.</dd></dl>
+ *
+ * <hr>
  */

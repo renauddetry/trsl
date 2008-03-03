@@ -53,34 +53,39 @@ namespace trsl
   
   
   /**
-   * @brief Provides an iterator over a random permutation of a range.
+   * @brief Provides an iterator over a permutation of a range.
    *
    * This class is a fork of <a
    * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
    * >boost::permutation_iterator</a>.  With <a
    * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
    * >boost::permutation_iterator</a>, the user provides a population,
-   * and a range of index that define a permutation over the
+   * and a range of index that defines a permutation over the
    * population. It allows for much flexibility, but leaves the user
-   * responsible for generating and storing an array of index. When
-   * only a specific reordering of the elements is needed (e.g. a <em>random</em> permutation), the array of index
-   * can be managed internally; this is what
-   * trsl::reorder_iterator does. The construction of the index array is left to subclasses.
+   * responsible for generating and storing an array of index. This
+   * class allows to store the array internally, in the same way as <a
+   * href="http://www.boost.org/libs/utility/shared_container_iterator.html"
+   * >boost::shared_container_iterator</a>.
    *
    * The index array is stored within the iterator, by means of a <a
    * href="http://www.boost.org/libs/smart_ptr/shared_ptr.htm"
-   * >boost::shared_ptr</a>; thus, all copies of a random permutation
-   * iterator share the same index array.
+   * >boost::shared_ptr</a>; thus, all copies of a reorder iterator
+   * share the same index array. One drawback is that reorder_iterator
+   * copy is somewhat slower than ElementIterator copy. Incrementation
+   * is still plainly efficient, nevertheless.
    *
    * When iterating over a permutation of a population range using an
    * index range, the iteration is actually performed over the index
    * range; the population range is only used when
-   * dereferencing. Thus, every trsl::reorder_iterator
-   * knows where it begins and where it ends, hence provided begin()
-   * and end() methods.
+   * dereferencing. Thus, every trsl::reorder_iterator knows where it
+   * begins and where it ends, hence provided begin() and end()
+   * methods.
+   *
+   * TRSL provides several functions that generate reoder iterators
+   * for common reorderings. See random_permutation_iterator() and
+   * sort_iterator().
    *
    * @p ElementIterator should model <em>Random Access Iterator</em>.
-   * Subclasses of reorder_iterator that provide at least default constructor will model <em>Random Access Iterator</em>.
    * See the doc on <a
    * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
    * >boost::permutation_iterator</a> for further details.
@@ -109,8 +114,13 @@ namespace trsl
       m_index_collection(new index_container)
       {}
       
+    /**
+     * @brief Constructs an iterator that will walk through the elements
+     * of the range that begins at @p first, follwing the order defined
+     * by @p index_collection.
+     */
     explicit reorder_iterator(ElementIterator first,
-                              index_container_ptr index_collection)
+                              const index_container_ptr& index_collection)
       : super_t(index_collection->begin()),
         m_elt_iter(first),
         m_index_collection(index_collection)

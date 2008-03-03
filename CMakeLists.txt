@@ -22,6 +22,8 @@ ADD_EXECUTABLE(test_sort_iterator
                tests/test_sort_iterator.cpp)
 ADD_EXECUTABLE(accessor_efficiency
                tests/accessor_efficiency.cpp tests/accessor_no_inline.cpp)
+ADD_EXECUTABLE(reorder_iterator_efficiency
+               tests/reorder_iterator_efficiency.cpp)
 
 
 INCLUDE_DIRECTORIES(.)

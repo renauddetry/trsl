@@ -27,8 +27,13 @@ namespace trsl
    * Performing a random permutation requires a series of random
    * integers, these are provided by rand_gen::uniform_int; see @ref
    * random for further details.
-
+   *
    * @p ElementIterator should model <em>Random Access Iterator</em>.
+   *
+   * Creating such a reorder_iterator and iterating through it is
+   * generally much faster than re-ordering the population itself (or
+   * a copy thereof), especially when elements are large, have a
+   * complex copy-constructor, or a tall class hierarchy.
    */
   template<class ElementIterator>
   reorder_iterator<ElementIterator>
@@ -78,13 +83,19 @@ namespace trsl
   }
 
   /**
-   * @brief Constructs an iterator that will iterate through a
-   * random permutation of the population referenced by @p first and @p
-   * last.
+   * @brief Constructs a reorder_iterator that will iterate through a random permutation of the
+   * population referenced by @p first and @p last.
    *
    * Performing a random permutation requires a series of random
    * integers, these are provided by rand_gen::uniform_int; see @ref
    * random for further details.
+   *
+   * @p ElementIterator should model <em>Random Access Iterator</em>.
+   *
+   * Creating such a reorder_iterator and iterating through it is
+   * generally much faster than re-ordering the population itself (or
+   * a copy thereof), especially when elements are large, have a
+   * complex copy-constructor, or a tall class hierarchy.
    */
   template<class ElementIterator>
   reorder_iterator<ElementIterator>

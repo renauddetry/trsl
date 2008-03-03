@@ -42,24 +42,23 @@ namespace trsl
   }
 
   /**
-   * @brief Constructs a reorder_iterator that will iterate through the
-   * first @p permutationSize elements of a random permutation of the
-   * population referenced by @p first and @p last.
+   * @brief Constructs a reorder_iterator that will iterate through
+   * the first @p permutationSize elements of a sorted permutation of
+   * the population referenced by @p first and @p last.
    *
-   * Let \f$n\f$ be the size of the population. This function
-   * shuffles an array of \f$n\f$ index, then discards its last
-   * \f$n-permutationSize\f$ elements. A more efficient method
-   * will be implemented for the next release.
+   * The @p permutationSize should be smaller or equal to the size of
+   * the population. If it is not the case, a bad_parameter_value is
+   * thrown.
    *
-   * The @p permutationSize should be smaller or equal to the
-   * size of the population. If it is not the case, a bad_parameter_value
-   * is thrown.
+   * A comparator should be provided through @p comp, for example
+   * <tt>std::less<ElementType>()</tt> or <tt>std::greater<ElementType>()</tt>.
    *
-   * Performing a random permutation requires a series of random
-   * integers, these are provided by rand_gen::uniform_int; see @ref
-   * random for further details.
-
    * @p ElementIterator should model <em>Random Access Iterator</em>.
+   *
+   * Creating such a reorder_iterator and iterating through it is
+   * generally much faster than re-ordering the population itself (or
+   * a copy thereof), especially when elements are large, have a
+   * complex copy-constructor, or a tall class hierarchy.
    */
   template<class ElementIterator, class ElementComparator>
   reorder_iterator<ElementIterator>
@@ -113,13 +112,18 @@ namespace trsl
   }
 
   /**
-   * @brief Constructs an iterator that will iterate through a
-   * random permutation of the population referenced by @p first and @p
-   * last.
+   * @brief Constructs a reorder_iterator that will iterate through a sorted permutation of the
+   * population referenced by @p first and @p last.
    *
-   * Performing a random permutation requires a series of random
-   * integers, these are provided by rand_gen::uniform_int; see @ref
-   * random for further details.
+   * A comparator should be provided through @p comp, for example
+   * <tt>std::less<ElementType>()</tt> or <tt>std::greater<ElementType>()</tt>.
+   *
+   * @p ElementIterator should model <em>Random Access Iterator</em>.
+   *
+   * Creating such a reorder_iterator and iterating through it is
+   * generally much faster than re-ordering the population itself (or
+   * a copy thereof), especially when elements are large, have a
+   * complex copy-constructor, or a tall class hierarchy.
    */
   template<class ElementIterator, class ElementComparator>
   reorder_iterator<ElementIterator>
@@ -133,6 +137,21 @@ namespace trsl
                          std::distance(first, last));
   }
 
+  /**
+   * @brief Constructs a reorder_iterator that will iterate through a
+   * sorted permutation of the population referenced by @p first and
+   * @p last.
+   *
+   * The population is sorted using <tt>std::less<>()</tt>, i.e. in
+   * ascending order.
+   *
+   * @p ElementIterator should model <em>Random Access Iterator</em>.
+   *
+   * Creating such a reorder_iterator and iterating through it is
+   * generally much faster than re-ordering the population itself (or
+   * a copy thereof), especially when elements are large, have a
+   * complex copy-constructor, or a tall class hierarchy.
+   */
   template<class ElementIterator>
   reorder_iterator<ElementIterator>
   sort_iterator(ElementIterator first,

@@ -8,16 +8,25 @@
  *
  * @section version_history_v020 Version 0.2.0 (under development)
  *
- * - Restored default constructor in trsl::random_permutation_iterator.
+ * - Restored default constructor in trsl::random_permutation_iterator
+ * (trsl::random_permutation_iterator has been renamed
+ * trsl::reorder_iterator, see below).
  *
- * - Pulled trsl::reorder_iterator out of the old trsl::random_permutation_iterator.
- * Added trsl::sort_iterator.
+ * - Pulled trsl::reorder_iterator out of the old
+ * trsl::random_permutation_iterator.  Added trsl::sort_iterator.
  *
- * - trsl::random_permutation_iterator uses a partial shuffle algorithm instead of std::random_shuffle. It is thus efficient to iterate over a permutation of a subset that is much smaller than the population.
+ * - trsl::random_permutation_iterator uses a partial shuffle
+ * algorithm instead of std::random_shuffle. It is thus efficient to
+ * iterate over a permutation of a subset that is much smaller than
+ * the population.
  *
- * - Fixed <tt>operator==</tt> bug in trsl::persistent_filter_iterator. Two trsl::persistent_filter_iterator are now equal if their base iterators are equal <em>and</em> if their predicates are equal.
+ * - Fixed <tt>operator==</tt> bug in
+ * trsl::persistent_filter_iterator. Two
+ * trsl::persistent_filter_iterator are now equal if their base
+ * iterators are equal <em>and</em> if their predicates are equal.
  *
- * - Added a default constructor to trsl::is_picked_systematic. Note that a default-constructed trsl::is_picked_systematic is invalid.
+ * - Added a default constructor to trsl::is_picked_systematic. Note
+ * that a default-constructed trsl::is_picked_systematic is invalid.
  *
  * - Added trsl::ppfilter_iterator.
  *

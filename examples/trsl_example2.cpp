@@ -153,7 +153,7 @@ int main()
         trsl::sort_iterator(populationIteratorBegin,
                             populationIteratorEnd);
       
-      std::cout << "Sorted:" << std::endl;
+      std::cout << "Sorted population:" << std::endl;
       std::copy(pi,
                 pi.end(),
                 std::ostream_iterator<float>(std::cout, " "));
@@ -165,8 +165,8 @@ int main()
                             populationIteratorEnd,
                             std::less<float>(), SAMPLE_SIZE);
       
-      std::cout << "Sorted of a subset of " << SAMPLE_SIZE
-                << " elements:" << std::endl;
+      std::cout << "Sorted " << SAMPLE_SIZE
+                << " smallest elements:" << std::endl;
       std::copy(pi,
                 pi.end(),
                 std::ostream_iterator<float>(std::cout, " "));
@@ -199,7 +199,7 @@ int main()
                                         populationIteratorEnd);
     sample_iterator sampleIteratorEnd = sampleIteratorBegin.end();
   
-    std::cout << "Sample of " << SAMPLE_SIZE << " elements:" << std::endl;
+    std::cout << "Probabilistic sample of " << SAMPLE_SIZE << " elements:" << std::endl;
     std::copy(sampleIteratorBegin,
               sampleIteratorEnd,
               std::ostream_iterator<float>(std::cout, " "));

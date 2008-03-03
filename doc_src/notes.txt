@@ -8,7 +8,7 @@
  *
  * @section notes_naming_conventions Naming Conventions
  *
- * Since TRSL is closely tied to Boost, it's intended to follow
+ * Since TRSL is closely tied to Boost, it is intended to follow
  * naming conventions from <a
  * href="http://www.boost.org/more/lib_guide.htm#Design_and_Programming"
  * >Boost Design and Programming Guidelines</a>, at least for public symbols.

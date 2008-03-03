@@ -45,7 +45,10 @@ namespace trsl
   /**
    * @brief Random permutation, persistent filter iterator.
    *
-   * This class pipes a random_permutation_iterator (upstream) with a persistent_filter_iterator (downstream).
+   * This class pipes a random_permutation_iterator() (upstream) with
+   * a persistent_filter_iterator (downstream).  It is intended to be
+   * used with is_picked_systematic. Systematic sampling of a random
+   * permutation achieves <em>probability sampling</em>.
    *
    * @p ElementIterator should model <em>Random Access Iterator</em>.
    */
@@ -69,6 +72,9 @@ namespace trsl
       super_t(), predicate_()
       {}
       
+    /**
+     * @brief Constructor.
+     */
     explicit ppfilter_iterator(Predicate f, ElementIterator first, ElementIterator last)
       : super_t(), predicate_(f)
       {

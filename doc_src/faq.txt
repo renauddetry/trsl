@@ -9,8 +9,8 @@
  * @section faq_no_population_iterator What if my population data structure doesn't provide iterators?
  *
  * Write one :-). <a
- * href="http://www.boost.org/libs/iterator/doc/iterator_adaptor.html"
- * >Boost iterator adaptor</a> makes it really easy.
+ * href="http://www.boost.org/libs/iterator/doc/iterator_facade.html"
+ * >Boost Iterator Facade</a> makes it really easy.
  *
  * However, keep in mind that pointers are indeed iterators. If your
  * population data structure guarantees to store elements

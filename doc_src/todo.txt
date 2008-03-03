@@ -6,12 +6,8 @@
 /**
  * @defgroup todo To Do List
  *
- * @section todo_short_term Short Term
+ * <!--@section todo_short_term Short Term-->
  * 
- * - Review the doc for trsl::reorder_iterator, etc...
- *
- * - Write some doc about trsl::persistent_filter_iterator equality.
- *
  * @section todo_long_term Long Term
  * 
  * - Add debug stubs. One good thing to check for would be that

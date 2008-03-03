@@ -73,10 +73,16 @@ namespace trsl
    * element. This implies that the predicate has either some memory,
    * or a pseudo-random behavior.
    *
-   * A persistent_filter_iterator thus iterates over a <em>virtual</em> range.
-   * Consequently, equality of two persistent_filter_iterator is only verified if
-   * they point to the same element in the original range <em>and</em> if
-   * their predicates are equal. Predicates must thus implement <tt>operator==</tt>.
+   * A persistent_filter_iterator thus iterates over a
+   * <em>virtual</em> range.  Consequently, equality of two
+   * persistent_filter_iterator is only verified if they point to the
+   * same element in the original range <em>and</em> if their
+   * predicates are equal. Predicates must thus implement
+   * <tt>operator==</tt>.  To see whether two different
+   * persistent_filter_iterator actually point to the same input range
+   * element, one can compare the underlying iterators available
+   * through the <tt>base()</tt> method.
+   * 
    *
    * The doc on <a
    * href="http://www.boost.org/libs/iterator/doc/filter_iterator.html"
