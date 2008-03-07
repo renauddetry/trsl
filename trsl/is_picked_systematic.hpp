@@ -217,18 +217,17 @@ namespace trsl {
      */
     bool operator== (const is_picked_systematic<ElementType, WeightType, WeightAccessor> &p) const
       {
-        bool value = true;
-        value = value && sampleSize_ == p.sampleSize_;
-        value = value && populationWeight_ == p.populationWeight_;
+        if (sampleSize_ != p.sampleSize_ ||
+            populationWeight_ != p.populationWeight_) return false;
 
 #ifdef TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
-        value = value && cumulative_ == p.cumulative_;
-        value = value && k_ == p.k_;
+        if (cumulative_ != p.cumulative_ ||
+            k_ != p.k_) return false;
 #else
-        value = value && position_ == p.position_;
+        if (position_ != p.position_) return false;
 #endif
         
-        return value;
+        return true;
       }
       
   private:

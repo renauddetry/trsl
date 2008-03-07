@@ -12,6 +12,7 @@
 #include "trsl/common.hpp"
 
 #include "trsl/reorder_iterator.hpp"
+#include "trsl/random_permutation_iterator.hpp"
 #include "trsl/persistent_filter_iterator.hpp"
 
 namespace trsl
