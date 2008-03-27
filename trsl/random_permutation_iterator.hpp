@@ -16,9 +16,9 @@ namespace trsl
 {
 
   /**
-   * @brief Constructs a reorder_iterator that will iterate through a random subset of size
-   * @p permutationSize of a random permutation of the
-   * population referenced by @p first and @p last.
+   * @brief Constructs a reorder_iterator that will iterate through a
+   * random subset of size @p permutationSize of a random permutation
+   * of the population referenced by @p first and @p last.
    *
    * The @p permutationSize should be smaller or equal to the
    * size of the population. If it is not the case, a bad_parameter_value

@@ -2,9 +2,10 @@
 - Spellcheck.
 - Indent.
 - make test, GCC Linux & Darwin.
-- Change version number on mainpage.
+- Change version number in Doxyfile.
 - Change version_history (remove "in devel").
 - Change version number in common.hpp.
+- Add news in index.html.
 - Generate doc.
 - Commit, tag, publish.
 - Edit version number (in devel).

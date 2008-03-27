@@ -11,7 +11,7 @@
 #include <cstdlib>
 #include <algorithm> //iter_swap
 
-#define TRSL_VERSION "0.1.1 (dev)"
+#define TRSL_VERSION "0.2.0"
 
 namespace trsl {
   

@@ -18,6 +18,9 @@
  * @section News
  *
  * <dl>
+ * <dt>2008-03-27</dt>
+ * <dd>TRSL 0.2.0 is out. See @ref version_history for a list of changes.
+ * </dd>
  * <dt>2008-01-02</dt>
  * <dd>TRSL 0.1.1 is out. See @ref version_history for a list of changes.
  * </dd>

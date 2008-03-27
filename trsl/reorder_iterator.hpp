@@ -62,7 +62,7 @@ namespace trsl
    * >boost::permutation_iterator</a>, the user provides a population,
    * and a range of index that defines a permutation over the
    * population. It allows for much flexibility, but leaves the user
-   * responsible for generating and storing an array of index. This
+   * responsible for storing an array of index. This
    * class allows to store the array internally, in the same way as <a
    * href="http://www.boost.org/libs/utility/shared_container_iterator.html"
    * >boost::shared_container_iterator</a>.

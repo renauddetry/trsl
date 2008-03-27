@@ -30,7 +30,8 @@ namespace trsl
       typedef ElementIterator element_iterator;
     
       typedef reorder_iterator<ElementIterator> upstream_iterator;
-      typedef persistent_filter_iterator<Predicate,  upstream_iterator> downstream_iterator;
+      typedef persistent_filter_iterator<
+        Predicate, upstream_iterator> downstream_iterator;
     
       typedef boost::iterator_adaptor< 
         ppfilter_iterator<Predicate, ElementIterator>,
@@ -76,7 +77,8 @@ namespace trsl
     /**
      * @brief Constructor.
      */
-    explicit ppfilter_iterator(Predicate f, ElementIterator first, ElementIterator last)
+    explicit ppfilter_iterator(Predicate f,
+                               ElementIterator first, ElementIterator last)
       : super_t(), predicate_(f)
       {
         upstream_iterator ui = random_permutation_iterator(first, last);
@@ -84,10 +86,9 @@ namespace trsl
       }
     
     /**
-     * @brief Allows conversion from a ppfilter_iterator to
-     * a const ppfilter_iterator, won't allow conversion
-     * from a const ppfilter_iterator to a
-     * ppfilter_iterator.
+     * @brief Allows conversion from a ppfilter_iterator to a const
+     * ppfilter_iterator, won't allow conversion from a const
+     * ppfilter_iterator to a ppfilter_iterator.
      *
      * By &ldquo;const ppfilter_iterator&rdquo;, we mean that the @p
      * ElementIterator is const, e.g.
@@ -101,15 +102,16 @@ namespace trsl
       {}
 
     /**
-     * @brief Returns a ppfilter_iterator pointing to
-     * the begining of the range.
+     * @brief Returns a ppfilter_iterator pointing to the begining of
+     * the range.
      */
     ppfilter_iterator<Predicate, ElementIterator> begin() const
       {
         ppfilter_iterator<Predicate, ElementIterator> i(*this);
-        i.base_reference() = downstream_iterator(predicate_,
-                                             this->base_reference().base().begin(),
-                                             this->base_reference().base().end());
+        i.base_reference() =
+          downstream_iterator(predicate_,
+                              this->base_reference().base().begin(),
+                              this->base_reference().base().end());
         return i;
       }
     
@@ -121,8 +123,8 @@ namespace trsl
       {
         ppfilter_iterator<Predicate, ElementIterator> i(*this);
         i.base_reference() = downstream_iterator(predicate_,
-                                             this->base_reference().base().end(),
-                                             this->base_reference().base().end());
+                                                 this->base_reference().base().end(),
+                                                 this->base_reference().base().end());
         return i;
       }
       
