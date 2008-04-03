@@ -50,7 +50,7 @@
  * <dt><b>Downloads</b></dt>
  *
  * <dd>Releases are available at the Sourceforge <a
- * href="http://sourceforge.net/project/showfiles.php?group_id=212585&package_id=255741&release_id=561630"
+ * href="http://sourceforge.net/project/platformdownload.php?group_id=212585"
  * >download page</a>. The latest sources are available through
  * Subversion:<br><tt>svn co
  * https://trsl.svn.sourceforge.net/svnroot/trsl/trunk trsl</tt></dd>

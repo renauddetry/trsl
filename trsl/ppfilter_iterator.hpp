@@ -137,7 +137,7 @@ namespace trsl
 #endif
     // Need to store the predicate to implement begin().
     // Else, a predicate_.reset() method would be required.
-    const Predicate predicate_;
+    Predicate predicate_;
   };
   
 } // namespace trsl
