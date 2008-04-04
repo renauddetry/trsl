@@ -182,31 +182,47 @@ namespace trsl {
         // N_SAMPLE spokes and distributes the population around the
         // wheel as segments of tire of length proportional to their
         // weight; the spokes point to picked elements.
-        
         WeightType arrow = k_*step_;
-    
-        if (cumulative_ <= arrow && arrow < cumulative_ + wac_(e))
+        assert(cumulative_ <= arrow);
+        if (arrow < cumulative_ + wac_(e))
         {
           k_++;
           return true;
         }
         cumulative_ += wac_(e);
-
         return false;
 #else
         // This algorithm is a massaged version of the intuitive
         // algorithm.  Both algorithms are conceptually identical, but
         // this version is faster in practice.
+        assert(position_ >= 0);
         if (position_ < wac_(e))
         {
           position_ += step_;
           return true;
         }
         position_ -= wac_(e);
-    
         return false;
 #endif
       }
+
+    /**
+     * @brief Return whether @p e has been picked already.
+     *
+     * This method will return a coherent value only if the last
+     * call of operator()(const ElementType&) was on @p e and returned true.
+     * When is_picked_systematic is used with a presistent_filter_iterator @p i,
+     * this assumption is always valid for @p *i as long as @p i is not the end.
+     */
+    bool isFirstPick(const ElementType & e) const
+    {
+      if (wac_(e) <= step_) return true;
+#ifdef TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
+      return k_*step_ - cumulative_ < 2*step_;
+#else
+      return position_ < 2*step_;
+#endif      
+    }
 
     /**
      * @brief Returns whether two predicates are at the same sampling
