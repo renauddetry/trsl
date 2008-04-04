@@ -17,6 +17,7 @@
 #include <utility>
 #include <cstdlib> // rand & random
 #include <limits>
+#include <cassert>
 #include <boost/static_assert.hpp>
 
 /** @brief Public namespace. */
