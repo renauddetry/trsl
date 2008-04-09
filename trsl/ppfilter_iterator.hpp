@@ -127,7 +127,12 @@ namespace trsl
                                                  this->base_reference().base().end());
         return i;
       }
-      
+    
+    /**
+     * @brief Returns the persistent_filter_iterator predicate.
+     */
+    Predicate predicate() const { return this->base_reference().predicate(); }
+
   private:
     
 #ifndef BOOST_NO_MEMBER_TEMPLATE_FRIENDS
