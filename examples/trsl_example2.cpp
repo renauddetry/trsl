@@ -10,7 +10,6 @@
 #include "trsl/is_picked_systematic.hpp"
 #include "trsl/random_permutation_iterator.hpp"
 #include "trsl/ppfilter_iterator.hpp"
-#include "trsl/shared_container_iterator.hpp"
 
 #include <boost/random/uniform_real.hpp>
 #include <boost/random/variate_generator.hpp>
