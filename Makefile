@@ -4,7 +4,7 @@ INSTALL_PREFIX = /usr/local
 
 .PHONY: all build install doc test clean publish
 
-all: build doc
+all: build
 
 build: $(BUILD_DIR)/Makefile
 	$(MAKE) -C $(BUILD_DIR)

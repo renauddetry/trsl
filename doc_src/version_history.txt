@@ -6,6 +6,14 @@
 /**
  * @defgroup version_history Version History
  *
+ * @section version_history_v021 Version 0.2.1
+ *
+ * - Removed <tt>const</tt> on @p predicate_ in
+ * trsl::ppfilter_iterator, to allow iterator assignment with
+ * <tt>operator=</tt>.
+ *
+ * - Added <tt>isFirstPick</tt> to trsl::is_picked_systematic.
+ *
  * @section version_history_v020 Version 0.2.0
  *
  * - Restored default constructor in trsl::random_permutation_iterator

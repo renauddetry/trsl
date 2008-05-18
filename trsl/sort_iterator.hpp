@@ -112,8 +112,9 @@ namespace trsl
   }
 
   /**
-   * @brief Constructs a reorder_iterator that will iterate through a sorted permutation of the
-   * population referenced by @p first and @p last.
+   * @brief Constructs a reorder_iterator that will iterate through a
+   * sorted permutation of the population referenced by @p first and
+   * @p last.
    *
    * A comparator should be provided through @p comp, for example
    * <tt>std::less<ElementType>()</tt> or <tt>std::greater<ElementType>()</tt>.

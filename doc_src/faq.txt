@@ -6,7 +6,8 @@
 /**
  * @defgroup faq F.A.Q.
  *
- * @section faq_no_population_iterator What if my population data structure doesn't provide iterators?
+ * @section faq_no_population_iterator What if my population data
+ * structure doesn't provide iterators?
  *
  * Write one :-). <a
  * href="http://www.boost.org/libs/iterator/doc/iterator_facade.html"

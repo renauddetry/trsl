@@ -83,8 +83,9 @@ namespace trsl
   }
 
   /**
-   * @brief Constructs a reorder_iterator that will iterate through a random permutation of the
-   * population referenced by @p first and @p last.
+   * @brief Constructs a reorder_iterator that will iterate through a
+   * random permutation of the population referenced by @p first and
+   * @p last.
    *
    * Performing a random permutation requires a series of random
    * integers, these are provided by rand_gen::uniform_int; see @ref
