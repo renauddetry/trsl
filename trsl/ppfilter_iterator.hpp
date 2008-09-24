@@ -129,6 +129,13 @@ namespace trsl
       }
     
     /**
+     * @brief Returns the index of the element that the iterator is
+     * currently pointing to.
+     */
+    typename upstream_iterator::index_t index() const
+    { return this->base().base().index(); }
+
+    /**
      * @brief Returns the persistent_filter_iterator predicate.
      */
     Predicate predicate() const { return this->base_reference().predicate(); }
