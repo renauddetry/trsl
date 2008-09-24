@@ -18,6 +18,10 @@
  * @section News
  *
  * <dl>
+ * <dt>2008-05-21</dt>
+ * <dd>The Boost Software License is now <a
+ * href="http://www.opensource.org/licenses/bsl1.0.html">Open
+ * Source</a> (certified by OSI since Feb. 2008).</dd>
  * <dt>2008-05-18</dt>
  * <dd>Released TRSL 0.2.1. This release contains minor updates only,
  *     see @ref version_history for a list of changes.
@@ -34,15 +38,16 @@
  *
  * TRSL is distributed under the <a
  * href="http://www.boost.org/LICENSE_1_0.txt" >Boost Software
- * License</a> (BSL). BSL is a GPL-compatible <a
- * href="http://www.fsf.org/licensing/licenses" >free software
- * license</a>, very similar to the BSD license and the MIT license;
- * see <a href="http://www.boost.org/more/license_info.html" >Boost
- * Software License Background</a>. BSL is currently being reviewed
- * for OSI approval, see the end of <a
- * href="http://groups.google.com/group/comp.lang.c++.moderated/browse_thread/thread/1963de1fba1e9cf8/643e5618c0f7574e"
- * >this thread</a>, and <a href="https://osi.osuosl.org/ticket/45"
- * >this ticket</a>.
+ * License</a> (BSL). BSL is a <a
+ * href="http://www.fsf.org/licensing/licenses" >GPL-compatible free-software</a> license,
+ * very similar to the BSD license and the MIT license; see <a
+ * href="http://www.boost.org/more/license_info.html" >Boost Software
+ * License Background</a>. BSL is also "<a
+ * href="http://www.opensource.org/docs/osd">Open
+ * Source</a>"; see <a
+ * href="http://www.opensource.org/licenses/bsl1.0.html" >Boost Software License 1.0</a>
+ * on the <a
+ * href="http://www.opensource.org/" >Open Source Initiative</a> website.
  *
  * @section index_services Source
  *
@@ -71,12 +76,6 @@
  * different compiler, <a
  * href="http://sourceforge.net/forum/?group_id=212585" >please
  * comment</a>!
- *
- * The source documentation is currently quite thin. Then again, me
- * being the only know user so far, I haven't felt the thrill to write
- * more :-). If there's anyone out there using TRSL, <a
- * href="http://sourceforge.net/forum/?group_id=212585" >please let me
- * know</a>!
  *
  * @section index_feedback Feedback
  *

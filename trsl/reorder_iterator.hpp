@@ -167,6 +167,15 @@ namespace trsl
           indexIterator.m_index_collection->end();
         return indexIterator;
       }
+    
+    /**
+     * @brief Returns the index of the element that the iterator is
+     * currently pointing to.
+     */
+    index_t index() const
+      {
+        return *this->base();
+      }
       
   private:
       
