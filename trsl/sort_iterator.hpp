@@ -50,8 +50,19 @@ namespace trsl
    * the population. If it is not the case, a bad_parameter_value is
    * thrown.
    *
-   * A comparator should be provided through @p comp, for example
-   * <tt>std::less<ElementType>()</tt> or <tt>std::greater<ElementType>()</tt>.
+   * A comparator is provided through @p comp. <tt>Comparator</tt>
+   * has to model <a
+   * href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html"
+   * >Strict Weak Ordering</a>.  In particular <a
+   * href="http://www.sgi.com/tech/stl/less.html"
+   * ><tt>std::less<ElementType>()</tt></a> and <a
+   * href="http://www.sgi.com/tech/stl/greater.html"
+   * ><tt>std::greater<ElementType>()</tt></a> will work, whereas <a
+   * href="http://www.sgi.com/tech/stl/less_equal.html"
+   * ><tt>std::less_equal<ElementType>()</tt></a> and <a
+   * href="http://www.sgi.com/tech/stl/greater_equal.html"
+   * ><tt>std::greater_equal<ElementType>()</tt></a> will
+   * <em>not</em>.
    *
    * @p ElementIterator should model <em>Random Access Iterator</em>.
    *
@@ -116,8 +127,19 @@ namespace trsl
    * sorted permutation of the population referenced by @p first and
    * @p last.
    *
-   * A comparator should be provided through @p comp, for example
-   * <tt>std::less<ElementType>()</tt> or <tt>std::greater<ElementType>()</tt>.
+   * A comparator is provided through @p comp. <tt>Comparator</tt>
+   * has to model <a
+   * href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html"
+   * >Strict Weak Ordering</a>.  In particular <a
+   * href="http://www.sgi.com/tech/stl/less.html"
+   * ><tt>std::less<ElementType>()</tt></a> and <a
+   * href="http://www.sgi.com/tech/stl/greater.html"
+   * ><tt>std::greater<ElementType>()</tt></a> can work, whereas <a
+   * href="http://www.sgi.com/tech/stl/less_equal.html"
+   * ><tt>std::less_equal<ElementType>()</tt></a> and <a
+   * href="http://www.sgi.com/tech/stl/greater_equal.html"
+   * ><tt>std::greater_equal<ElementType>()</tt></a> will
+   * <em>not</em>.
    *
    * @p ElementIterator should model <em>Random Access Iterator</em>.
    *
