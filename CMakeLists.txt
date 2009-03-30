@@ -1,6 +1,6 @@
 PROJECT(TemplateRangeSamplingLibrary)
 
-cmake_minimum_required(VERSION 2.4)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.4)
 
 SET(PROJECT_NAMESPACE trsl)
 SET(CMAKE_BUILD_TYPE RelWithDebInfo)

@@ -6,7 +6,7 @@
 /**
  * @defgroup version_history Version History
  *
- * @section version_history_v022 Version 0.2.2
+ * @section version_history_v022 Version 0.2.2 (not released yet, see svn)
  *
  * - Added <tt>index()</tt> to trsl::reorder_iterator.
  *

@@ -25,7 +25,7 @@ namespace trsl {
     /**
      * @brief Functor implementation.
      *
-     * @returns 1.
+     * @return 1.
      */ 
     WeightType operator()(ElementType const& e) const
       {
@@ -78,7 +78,7 @@ namespace trsl {
     /**
      * @brief Functor implementation.
      *
-     * @returns 1 if wptr_ is NULL, <tt>e.*wptr_()</tt> else.
+     * @return 1 if wptr_ is NULL, <tt>e.*wptr_()</tt> else.
      */ 
     WeightType operator()(ElementType const& e) const
       {
