@@ -7,9 +7,9 @@
 #include <cassert>
 #include <functional>
 
-#include "trsl/is_picked_systematic.hpp"
-#include "examples/Particle.hpp"
-#include "examples/ParticleCollection.hpp"
+#include <trsl/is_picked_systematic.hpp>
+#include <examples/Particle.hpp>
+#include <examples/ParticleCollection.hpp>
 
 int main()
 {

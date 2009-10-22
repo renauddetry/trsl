@@ -8,9 +8,9 @@
 #ifndef TRSL_IS_PICKED_SYSTEMATIC_HPP
 #define TRSL_IS_PICKED_SYSTEMATIC_HPP
 
-#include "trsl/common.hpp"
-#include "trsl/persistent_filter_iterator.hpp"
-#include "trsl/weight_accessor.hpp"
+#include <trsl/common.hpp>
+#include <trsl/persistent_filter_iterator.hpp>
+#include <trsl/weight_accessor.hpp>
 
 #include <algorithm>
 #include <functional>

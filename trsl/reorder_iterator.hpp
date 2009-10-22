@@ -13,8 +13,8 @@
 #ifndef TRSL_REORDER_ITERATOR_HPP
 #define TRSL_REORDER_ITERATOR_HPP
 
-#include "trsl/error_handling.hpp"
-#include "trsl/common.hpp"
+#include <trsl/error_handling.hpp>
+#include <trsl/common.hpp>
 
 #include <iterator>
 #include <vector>

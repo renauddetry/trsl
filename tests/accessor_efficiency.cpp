@@ -3,7 +3,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include "tests/common.hpp"
+#include <tests/common.hpp>
 using namespace trsl::test;
 #include <string>
 #include <cassert>

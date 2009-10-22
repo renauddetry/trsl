@@ -8,9 +8,9 @@
 #ifndef TRSL_SORT_ITERATOR_HPP
 #define TRSL_SORT_ITERATOR_HPP
 
-#include "trsl/reorder_iterator.hpp"
-#include "trsl/common.hpp"
-#include "trsl/error_handling.hpp"
+#include <trsl/reorder_iterator.hpp>
+#include <trsl/common.hpp>
+#include <trsl/error_handling.hpp>
 
 #include <functional>
 

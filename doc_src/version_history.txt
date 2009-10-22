@@ -12,6 +12,8 @@
  *
  * - Added <tt>index()</tt> to trsl::ppfilter_iterator.
  *
+ * - Changed "double quotes" include directives to use angle brackets instead.
+ *
  * @section version_history_v021 Version 0.2.1
  *
  * - Removed <tt>const</tt> on @p predicate_ in

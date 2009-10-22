@@ -9,8 +9,8 @@
 #define TRSL_PARTICLECOLLECTION_HPP
 
 #include <vector>
-#include "trsl/is_picked_systematic.hpp"
-#include "examples/Particle.hpp"
+#include <trsl/is_picked_systematic.hpp>
+#include <examples/Particle.hpp>
 
 namespace trsl {
   namespace example {

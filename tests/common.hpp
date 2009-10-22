@@ -8,8 +8,8 @@
 #ifndef TRSL_TEST_COMMON_HPP
 #define TRSL_TEST_COMMON_HPP
 
-#include "trsl/is_picked_systematic.hpp"
-#include "examples/Particle.hpp"
+#include <trsl/is_picked_systematic.hpp>
+#include <examples/Particle.hpp>
 
 #include <list>
 #include <vector>

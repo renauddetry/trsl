@@ -6,7 +6,7 @@
 //#define TRSL_USE_BSD_BETTER_RANDOM_GENERATOR
 //#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
 
-#include "tests/common.hpp"
+#include <tests/common.hpp>
 using namespace trsl::test;
 
 int main()

@@ -6,10 +6,10 @@
 //#define TRSL_USE_BSD_BETTER_RANDOM_GENERATOR
 //#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
 
-#include "trsl/sort_iterator.hpp"
-#include "trsl/is_picked_systematic.hpp"
-#include "trsl/random_permutation_iterator.hpp"
-#include "trsl/ppfilter_iterator.hpp"
+#include <trsl/sort_iterator.hpp>
+#include <trsl/is_picked_systematic.hpp>
+#include <trsl/random_permutation_iterator.hpp>
+#include <trsl/ppfilter_iterator.hpp>
 
 #include <boost/random/uniform_real.hpp>
 #include <boost/random/variate_generator.hpp>
