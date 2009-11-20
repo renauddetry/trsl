@@ -9,7 +9,6 @@
 #define TRSL_IS_PICKED_SYSTEMATIC_HPP
 
 #include <trsl/common.hpp>
-#include <trsl/persistent_filter_iterator.hpp>
 #include <trsl/weight_accessor.hpp>
 
 #include <algorithm>
@@ -27,7 +26,7 @@ namespace trsl {
    * @brief Functor to use with persistent_filter_iterator for
    * systematic sampling of a range.
    *
-   * The sampling method is systematic sampling, see [1, 2].
+   * The sampling method is systematic sampling [1, 2].
    *
    * This class is intended to be used as a predicate functor to
    * trsl::persistent_filter_iterator to form a <em>sample
@@ -36,11 +35,17 @@ namespace trsl {
    * (begin/end), and provides on-the-fly iteration through a sample
    * of the population.
    *
-   * Systematic sampling may perform very badly if the population
-   * sequence follows a pattern.  If a pattern is likely to occur in
-   * the population, the user may want to pipe the sample iterator
-   * <em>after</em> a trsl::random_permutation_iterator, or use is_picked_systematic
-   * with ppfilter_iterator.
+   * Systematic sampling may perform very badly if the order in which
+   * the input population is presented is following a pattern. If a
+   * pattern is likely to occur in the population, the user may want to
+   * pipe the sample iterator <em>after</em> a
+   * trsl::random_permutation_iterator, or use is_picked_systematic with
+   * ppfilter_iterator.  The resulting iterator effectively implements
+   * <em>probability sampling</em>.  The price to pay for probability
+   * sampling is a <em>Random Access Iterator</em>. While
+   * persistent_filter_iterator will work e.g. with <tt>std::list</tt>,
+   * ppfilter_iterator requires e.g. <tt>std::vector</tt> or
+   * <tt>std::deque</tt>.
    *
    * @param ElementType Type of the elements in the 
    * population. Constness and
@@ -195,7 +200,7 @@ namespace trsl {
 #else
         // This algorithm is a massaged version of the intuitive
         // algorithm.  Both algorithms are conceptually identical, but
-        // this version is faster in practice.
+        // this version is faster.
         assert(position_ >= 0);
         if (position_ < wac_(e))
         {
@@ -214,8 +219,11 @@ namespace trsl {
      * call of operator()(const ElementType&) was on @p e and returned true.
      * When is_picked_systematic is used with a presistent_filter_iterator @p i,
      * this assumption is always valid for @p *i as long as @p i is not the end.
+     *
+     * This method is awkward to use directly; it is meant to be called by
+     * trsl::is_first_pick.
      */
-    bool isFirstPick(const ElementType & e) const
+    bool is_first_pick(const ElementType & e) const
     {
       if (wac_(e) <= step_) return true;
 #ifdef TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
@@ -297,6 +305,24 @@ namespace trsl {
 #endif
   };
 
+  /**
+   * @brief Return whether @p *i has been picked already.
+   *
+   * This function calls <tt>i.predicate().is_first_pick(*i)</tt>.
+   *
+   * When sampling from a population, elements with a large weight may be selected several times.
+   * This function checks if the element pointed by @p *i has been selected already, e.g. at <tt>*(i-1)</tt>.
+   *
+   * @param Iterator Will typically be trsl::pp_filter_iterator or trsl::persitent_filter_iterator.
+   *
+   * @param i Instance of pp_filter_iterator or persitent_filter_iterator. Should not be the end.
+   */
+  template<class Iterator>
+  bool is_first_pick(const Iterator& i)
+  {
+    return i.predicate().is_first_pick(*i);
+  }
+  
 }
 
 #endif // include guard

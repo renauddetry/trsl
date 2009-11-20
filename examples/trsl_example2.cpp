@@ -107,6 +107,38 @@ int main()
   }
 
   {
+    //-------------------------------------------------------------------//
+    // Sample from the population (robust to patterns in the population) //
+    //-------------------------------------------------------------------//
+    
+    typedef trsl::is_picked_systematic<
+    float,
+    double,
+    std::pointer_to_unary_function<float, double>
+    > is_picked;
+    
+    typedef trsl::ppfilter_iterator
+    <is_picked, population_iterator> sample_iterator;
+    
+    is_picked predicate(SAMPLE_SIZE,
+                        std::accumulate(populationIteratorBegin,
+                                        populationIteratorEnd,
+                                        float(0)),
+                        std::ptr_fun(wac));
+    
+    sample_iterator sampleIteratorBegin(predicate,
+                                        populationIteratorBegin,
+                                        populationIteratorEnd);
+    sample_iterator sampleIteratorEnd = sampleIteratorBegin.end();
+    
+    std::cout << "Probabilistic sample of " << SAMPLE_SIZE << " elements:" << std::endl;
+    std::copy(sampleIteratorBegin,
+              sampleIteratorEnd,
+              std::ostream_iterator<float>(std::cout, " "));
+    std::cout << std::endl;
+  }
+  
+  {
     //-------------------------------------//
     // Get a permutation of the population //
     //-------------------------------------//
@@ -172,38 +204,6 @@ int main()
                 std::ostream_iterator<float>(std::cout, " "));
       std::cout << std::endl;
     }
-  }
-
-  {
-    //---------------------------------------------------//
-    // Get a sample from a permutation of the population //
-    //---------------------------------------------------//
-
-    typedef trsl::is_picked_systematic<
-      float,
-      double,
-      std::pointer_to_unary_function<float, double>
-      > is_picked;
-  
-    typedef trsl::ppfilter_iterator
-      <is_picked, population_iterator> sample_iterator;
-  
-    is_picked predicate(SAMPLE_SIZE,
-                        std::accumulate(populationIteratorBegin,
-                                        populationIteratorEnd,
-                                        float(0)),
-                        std::ptr_fun(wac));
-  
-    sample_iterator sampleIteratorBegin(predicate,
-                                        populationIteratorBegin,
-                                        populationIteratorEnd);
-    sample_iterator sampleIteratorEnd = sampleIteratorBegin.end();
-  
-    std::cout << "Probabilistic sample of " << SAMPLE_SIZE << " elements:" << std::endl;
-    std::copy(sampleIteratorBegin,
-              sampleIteratorEnd,
-              std::ostream_iterator<float>(std::cout, " "));
-    std::cout << std::endl;
   }
 
   return 0;

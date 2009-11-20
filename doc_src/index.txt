@@ -42,9 +42,8 @@
  * href="http://www.fsf.org/licensing/licenses" >GPL-compatible free-software</a> license,
  * very similar to the BSD license and the MIT license; see <a
  * href="http://www.boost.org/more/license_info.html" >Boost Software
- * License Background</a>. BSL is also "<a
- * href="http://www.opensource.org/docs/osd">Open
- * Source</a>"; see <a
+ * License Background</a>. BSL is also <a
+ * href="http://www.opensource.org/docs/osd">open-source</a>; see <a
  * href="http://www.opensource.org/licenses/bsl1.0.html" >Boost Software License 1.0</a>
  * on the <a
  * href="http://www.opensource.org/" >Open Source Initiative</a> website.
@@ -79,7 +78,7 @@
  *
  * @section index_feedback Feedback
  *
- * The preferred mean of communication is currently the Sourceforge <a
+ * The preferred method of communication is currently the Sourceforge <a
  * href="http://sourceforge.net/forum/?group_id=212585" >forums</a>
  * (anonymous posts allowed).
  *

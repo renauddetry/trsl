@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <trsl/is_picked_systematic.hpp>
+#include <trsl/ppfilter_iterator.hpp>
 #include <examples/Particle.hpp>
 
 namespace trsl {
@@ -24,10 +25,10 @@ namespace trsl {
       typedef trsl::is_picked_systematic<
         Particle> is_picked;
 
-      typedef trsl::persistent_filter_iterator<
+      typedef trsl::ppfilter_iterator<
         is_picked, std::vector<Particle>::iterator
       > sample_iterator;
-      typedef trsl::persistent_filter_iterator<
+      typedef trsl::ppfilter_iterator<
         is_picked, std::vector<Particle>::const_iterator
       > const_sample_iterator;
 

@@ -20,9 +20,17 @@
  * (begin/end), and provides on-the-fly iteration through a sample of
  * the population.
  *
- * The predicate trsl::is_picked_systematic can also be used with
- * trsl::ppfilter_iterator, effectively achieving
- * <em>probability sampling</em>.
+ * Systematic sampling may perform very badly if the order in which
+ * the input population is presented is following a pattern. If a
+ * pattern is likely to occur in the population, the user may want to
+ * pipe the sample iterator <em>after</em> a
+ * trsl::random_permutation_iterator, or use is_picked_systematic with
+ * ppfilter_iterator.  The resulting iterator effectively implements
+ * <em>probability sampling</em>.  The price to pay for probability
+ * sampling is a <em>Random Access Iterator</em>. While
+ * persistent_filter_iterator will work e.g. with <tt>std::list</tt>,
+ * ppfilter_iterator requires e.g. <tt>std::vector</tt> or
+ * <tt>std::deque</tt>.
  *
  * @sa @ref trsl_example1.cpp "trsl_example1.cpp" for a basic example.
  *

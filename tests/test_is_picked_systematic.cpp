@@ -267,9 +267,9 @@ int main()
         TRSL_TEST_FAILURE;
     }
 
-    //----------------------//
-    // Test 4b: isFirstPick //
-    //----------------------//
+    //------------------------//
+    // Test 4b: is_first_pick //
+    //------------------------//
     {
       ParticleArray sample;
       // Create the systemtatic sampling functor.
@@ -283,7 +283,7 @@ int main()
              previous = sb; si != se; previous = si++)
       {
         if ( (si != previous && si.base() == previous.base()) ==
-              si.predicate().isFirstPick(*si) )
+              is_first_pick(si) )
           TRSL_TEST_FAILURE;
       }
     }
