@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -8,16 +8,26 @@
  *
  * @section version_history_svn SVN (not released yet)
  *
- * - Added TRSL_VERSION_NR.
+ * - Changed trsl::is_picked_systematic template parameters.
+ *
+ * - trsl::mp_weight_accessor is not default-constructible anymore.
+ *
+ * - Added classes trsl::random_permutation_iterator and trsl::sort_iterator which effectively replace functions of the same names.
+ *
+ * - Added trsl::custom_permutation_iterator.
+ *
+ * - Moved TRSL_VERSION to trsl/version.hpp. Added TRSL_VERSION_NR in trsl/version.hpp.
  *
  * - Renamed trsl::is_picked_systematic::isFirstPick to
  *   trsl::is_picked_systematic::is_first_pick.
  *
  * - Added trsl::is_first_pick to avoid awkward statements like <tt>i.predicate().is_first_pick(*i)</tt>.
  *
- * - Added <tt>index()</tt> to trsl::reorder_iterator.
+ * - Modified trsl::reorder_iterator to support Forward Iterators.
  *
- * - Added <tt>index()</tt> to trsl::ppfilter_iterator.
+ * - Added <tt>src_index()</tt> and <tt>src_iterator()</tt> to trsl::reorder_iterator.
+ *
+ * - Added <tt>src_index()</tt> and <tt>src_iterator()</tt> to trsl::ppfilter_iterator.
  *
  * - Changed "double quotes" include directives to use angle brackets
      instead.
@@ -33,8 +43,7 @@
  *   encourage this policy, trsl::persistent_filter_iterator has been
  *   replace by trsl::ppfilter_iterator in the following examples:
  *   examples/trsl_example1.cpp, examples/trsl_example1plus.cpp,
- *   examples/ParticleCollection.cpp. Naturally, <tt>std::list</tt> had to be replaced
- *   with <tt>std::vector</tt> in examples/trsl_example1.cpp.
+ *   examples/ParticleCollection.cpp.
  *
  * - Enhanced documentation.
  *

@@ -1,10 +1,11 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #include <trsl/random_permutation_iterator.hpp>
 #include <tests/common.hpp>
+
 using namespace trsl::test;
 
 int main()
@@ -25,7 +26,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::reorder_iterator
+    typedef trsl::random_permutation_iterator
       <ParticleArray::const_iterator> permutation_iterator;
 
     //-----------------------//
@@ -42,8 +43,7 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = trsl::random_permutation_iterator
-        (const_pop.begin(), const_pop.end());
+      permutation_iterator sb(const_pop.begin(), const_pop.end());
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
       {
@@ -61,8 +61,7 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = trsl::random_permutation_iterator
-        (const_pop.begin(), const_pop.end(), SAMPLE_SIZE);
+      permutation_iterator sb(const_pop.begin(), const_pop.end(), SAMPLE_SIZE);
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
       {
@@ -80,8 +79,7 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = trsl::random_permutation_iterator
-        (const_pop.begin(), const_pop.end());
+      permutation_iterator sb(const_pop.begin(), const_pop.end());
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
       {
@@ -92,12 +90,14 @@ int main()
         TRSL_TEST_FAILURE;
         std::cout << TRSL_NVP(sample.size()) << "\n" << TRSL_NVP(POPULATION_SIZE) << std::endl;
       }
+      ParticleArray::iterator iter = sample.begin();
       for (unsigned i = 0; i < POPULATION_SIZE; i++)
       {
-        if (! (*(sb + i) == sample.at(i)) )
+        if (! (*(sb + i) == *iter) )
         {
           TRSL_TEST_FAILURE;
         }
+        iter++;
       }
     }
     
@@ -112,7 +112,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::reorder_iterator
+    typedef trsl::random_permutation_iterator
       <ParticleArray::iterator> permutation_iterator;
 
     //-----------------------//
@@ -134,10 +134,9 @@ int main()
       //clock_t start = clock();
       for (unsigned round = 0; round < N_ROUNDS; round++)
       {        
-        permutation_iterator sb =
-          trsl::random_permutation_iterator(population.begin(),
-                                            population.end(),
-                                            SAMPLE_SIZE);
+        permutation_iterator sb(population.begin(),
+                                population.end(),
+                                SAMPLE_SIZE);
         permutation_iterator se = sb.end();
         for (permutation_iterator si = sb; si != se; ++si)
         {
@@ -178,6 +177,20 @@ int main()
         std::cout << TRSL_NVP(div) << std::endl;
     }
   }
-
+  // ---------------------------------------------------- //
+  // Test 3: types -------------------------------------- //
+  // ---------------------------------------------------- //
+  {
+    // Test conversion to const
+    trsl::random_permutation_iterator
+    <int const *> i1 = trsl::random_permutation_iterator
+    <int*>();
+    
+    // Test that begin/end are the same iterator type.
+    // (Also tests empty range.)
+    if (std::distance(i1.begin(), i1.end()) +
+        std::distance(i1, i1.end()) != 0)
+      TRSL_TEST_FAILURE;
+  }
   return 0;
 }

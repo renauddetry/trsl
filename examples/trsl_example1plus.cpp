@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -39,10 +39,9 @@ int main()
   //-- population contains 100 elements. --//
 
   for (ParticleCollection::const_sample_iterator
-         si = population.sample_begin(SAMPLE_SIZE),
-         sb = si,
-         se = population.sample_end();
-       si != se; ++si)
+         sb = population.sample_begin(SAMPLE_SIZE),
+         si = sb;
+       si != si.end(); ++si)
   {
     std::cout << "sample_" << std::distance(sb, si) << "'s weight = " <<
       si->getWeight() << std::endl;

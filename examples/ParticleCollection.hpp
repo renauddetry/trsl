@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -9,8 +9,7 @@
 #define TRSL_PARTICLECOLLECTION_HPP
 
 #include <vector>
-#include <trsl/is_picked_systematic.hpp>
-#include <trsl/ppfilter_iterator.hpp>
+#include <trsl/systematic_sample_iterator.hpp>
 #include <examples/Particle.hpp>
 
 namespace trsl {
@@ -22,14 +21,13 @@ namespace trsl {
     class ParticleCollection
     {
     public:
-      typedef trsl::is_picked_systematic<
-        Particle> is_picked;
-
-      typedef trsl::ppfilter_iterator<
-        is_picked, std::vector<Particle>::iterator
+      typedef trsl::systematic_sample_iterator<
+        std::vector<Particle>::iterator,
+        trsl::mp_weight_accessor<double, Particle>
       > sample_iterator;
-      typedef trsl::ppfilter_iterator<
-        is_picked, std::vector<Particle>::const_iterator
+      typedef trsl::systematic_sample_iterator<
+        std::vector<Particle>::const_iterator,
+        trsl::mp_weight_accessor<double, Particle>
       > const_sample_iterator;
 
       ParticleCollection(): totalWeight_(0) {}
@@ -44,35 +42,16 @@ namespace trsl {
   
       sample_iterator sample_begin(size_t sampleSize)
         {
-          is_picked predicate(sampleSize, totalWeight_, &Particle::getWeight);
-          return sample_iterator(predicate, particles_.begin(), particles_.end());
-        }
-
-      sample_iterator sample_end()
-        {
-          // For an end of range filter_iterator, the predicate operator()
-          // will never be called. We can put anything for sampleSize and
-          // populationWeight.  A "random" number should be provided, to
-          // avoid a useless call to random().
-          is_picked predicate(1, 1, 0, &Particle::getWeight);
-          return sample_iterator(predicate, particles_.end(), particles_.end());
+          return sample_iterator(particles_.begin(), particles_.end(),
+                                 sampleSize, totalWeight_, &Particle::getWeight);
         }
 
       const_sample_iterator sample_begin(size_t sampleSize) const
         {
-          is_picked predicate(sampleSize, totalWeight_, &Particle::getWeight);
-          return const_sample_iterator(predicate, particles_.begin(), particles_.end());
+          return const_sample_iterator(particles_.begin(), particles_.end(),
+                                       sampleSize, totalWeight_, &Particle::getWeight);
         }
 
-      const_sample_iterator sample_end() const
-        {
-          // For an end of range filter_iterator, the predicate operator()
-          // will never be called. We can put anything for sampleSize and
-          // populationWeight.  A "random" number should be provided, to
-          // avoid a useless call to random().
-          is_picked predicate(1, 1, 0, &Particle::getWeight);
-          return const_sample_iterator(predicate, particles_.end(), particles_.end());
-        }
     private:
       std::vector<Particle> particles_;
       double totalWeight_;

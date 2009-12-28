@@ -1,10 +1,11 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #include <trsl/random_permutation_iterator.hpp>
 #include <tests/common.hpp>
+
 using namespace trsl::test;
 
 class HeavyPickCountParticle : public PickCountParticle
@@ -41,7 +42,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::reorder_iterator
+    typedef trsl::random_permutation_iterator
       <ParticleArray::iterator> permutation_iterator;
 
     //-----------------------//
@@ -59,9 +60,8 @@ int main()
       clock_t start = clock();
       for (unsigned round = 0; round < N_ROUNDS; round++)
       {        
-        permutation_iterator sb =
-          trsl::random_permutation_iterator(population.begin(),
-                                            population.end());
+        permutation_iterator sb(population.begin(),
+                                population.end());
         permutation_iterator se = sb.end();
         for (permutation_iterator si = sb; si != se; ++si)
         {
@@ -78,11 +78,6 @@ int main()
   // ---------------------------------------------------- //
   {
     
-    // Type definitions, once and for all.
-
-    typedef trsl::reorder_iterator
-      <ParticleArray::iterator> permutation_iterator;
-
     //-----------------------//
     // Generate a population //
     //-----------------------//

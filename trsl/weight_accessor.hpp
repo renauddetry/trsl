@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -19,14 +19,15 @@ namespace trsl {
    * This accessor is of type <em>functor</em>, see @ref accessor for
    * more details.
    */
-  template<typename WeightType, typename ElementType>
-  struct weight_accessor
+  template<typename WeightType>
+  struct unit_weight_accessor
   {
     /**
      * @brief Functor implementation.
      *
      * @return 1.
-     */ 
+     */
+    template<typename ElementType>
     WeightType operator()(ElementType const& e) const
       {
         return 1;
@@ -44,16 +45,7 @@ namespace trsl {
    * (ElementType::*)() const</tt>.
    *
    * This class is very similar to
-   * <tt>std::const_mem_fun_ref_t</tt>. The only two differences are
-   * <ul><li>mp_weight_accessor provides a default constructor that
-   * initializes the method pointer to NULL;</li>
-   * <li>mp_weight_accessor checks if the method pointer is NULL
-   * before dereferencing it.</li></ul> These differences allow
-   * mp_weight_accessor to be used as a default type for
-   * is_picked_systematic weight accessor, since a default-value
-   * initialization won't imply segfault. However, access is a bit
-   * slower because of the extra check for a non-NULL pointer.  If the
-   * pointer is NULL, <tt>operator()</tt> returns 1.
+   * <tt>std::const_mem_fun_ref_t</tt>. The only difference is in its constructor which doesn't have to be explicit.
    *
    * See @ref accessor for more details.
    */
@@ -72,18 +64,16 @@ namespace trsl {
      * will return 1 all the time.
      *
      */
-    mp_weight_accessor(WeightAccessorMethodPointer wptr = NULL) :
+    mp_weight_accessor(WeightAccessorMethodPointer wptr) :
       wptr_(wptr) {}
     
     /**
      * @brief Functor implementation.
      *
-     * @return 1 if wptr_ is NULL, <tt>e.*wptr_()</tt> else.
+     * @return <tt>e.*wptr_()</tt>.
      */ 
     WeightType operator()(ElementType const& e) const
       {
-        if (wptr_ == NULL)
-          return 1;
         return (e.*wptr_)();
       }
   private:

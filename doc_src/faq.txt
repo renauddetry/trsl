@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -17,4 +17,14 @@
  * contiguously, and if you can get a pointer to the first element,
  * you have iterators already. See @ref trsl_example2.cpp "trsl_example2.cpp"
  * for an example with a C array.
+ *
+ * @section faq_thread safe Is TRSL thread-safe?
+ *
+ * TRSL is thread-safe in the sense that it doesn't make use of static or global
+ * variables. One can thus use TRSL in multithreaded programs, as long as
+ * no two threads try to modify the same iterator object at the same time.
+ *
+ * An important point though is that the random number generators provided by the <tt>C++</tt>
+ * standard library are in general not thread-safe. When using TRSL in a multi-thread program,
+ * one should thus provide thread-local random numbers and random generators to TRSL routines.
  */
