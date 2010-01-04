@@ -95,11 +95,11 @@
  * 
  * @section accessor_discussion Discussion
  * 
- * I had the impression that GCC was able to &ldquo;inline fuction
- * pointers&rdquo;. Performance tests on accessors (see
- * <tt>tests/accessor_efficiency.cpp</tt>) tend to negate this
+ * I had the impression that GCC was able to inline fuctions
+ * from pointers. Performance tests on accessors (see
+ * <tt>tests/accessor_efficiency.cpp</tt>) tend to contradict this
  * impression. With <tt>-03</tt> optimization, the functor accessor is
  * twice as fast as other accessors. Please comment if you know more
- * about this!
+ * about this.
  * 
  */
