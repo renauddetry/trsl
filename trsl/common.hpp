@@ -16,17 +16,7 @@ namespace trsl {
   
   /** @brief Implementation details. */
   namespace detail {
-    
-    class identity
-    {
-    public:
-      template<typename T>
-      T operator() (const T& t)
-        {
-          return t;
-        }
-    };
-    
+        
     template<typename RandomAccessIterator, typename RandomNumberGenerator>
     void partial_random_shuffle(RandomAccessIterator first,
                                 RandomAccessIterator middle,
@@ -43,6 +33,22 @@ namespace trsl {
     }
     
   }
+  
+  /**
+   * @brief Identity operator().
+   *
+   * This class implements a template operator() such that its instances
+   * can be used as functors which return a const reference to their argument.
+   */
+  class identity
+  {
+  public:
+    template<typename T>
+    const T& operator() (const T& t)
+    {
+      return t;
+    }
+  };
   
   /** @brief Random number wrapper functions. */
   namespace rand_gen {

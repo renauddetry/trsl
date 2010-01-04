@@ -114,31 +114,31 @@ namespace trsl
                            boost::optional<unsigned> permutationSize,
                            RandomNumberGenerator& rng)
     {            
-      position_container_ptr index_collection(new position_container);
+      position_container_ptr position_collection(new position_container);
       
       detail::fill_index_container<ElementIterator, position_container, position_t>
-      (*index_collection, first, last, order_tag());
+      (*position_collection, first, last, order_tag());
 
       if (permutationSize)
       {
-        size_t size = index_collection->size();
+        size_t size = position_collection->size();
         if (*permutationSize > size)
           throw bad_parameter_value("random_permutation_iterator: "
                                     "parameter permutationSize out of range.");
-        detail::partial_random_shuffle(index_collection->begin(),
-                                       index_collection->begin()+*permutationSize,
-                                       index_collection->end(),
+        detail::partial_random_shuffle(position_collection->begin(),
+                                       position_collection->begin()+*permutationSize,
+                                       position_collection->end(),
                                        rng);
-        index_collection->resize(*permutationSize);
+        position_collection->resize(*permutationSize);
       }
       else
       {
-        std::random_shuffle(index_collection->begin(),
-                            index_collection->end(),
+        std::random_shuffle(position_collection->begin(),
+                            position_collection->end(),
                             rng);
       }
 
-      return index_collection;
+      return position_collection;
     }
   };
   

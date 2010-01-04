@@ -15,6 +15,26 @@
 namespace trsl
 {
 
+  /**
+   * @brief Provides an iterator over a custom permutation of a range.
+   *
+   * This class inherits from reorder_iterator. It adds a constructor
+   * which takes as arguments (1) an iterator pointing to an input
+   * range and (2) an array of <i>positions</i> (see reorder_iterator)
+   * defining a permutation of the input range. The elements returned
+   * by custom_permutation_iterator are ordered as defined by the
+   * array of positions. See reorder_iterator for more details on how
+   * this iterator works.
+   *
+   * Template type parameters @p ElementIterator and @p OrderTag are
+   * described in reorder_iterator.
+   *
+   * custom_permutation_iterator inherits methods from
+   * reorder_iterator (begin(), end(), src_index(), src_iterator()).
+   * See reorder_iterator for a description of these methods.
+   *
+   * Helper functions: trsl::make_custom_permutation_iterator.
+   */
   template
   <
     class ElementIterator,
@@ -49,27 +69,25 @@ namespace trsl
     custom_permutation_iterator() {}
     
     /**
-     * @brief Constructs a reorder_iterator that will iterate through a
-     * random subset of size @p permutationSize of a random permutation
-     * of the population referenced by @p first and @p last.
+     * @brief Constructs a custom_permutation_iterator that will
+     * iterate through a permutation of the range referenced by @p
+     * first, following the order defined by @p position_collection.
      *
-     * The @p permutationSize should be smaller or equal to the
-     * size of the population. If it is not the case, a bad_parameter_value
-     * is thrown.
+     * @param first Iterator pointing to the first element of the
+     * input range. It must be of type @p ElementIterator.
      *
-     * Performing a random permutation requires a series of random
-     * integers, these are provided by rand_gen::uniform_int; see @ref
-     * random for further details.
-     *
-     * Creating such a reorder_iterator and iterating through it is
-     * generally much faster than re-ordering the population itself (or
-     * a copy thereof), especially when elements are large, have a
-     * complex copy-constructor, or a tall class hierarchy.
+     * @param position_collection Collection of <i>positions</i>. This
+     * is currently a  <tt>boost::shared_ptr< std::vector< position_t >
+     * ></tt>, where @p position_t depends on @p OrderTag.  If @p OrderTag is
+     * @p iterator_order_tag, then @p position_t is @p ElementIterator. If
+     * @p OrderTag is @p index_order_tag, then @p position_t is @p size_t. By
+     * default, @p OrderTag is @p index_order_tag if and only if
+     * @p ElementIterator models Random Access Iterator.
      */
     custom_permutation_iterator(ElementIterator first,
-                                const position_container_ptr& index_collection) :
+                                const position_container_ptr& position_collection) :
       super_t(first,
-              index_collection) {}
+              position_collection) {}
 
     template<class OtherElementIterator>
     custom_permutation_iterator
@@ -78,24 +96,28 @@ namespace trsl
     super_t(r) {}    
   };
   
+  /**
+   * @brief Helper function for creating a custom_permutation_iterator.
+   *
+   * See @p trsl::custom_permutation_iterator for a description
+   * of @p first and @p position_collection arguments.
+   *
+   * Iterators created with this function have default order type (see
+   * OrderType in reorder_iterator). If one wishes to select a
+   * non-default order type, custom_permutation_iterator must be used
+   * explicitly.
+   */
   template
   <
-    class ElementIterator,
-    class OrderTag
+    class ElementIterator
   >
-  custom_permutation_iterator<ElementIterator, OrderTag>
+  custom_permutation_iterator<ElementIterator>
   make_custom_permutation_iterator
   (ElementIterator first,
-   const typename reorder_iterator
-   <
-     ElementIterator,
-     OrderTag,
-     custom_permutation_iterator<ElementIterator, OrderTag>
-   >::position_container_ptr & index_collection,
-   OrderTag orderTag = typename default_order_tag<ElementIterator>::type())
+   const typename custom_permutation_iterator<ElementIterator>::position_container_ptr & position_collection)
   {
-    return custom_permutation_iterator<ElementIterator, OrderTag>
-    (first, index_collection);
+    return custom_permutation_iterator<ElementIterator>
+    (first, position_collection);
   }
   
 } // namespace trsl

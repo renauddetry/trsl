@@ -43,6 +43,21 @@ namespace trsl
   
   }
 
+  /**
+   * @brief Provides an iterator over a sorted permutation of a range.
+   *
+   * This class inherits from reorder_iterator. It adds constructors
+   * which compute a sorted permutation of the input range.
+   *
+   * Template type parameters @p ElementIterator and @p OrderTag are
+   * described in reorder_iterator.
+   *
+   * sort_iterator inherits methods from
+   * reorder_iterator (begin(), end(), src_index(), src_iterator()).
+   * See reorder_iterator for a description of these methods.
+   *
+   * Helper functions: trsl::make_sort_iterator.
+   */
   template
   <
     class ElementIterator,
@@ -80,30 +95,16 @@ namespace trsl
     sort_iterator() {}
     
     /**
-     * @brief Constructs a reorder_iterator that will iterate through a
-     * sorted permutation of the population referenced by @p first and
-     * @p last.
+     * @brief Constructs an iterator that will iterate through a
+     * sorted (increasing order) permutation of the population
+     * referenced by @p first and @p last.
      *
-     * A comparator is provided through @p comp. <tt>Comparator</tt>
-     * has to model <a
-     * href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html"
-     * >Strict Weak Ordering</a>.  In particular <a
-     * href="http://www.sgi.com/tech/stl/less.html"
-     * ><tt>std::less<ElementType>()</tt></a> and <a
-     * href="http://www.sgi.com/tech/stl/greater.html"
-     * ><tt>std::greater<ElementType>()</tt></a> can work, whereas <a
-     * href="http://www.sgi.com/tech/stl/less_equal.html"
-     * ><tt>std::less_equal<ElementType>()</tt></a> and <a
-     * href="http://www.sgi.com/tech/stl/greater_equal.html"
-     * ><tt>std::greater_equal<ElementType>()</tt></a> will
-     * <em>not</em>.
-     *
-     * @p ElementIterator should model <em>Random Access Iterator</em>.
-     *
-     * Creating such a reorder_iterator and iterating through it is
-     * generally much faster than re-ordering the population itself (or
-     * a copy thereof), especially when elements are large, have a
-     * complex copy-constructor, or a tall class hierarchy.
+     * The @p permutationSize should be smaller or equal to the size
+     * of the population. It can also be set to trsl::same_size, which
+     * will sort all elements between @p first and @p last. If @p
+     * permutationSize is neither an integer smaller or equal to the
+     * size of the input range, nor trsl::same_size, a
+     * bad_parameter_value is thrown.
      */
     sort_iterator(ElementIterator first,
                   ElementIterator last,
@@ -135,11 +136,6 @@ namespace trsl
      * href="http://www.sgi.com/tech/stl/greater_equal.html"
      * ><tt>std::greater_equal<ElementType>()</tt></a> will
      * <em>not</em>.
-     *
-     * Creating such a reorder_iterator and iterating through it is
-     * generally much faster than re-ordering the population itself (or
-     * a copy thereof), especially when elements are large, have a
-     * complex copy-constructor, or a tall class hierarchy.
      */
     template<class ElementComparator>
     sort_iterator(ElementIterator first,
@@ -163,37 +159,48 @@ namespace trsl
                            boost::optional<unsigned> permutationSize,
                            ElementComparator comp)
       {            
-        position_container_ptr index_collection(new position_container);
+        position_container_ptr position_collection(new position_container);
       
         detail::fill_index_container
         <ElementIterator, position_container, position_t>
-          (*index_collection, first, last, order_tag());
+          (*position_collection, first, last, order_tag());
             
         if (permutationSize)
         {
-          size_t size = index_collection->size();
+          size_t size = position_collection->size();
           if (*permutationSize > size)
             throw bad_parameter_value("sort_iterator: "
                                       "parameter permutationSize out of range.");
-          std::partial_sort(index_collection->begin(),
-                            index_collection->begin()+*permutationSize,
-                            index_collection->end(),
+          std::partial_sort(position_collection->begin(),
+                            position_collection->begin()+*permutationSize,
+                            position_collection->end(),
                             detail::at_index_comp
                             <ElementIterator, ElementComparator>(first, comp));
-          index_collection->resize(*permutationSize);
+          position_collection->resize(*permutationSize);
         }
         else
         {
-          std::sort(index_collection->begin(),
-                    index_collection->end(),
+          std::sort(position_collection->begin(),
+                    position_collection->end(),
                     detail::at_index_comp
                     <ElementIterator, ElementComparator>(first, comp));
         }
       
-        return index_collection;
+        return position_collection;
       }
   };
 
+  /**
+   * @brief Helper function for creating a sort_iterator.
+   *
+   * See @p trsl::sort_iterator for a description
+   * of arguments.
+   *
+   * Iterators created with this function have default order type (see
+   * OrderType in reorder_iterator). If one wishes to select a
+   * non-default order type, sort_iterator must be used
+   * explicitly.
+   */
   template<class ElementIterator>
   sort_iterator<ElementIterator>
   make_sort_iterator
@@ -205,6 +212,17 @@ namespace trsl
     (first, last, permutationSize);
   }
 
+  /**
+   * @brief Helper function for creating a sort_iterator.
+   *
+   * See @p trsl::sort_iterator for a description
+   * of arguments.
+   *
+   * Iterators created with this function have default order type (see
+   * OrderType in reorder_iterator). If one wishes to select a
+   * non-default order type, sort_iterator must be used
+   * explicitly.
+   */
   template<class ElementIterator, class ElementComparator>
   sort_iterator<ElementIterator>
   make_sort_iterator

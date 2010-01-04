@@ -140,7 +140,9 @@ namespace trsl
    * for common reorderings. See random_permutation_iterator,
    * sort_iterator, custom_permutation_iterator.
    *
-   * @p ElementIterator should model <em>Forward Iterator</em>.
+   * @param ElementIterator (template parameter) Corresponds to the type of the iterator through which input elements are referenced to 
+   * custom_permutation_iterator::custom_permutation_iterator().
+   * It should model <em>Forward Iterator</em>.
    */
   template
   <
@@ -194,13 +196,13 @@ namespace trsl
     /**
      * @brief Constructs an iterator that will walk through the elements
      * of the range that begins at @p first, follwing the order defined
-     * by @p index_collection.
+     * by @p position_collection.
      */
     explicit reorder_iterator(ElementIterator first,
-                              const position_container_ptr& index_collection) :
-      super_t(index_collection->begin()),
+                              const position_container_ptr& position_collection) :
+      super_t(position_collection->begin()),
       m_elt_iter(first),
-      m_index_collection(index_collection)
+      m_index_collection(position_collection)
     {}
     
     /**
