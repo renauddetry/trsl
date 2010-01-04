@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -18,6 +18,7 @@
 #include <limits>
 #include <cassert>
 #include <boost/static_assert.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 
 /** @brief Public namespace. */
 namespace trsl {
@@ -70,18 +71,18 @@ namespace trsl {
    * algorithms for particle filters. In Nonlinear Statistical Signal
    * Processing Workshop, 2006.
    */
-  template<
-    typename ElementType,
-    typename WeightType = double,
-    typename WeightAccessor = mp_weight_accessor<WeightType, ElementType>
-  > class is_picked_systematic
+  template
+  <
+    typename WeightAccessor,
+    typename WeightType = double
+  >
+  class is_picked_systematic
   {
   private:
-    BOOST_STATIC_ASSERT((std::numeric_limits<WeightType>::is_integer == false));
+    BOOST_STATIC_ASSERT((boost::is_floating_point<WeightType>::value));
   public:
-    typedef ElementType element_type;
-    typedef WeightType weight_type;
-    typedef WeightAccessor weight_accessor_type;
+    typedef WeightType weight_t;
+    typedef WeightAccessor weight_accessor;
     
     /**
      * @brief Default constructor, shoud not be used explicitely.
@@ -178,6 +179,7 @@ namespace trsl {
      * Part of the requirements for persistent_filter_iterator
      * predicates.
      */
+    template<class ElementType>
     bool operator()(const ElementType & e)
       {
         if (sampleSize_ == 0) return false;
@@ -223,6 +225,7 @@ namespace trsl {
      * This method is awkward to use directly; it is meant to be called by
      * trsl::is_first_pick.
      */
+    template<class ElementType>
     bool is_first_pick(const ElementType & e) const
     {
       if (wac_(e) <= step_) return true;
@@ -240,7 +243,7 @@ namespace trsl {
      * Part of the requirements for persistent_filter_iterator
      * predicates.
      */
-    bool operator== (const is_picked_systematic<ElementType, WeightType, WeightAccessor> &p) const
+    bool operator== (const is_picked_systematic<WeightAccessor, WeightType> &p) const
       {
         if (sampleSize_ != p.sampleSize_ ||
             populationWeight_ != p.populationWeight_) return false;

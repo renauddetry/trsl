@@ -1,14 +1,13 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-//#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
-#include <trsl/is_picked_systematic.hpp>
-#include <trsl/ppfilter_iterator.hpp>
+#include <trsl/systematic_sample_iterator.hpp>
 #include <examples/Particle.hpp>
 
 #include <vector>
+#include <list>
 #include <iostream>
 #include <numeric> // accumulate
 #include <cassert>
@@ -17,11 +16,12 @@
 
 using namespace trsl::example;
 
-typedef trsl::is_picked_systematic<Particle> is_picked;
-
-typedef trsl::ppfilter_iterator<
-  is_picked, std::vector<Particle>::const_iterator
-> sample_iterator;
+typedef trsl::systematic_sample_iterator
+<
+  std::list<Particle>::const_iterator,
+  trsl::mp_weight_accessor<double, Particle>
+>
+sample_iterator;
 
 int main()
 {
@@ -32,7 +32,7 @@ int main()
   // Generate a population //
   //-----------------------//
   
-  std::vector<Particle> population;
+  std::list<Particle> population;
   double totalWeight = 0;
   for (size_t i = 0; i < POPULATION_SIZE; ++i)
   {
@@ -43,26 +43,24 @@ int main()
     population.push_back(p);
   }
   // Normalize total weight.
-  for (std::vector<Particle>::iterator i = population.begin();
+  for (std::list<Particle>::iterator i = population.begin();
        i != population.end(); ++i)
     i->setWeight(i->getWeight()/totalWeight);
   
-  std::vector<Particle> const& const_pop = population;
+  std::list<Particle> const& const_pop = population;
   
   //----------------------------//
   // Sample from the population //
   //----------------------------//
   
-  std::vector<Particle> sample;
-  // Create the systemtatic sampling functor.
-  is_picked predicate(SAMPLE_SIZE, 1.0, &Particle::getWeight);
+  std::list<Particle> sample;
 
   std::cout << "Mean weight: " << 1.0/POPULATION_SIZE << std::endl;
   for (sample_iterator
-         sb = sample_iterator(predicate, const_pop.begin(), const_pop.end()),
-         si = sb,
-         se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
-       si != se; ++si)
+         sb = sample_iterator(const_pop.begin(), const_pop.end(),
+                              SAMPLE_SIZE, 1.0, &Particle::getWeight),
+         si = sb;
+       si != si.end(); ++si)
   {
     std::cout << "sample_" << std::distance(sb, si) << "'s weight = " <<
       si->getWeight() << std::endl;

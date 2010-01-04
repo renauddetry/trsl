@@ -1,10 +1,11 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #include <trsl/sort_iterator.hpp>
 #include <tests/common.hpp>
+
 using namespace trsl::test;
 
 class ParticleXComparator
@@ -33,10 +34,10 @@ int main()
     const size_t SAMPLE_SIZE = 1000;
     
     // Type definitions, once and for all.
-
-    typedef trsl::reorder_iterator
+    
+    typedef trsl::sort_iterator
       <ParticleArray::const_iterator> permutation_iterator;
-
+    
     //-----------------------//
     // Generate a population //
     //-----------------------//
@@ -51,8 +52,10 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = trsl::sort_iterator
-        (const_pop.begin(), const_pop.end(), std::less<PickCountParticle>());
+      permutation_iterator sb(const_pop.begin(),
+                              const_pop.end(),
+                              trsl::same_size,
+                              std::less<PickCountParticle>());
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
       {
@@ -78,8 +81,10 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = trsl::sort_iterator
-        (const_pop.begin(), const_pop.end(), std::less<PickCountParticle>(), SAMPLE_SIZE);
+      permutation_iterator sb(const_pop.begin(),
+                              const_pop.end(),
+                              SAMPLE_SIZE,
+                              std::less<PickCountParticle>());
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
       {
@@ -105,8 +110,7 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = trsl::sort_iterator
-        (const_pop.begin(), const_pop.end());
+      permutation_iterator sb(const_pop.begin(), const_pop.end());
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
       {
@@ -131,8 +135,10 @@ int main()
     {
       ParticleArray sample;
       
-      permutation_iterator sb = trsl::sort_iterator
-        (const_pop.begin(), const_pop.end(), ParticleXComparator());
+      permutation_iterator sb(const_pop.begin(),
+                              const_pop.end(),
+                              trsl::same_size,
+                              ParticleXComparator());
       for (permutation_iterator si = sb,
              se = sb.end(); si != se; ++si)
       {
@@ -154,7 +160,20 @@ int main()
     }
     
   }
-  
+  // ---------------------------------------------------- //
+  // Test 2: types -------------------------------------- //
+  // ---------------------------------------------------- //
+  {
+    // Test conversion to const
+    trsl::sort_iterator
+    <int const *> i1 = trsl::sort_iterator
+    <int*>();
 
+    // Test that begin/end are the same iterator type.
+    // (Also tests empty range.)
+    if (std::distance(i1.begin(), i1.end()) +
+        std::distance(i1, i1.end()) != 0)
+      TRSL_TEST_FAILURE;
+  }
   return 0;
 }

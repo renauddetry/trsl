@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -11,7 +11,7 @@
 #include <trsl/reorder_iterator.hpp>
 #include <trsl/common.hpp>
 #include <trsl/error_handling.hpp>
-
+#include <boost/optional.hpp>
 #include <functional>
 
 namespace trsl
@@ -19,174 +19,222 @@ namespace trsl
 
   namespace detail {
   
-    template<
+    template
+    <
       class RandomIterator,
       class Comparator
-      > class at_index_comp
-      {
-      public:
-      
-        at_index_comp(const RandomIterator &first, const Comparator &comp) :
-          elements_(first), comp_(comp)
-          {}
-      
-        bool operator() (unsigned i, unsigned j)
-          {
-            return comp_(*(elements_+i), *(elements_+j));
-          }
-      
-        RandomIterator elements_;
-        Comparator comp_;
-      };
-  
-  }
-
-  /**
-   * @brief Constructs a reorder_iterator that will iterate through
-   * the first @p permutationSize elements of a sorted permutation of
-   * the population referenced by @p first and @p last.
-   *
-   * The @p permutationSize should be smaller or equal to the size of
-   * the population. If it is not the case, a bad_parameter_value is
-   * thrown.
-   *
-   * A comparator is provided through @p comp. <tt>Comparator</tt>
-   * has to model <a
-   * href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html"
-   * >Strict Weak Ordering</a>.  In particular <a
-   * href="http://www.sgi.com/tech/stl/less.html"
-   * ><tt>std::less<ElementType>()</tt></a> and <a
-   * href="http://www.sgi.com/tech/stl/greater.html"
-   * ><tt>std::greater<ElementType>()</tt></a> will work, whereas <a
-   * href="http://www.sgi.com/tech/stl/less_equal.html"
-   * ><tt>std::less_equal<ElementType>()</tt></a> and <a
-   * href="http://www.sgi.com/tech/stl/greater_equal.html"
-   * ><tt>std::greater_equal<ElementType>()</tt></a> will
-   * <em>not</em>.
-   *
-   * @p ElementIterator should model <em>Random Access Iterator</em>.
-   *
-   * Creating such a reorder_iterator and iterating through it is
-   * generally much faster than re-ordering the population itself (or
-   * a copy thereof), especially when elements are large, have a
-   * complex copy-constructor, or a tall class hierarchy.
-   */
-  template<class ElementIterator, class ElementComparator>
-  reorder_iterator<ElementIterator>
-  sort_iterator(ElementIterator first,
-                ElementIterator last,
-                ElementComparator comp,
-                unsigned permutationSize)
-  {
-    ptrdiff_t size = std::distance(first, last);
-    if (size < 0)
-      throw bad_parameter_value(
-        "sort_iterator: "
-        "bad input range.");
-    if (permutationSize > unsigned(size))
-      throw bad_parameter_value(
-        "sort_iterator: "
-        "parameter permutationSize out of range.");
-        
-    typedef
-      typename reorder_iterator<ElementIterator>::index_container
-      index_container;
-    typedef
-      typename reorder_iterator<ElementIterator>::index_container_ptr
-      index_container_ptr;
-    typedef
-      typename reorder_iterator<ElementIterator>::index_t
-      index_t;
-  
-    index_container_ptr index_collection(new index_container);
-        
-    index_collection->resize(size);
-    for (index_t i = 0; i < index_t(size); ++i)
-      (*index_collection)[i] = i;
-    
-    if (permutationSize == unsigned(size))
-      std::sort(index_collection->begin(),
-                index_collection->end(),
-                detail::at_index_comp
-                <ElementIterator, ElementComparator>(first, comp));
-    else
+    >
+    class at_index_comp
     {
-      std::partial_sort(index_collection->begin(),
-                        index_collection->begin()+permutationSize,
-                        index_collection->end(),
-                        detail::at_index_comp
-                        <ElementIterator, ElementComparator>(first, comp));
-      index_collection->resize(permutationSize);
-    }
-    
-    return reorder_iterator<ElementIterator>(first, index_collection);
+    public:
+      
+      at_index_comp(const RandomIterator &first, const Comparator &comp) :
+        elements_(first), comp_(comp)
+        {}
+      
+      bool operator() (unsigned i, unsigned j)
+        {
+          return comp_(*(elements_+i), *(elements_+j));
+        }
+      
+      RandomIterator elements_;
+      Comparator comp_;
+    };
+  
   }
 
   /**
-   * @brief Constructs a reorder_iterator that will iterate through a
-   * sorted permutation of the population referenced by @p first and
-   * @p last.
+   * @brief Provides an iterator over a sorted permutation of a range.
    *
-   * A comparator is provided through @p comp. <tt>Comparator</tt>
-   * has to model <a
-   * href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html"
-   * >Strict Weak Ordering</a>.  In particular <a
-   * href="http://www.sgi.com/tech/stl/less.html"
-   * ><tt>std::less<ElementType>()</tt></a> and <a
-   * href="http://www.sgi.com/tech/stl/greater.html"
-   * ><tt>std::greater<ElementType>()</tt></a> can work, whereas <a
-   * href="http://www.sgi.com/tech/stl/less_equal.html"
-   * ><tt>std::less_equal<ElementType>()</tt></a> and <a
-   * href="http://www.sgi.com/tech/stl/greater_equal.html"
-   * ><tt>std::greater_equal<ElementType>()</tt></a> will
-   * <em>not</em>.
+   * This class inherits from reorder_iterator. It adds constructors
+   * which compute a sorted permutation of the input range.
    *
-   * @p ElementIterator should model <em>Random Access Iterator</em>.
+   * Template type parameters @p ElementIterator and @p OrderTag are
+   * described in reorder_iterator.
    *
-   * Creating such a reorder_iterator and iterating through it is
-   * generally much faster than re-ordering the population itself (or
-   * a copy thereof), especially when elements are large, have a
-   * complex copy-constructor, or a tall class hierarchy.
+   * sort_iterator inherits methods from
+   * reorder_iterator (begin(), end(), src_index(), src_iterator()).
+   * See reorder_iterator for a description of these methods.
+   *
+   * Helper functions: trsl::make_sort_iterator.
    */
-  template<class ElementIterator, class ElementComparator>
-  reorder_iterator<ElementIterator>
-  sort_iterator(ElementIterator first,
-                ElementIterator last,
-                ElementComparator comp)
+  template
+  <
+    class ElementIterator,
+    class OrderTag = typename default_order_tag<ElementIterator>::type
+  >
+  class sort_iterator :
+    public reorder_iterator
+    <
+      ElementIterator,
+      OrderTag,
+      sort_iterator<ElementIterator, OrderTag>
+    >
   {
-    return sort_iterator(first,
-                         last,
-                         comp,
-                         std::distance(first, last));
-  }
+    typedef 
+    reorder_iterator
+    <
+      ElementIterator,
+      OrderTag,
+      sort_iterator<ElementIterator, OrderTag>
+    >
+    super_t;
+    
+    typedef typename super_t::position_container position_container;
+    typedef typename super_t::position_container_ptr position_container_ptr;
+    
+  public:
+    
+    typedef ElementIterator element_iterator;
+    typedef OrderTag order_tag;
+    typedef typename super_t::index_t index_t;
+    typedef typename super_t::position_t position_t;
+    
+    typedef typename std::iterator_traits<ElementIterator>::value_type element_t;
+    
+    sort_iterator() {}
+    
+    /**
+     * @brief Constructs an iterator that will iterate through a
+     * sorted (increasing order) permutation of the population
+     * referenced by @p first and @p last.
+     *
+     * The @p permutationSize should be smaller or equal to the size
+     * of the population. It can also be set to trsl::same_size, which
+     * will sort all elements between @p first and @p last. If @p
+     * permutationSize is neither an integer smaller or equal to the
+     * size of the input range, nor trsl::same_size, a
+     * bad_parameter_value is thrown.
+     */
+    sort_iterator(ElementIterator first,
+                  ElementIterator last,
+                  boost::optional<unsigned> permutationSize = same_size) :
+      super_t(first,
+              new_position_container(first, last,
+                                     permutationSize,
+                                     std::less<element_t>())) {}
+
+    /**
+     * @brief Constructs a reorder_iterator that will iterate through
+     * the first @p permutationSize elements of a sorted permutation of
+     * the population referenced by @p first and @p last.
+     *
+     * The @p permutationSize should be smaller or equal to the size of
+     * the population. If it is not the case, a bad_parameter_value is
+     * thrown.
+     *
+     * A comparator is provided through @p comp. <tt>Comparator</tt>
+     * has to model <a
+     * href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html"
+     * >Strict Weak Ordering</a>.  In particular <a
+     * href="http://www.sgi.com/tech/stl/less.html"
+     * ><tt>std::less<ElementType>()</tt></a> and <a
+     * href="http://www.sgi.com/tech/stl/greater.html"
+     * ><tt>std::greater<ElementType>()</tt></a> will work, whereas <a
+     * href="http://www.sgi.com/tech/stl/less_equal.html"
+     * ><tt>std::less_equal<ElementType>()</tt></a> and <a
+     * href="http://www.sgi.com/tech/stl/greater_equal.html"
+     * ><tt>std::greater_equal<ElementType>()</tt></a> will
+     * <em>not</em>.
+     */
+    template<class ElementComparator>
+    sort_iterator(ElementIterator first,
+                  ElementIterator last,
+                  boost::optional<unsigned> permutationSize,
+                  ElementComparator comp) :
+      super_t(first,
+              new_position_container(first, last, permutationSize, comp)) {}
+    
+    template<class OtherElementIterator>
+    sort_iterator
+    (sort_iterator<OtherElementIterator, OrderTag> const& r,
+     typename boost::enable_if_convertible<OtherElementIterator, ElementIterator>::type* = 0) :
+    super_t(r) {}
+
+  protected:
+    template<class ElementComparator>
+    static position_container_ptr
+    new_position_container(ElementIterator first,
+                           ElementIterator last,
+                           boost::optional<unsigned> permutationSize,
+                           ElementComparator comp)
+      {            
+        position_container_ptr position_collection(new position_container);
+      
+        detail::fill_index_container
+        <ElementIterator, position_container, position_t>
+          (*position_collection, first, last, order_tag());
+            
+        if (permutationSize)
+        {
+          size_t size = position_collection->size();
+          if (*permutationSize > size)
+            throw bad_parameter_value("sort_iterator: "
+                                      "parameter permutationSize out of range.");
+          std::partial_sort(position_collection->begin(),
+                            position_collection->begin()+*permutationSize,
+                            position_collection->end(),
+                            detail::at_index_comp
+                            <ElementIterator, ElementComparator>(first, comp));
+          position_collection->resize(*permutationSize);
+        }
+        else
+        {
+          std::sort(position_collection->begin(),
+                    position_collection->end(),
+                    detail::at_index_comp
+                    <ElementIterator, ElementComparator>(first, comp));
+        }
+      
+        return position_collection;
+      }
+  };
 
   /**
-   * @brief Constructs a reorder_iterator that will iterate through a
-   * sorted permutation of the population referenced by @p first and
-   * @p last.
+   * @brief Helper function for creating a sort_iterator.
    *
-   * The population is sorted using <tt>std::less<>()</tt>, i.e. in
-   * ascending order.
+   * See @p trsl::sort_iterator for a description
+   * of arguments.
    *
-   * @p ElementIterator should model <em>Random Access Iterator</em>.
-   *
-   * Creating such a reorder_iterator and iterating through it is
-   * generally much faster than re-ordering the population itself (or
-   * a copy thereof), especially when elements are large, have a
-   * complex copy-constructor, or a tall class hierarchy.
+   * Iterators created with this function have default order type (see
+   * OrderType in reorder_iterator). If one wishes to select a
+   * non-default order type, sort_iterator must be used
+   * explicitly.
    */
   template<class ElementIterator>
-  reorder_iterator<ElementIterator>
-  sort_iterator(ElementIterator first,
-                ElementIterator last)
+  sort_iterator<ElementIterator>
+  make_sort_iterator
+  (ElementIterator first,
+   ElementIterator last,
+   boost::optional<unsigned> permutationSize)
   {
-    return sort_iterator(first,
-                         last,
-                         std::less
-                         <typename std::iterator_traits
-                         <ElementIterator>::value_type>());
+    return sort_iterator<ElementIterator>
+    (first, last, permutationSize);
   }
 
+  /**
+   * @brief Helper function for creating a sort_iterator.
+   *
+   * See @p trsl::sort_iterator for a description
+   * of arguments.
+   *
+   * Iterators created with this function have default order type (see
+   * OrderType in reorder_iterator). If one wishes to select a
+   * non-default order type, sort_iterator must be used
+   * explicitly.
+   */
+  template<class ElementIterator, class ElementComparator>
+  sort_iterator<ElementIterator>
+  make_sort_iterator
+  (ElementIterator first,
+   ElementIterator last,
+   boost::optional<unsigned> permutationSize,
+   ElementComparator comp)
+  {
+    return sort_iterator<ElementIterator>
+    (first, last, permutationSize, comp);
+  }
+  
 } // namespace trsl
 
 #endif // include guard

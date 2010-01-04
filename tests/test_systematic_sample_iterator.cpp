@@ -7,8 +7,12 @@
 //#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
 
 #include <tests/common.hpp>
-#include <trsl/is_picked_systematic.hpp>
-#include <trsl/persistent_filter_iterator.hpp>
+#include <trsl/systematic_sample_iterator.hpp>
+#include <trsl/stl_list.hpp>
+#include <trsl/stl_vector.hpp>
+#include <trsl/stl_deque.hpp>
+#include <trsl/stl_set.hpp>
+#include <trsl/stl_multiset.hpp>
 
 using namespace trsl::test;
 
@@ -30,12 +34,12 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::is_picked_systematic<
+    typedef trsl::systematic_sample_iterator
+    <
+      ParticleArray::const_iterator,
       trsl::mp_weight_accessor<double, PickCountParticle>
-    > is_picked;
-
-    typedef trsl::persistent_filter_iterator
-      <is_picked, ParticleArray::const_iterator> sample_iterator;
+    >
+    sample_iterator;
 
     //-----------------------//
     // Generate a population //
@@ -50,13 +54,11 @@ int main()
     //------------------------------//
     {
       ParticleArray sample;
-      // Create the systemtatic sampling functor.
-      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
       
-      sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
-      sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
+      sample_iterator si(const_pop.begin(), const_pop.end(),
+                         SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
       clock_t start = clock();
-      for (sample_iterator si = sb; si != se; ++si)
+      for (; si != si.end(); ++si)
       {
         sample.push_back(*si);
       }
@@ -64,7 +66,8 @@ int main()
       if (! (sample.size() == SAMPLE_SIZE) )
       {
         TRSL_TEST_FAILURE;
-        std::cout << TRSL_NVP(sample.size()) << "\n" << TRSL_NVP(SAMPLE_SIZE) << std::endl;
+        std::cout << TRSL_NVP(sample.size()) << "\n" << TRSL_NVP(SAMPLE_SIZE)
+          << std::endl;
       }
     }
     
@@ -74,11 +77,19 @@ int main()
     {
       ParticleArray sample;
       // Create the systemtatic sampling functor.
-      is_picked predicate1(SAMPLE_SIZE, 1.0, .3, &PickCountParticle::getWeight);
-      is_picked predicate2(SAMPLE_SIZE, 1.0, .3, &PickCountParticle::getWeight);
+
+      boost::mt19937 rng((unsigned)random_seed);
+      // Use a *copy* of rng
+      boost::variate_generator<boost::mt19937, boost::uniform_int<> >
+        uniform_int1(rng, boost::uniform_int<>()),
+        uniform_int2(rng, boost::uniform_int<>());
       
-      if ( !(&*sample_iterator(predicate1, const_pop.begin(), const_pop.end()) ==
-             &*sample_iterator(predicate2, const_pop.begin(), const_pop.end())) )
+      if ( !(&*sample_iterator(const_pop.begin(), const_pop.end(),
+                               SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight,
+                               uniform_int1, .3) ==
+             &*sample_iterator(const_pop.begin(), const_pop.end(),
+                               SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight,
+                               uniform_int2, .3)) )
       {
         TRSL_TEST_FAILURE;
       }
@@ -95,12 +106,12 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::is_picked_systematic<
+    typedef trsl::systematic_sample_iterator
+    <
+      std::vector<PickCountParticle>::iterator,
       trsl::mp_weight_accessor<double, PickCountParticle>
-    > is_picked;
-    
-    typedef trsl::persistent_filter_iterator
-      <is_picked, std::vector<PickCountParticle>::iterator> sample_iterator;
+    >
+    sample_iterator;
 
     //-----------------------//
     // Generate a population //
@@ -119,21 +130,20 @@ int main()
       unsigned pickCount = 0;
       
       boost::mt19937 rng((unsigned)random_seed);
-      boost::uniform_real<> uniform_01;
+      boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
+        uniform_int(rng, boost::uniform_int<>());
+      boost::variate_generator<boost::mt19937&, boost::uniform_real<> >
+        uniform_01(rng, boost::uniform_real<>());
       
       clock_t start = clock();
       for (unsigned round = 0; round < N_ROUNDS; round++)
-      {
-        // Create the systemtatic sampling functor.
-        is_picked predicate(SAMPLE_SIZE, 1.0, uniform_01(rng), &PickCountParticle::getWeight);
-        
-        sample_iterator sb = sample_iterator(predicate,
-                                             population.begin(),
-                                             population.end());
-        sample_iterator se = sample_iterator(predicate,
-                                             population.end(),
-                                             population.end());
-        for (sample_iterator si = sb; si != se; ++si)
+      {        
+        for (sample_iterator si(population.begin(), population.end(),
+                                SAMPLE_SIZE, 1.0,
+                                &PickCountParticle::getWeight,
+                                uniform_int,
+                                uniform_01());
+             si != si.end(); ++si)
         {
           si->pick();
           pickCount++;
@@ -182,13 +192,13 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::is_picked_systematic<
+    typedef trsl::systematic_sample_iterator
+    <
+      ParticleArray::const_iterator,
       trsl::mp_weight_accessor<double, PickCountParticle>
-    > is_picked;
+    >
+    sample_iterator;
     
-    typedef trsl::persistent_filter_iterator
-      <is_picked, ParticleArray::const_iterator> sample_iterator;
-
     //-----------------------//
     // Generate a population //
     //-----------------------//
@@ -202,12 +212,11 @@ int main()
     //------------------------------//
     {
       ParticleArray sample;
-      // Create the systemtatic sampling functor.
-      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
       
-      sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
-      sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
-      if (sb != se)
+      sample_iterator sb =
+        sample_iterator(const_pop.begin(), const_pop.end(),
+                        SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+      if (sb != sb.end())
       {
         TRSL_TEST_FAILURE;
       }
@@ -223,13 +232,13 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::is_picked_systematic<
+    typedef trsl::systematic_sample_iterator
+    <
+      ParticleArray::const_iterator,
       trsl::mp_weight_accessor<double, PickCountParticle>
-    > is_picked;
+    >
+    sample_iterator;
     
-    typedef trsl::persistent_filter_iterator
-      <is_picked, ParticleArray::const_iterator> sample_iterator;
-
     //-----------------------//
     // Generate a population //
     //-----------------------//
@@ -243,11 +252,11 @@ int main()
     //----------------------------//
     {
       ParticleArray sample;
-      // Create the systemtatic sampling functor.
-      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
       
-      sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
-      sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
+      sample_iterator sb =
+        sample_iterator(const_pop.begin(), const_pop.end(),
+                        SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+      sample_iterator se = sb.end();
       sample_iterator sp = sb;
       
       if (sb == se)
@@ -265,12 +274,12 @@ int main()
         if (&*si == &*sp)
         {
           duplicates++;
-          if (si.base() != sp.base())
+          if (si.base().base() != sp.base().base())
             TRSL_TEST_FAILURE;
         }
         else
         {
-          if (si.base() == sp.base())
+          if (si.base().base() == sp.base().base())
             TRSL_TEST_FAILURE;
         }
         
@@ -285,22 +294,36 @@ int main()
     //------------------------//
     {
       ParticleArray sample;
-      // Create the systemtatic sampling functor.
-      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
       
-      sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
+      sample_iterator sb =
+        sample_iterator(const_pop.begin(), const_pop.end(),
+                        SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
       sample_iterator previous = sb;
-      sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
+      sample_iterator se = sb.end();
       for (sample_iterator
              si = sb,
              previous = sb; si != se; previous = si++)
       {
-        if ( (si != previous && si.base() == previous.base()) ==
+        if ( (si != previous && si.base().base() == previous.base().base()) ==
               is_first_pick(si) )
           TRSL_TEST_FAILURE;
       }
     }
   }
-
+  // ---------------------------------------------------- //
+  // Test 5: types -------------------------------------- //
+  // ---------------------------------------------------- //
+  {
+    // Test conversion to const
+    trsl::systematic_sample_iterator
+    <int const *, trsl::unit_weight_accessor<double> > i1 = trsl::systematic_sample_iterator
+    <int*, trsl::unit_weight_accessor<double> >();
+    
+    // Test that begin/end are the same iterator type.
+    // (Also tests empty range.)
+    if (std::distance(i1.begin(), i1.end()) +
+        std::distance(i1, i1.end()) != 0)
+      TRSL_TEST_FAILURE;
+  }
   return 0;
 }

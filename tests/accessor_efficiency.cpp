@@ -1,12 +1,16 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #include <tests/common.hpp>
-using namespace trsl::test;
+#include <trsl/is_picked_systematic.hpp>
+#include <trsl/persistent_filter_iterator.hpp>
 #include <string>
 #include <cassert>
+#include <boost/typeof/typeof.hpp>
+
+using namespace trsl::test;
 
 static const size_t NB_ROUNDS = 100000;
 static const size_t POPULATION_SIZE = 1000;
@@ -18,11 +22,7 @@ template<typename WeightAccessor>
 void trsl_loop(WeightAccessor acc,
                const std::string msg)
 {
-  typedef trsl::is_picked_systematic<
-    PickCountParticle,
-    double,
-    WeightAccessor
-    > is_picked;
+  typedef trsl::is_picked_systematic<WeightAccessor> is_picked;
 
   typedef trsl::persistent_filter_iterator
     <is_picked, std::vector<PickCountParticle>::const_iterator> sample_iterator;
@@ -178,6 +178,6 @@ int main()
   std::cout << "drop_in_call" << std::endl;
     
   drop_in_call();
-    
+  
   return 0;
 }

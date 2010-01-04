@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2008.
+// (C) Copyright Renaud Detry   2007-2009.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -6,8 +6,21 @@
 /**
  * @defgroup todo To Do List
  *
- * <!--@section todo_short_term Short Term-->
+ * @section todo_short_term Short Term
+ *
+ * - Create make_systematic_sample_iterator tests
+ *
+ * - Rethink iterator names
+ *
+ * - Document time complexity
+ *
+ * - Register classes for BOOST_AUTO
+ *
+ * - Allow passing a RandomNumberGenerator to the constructor of
+ * trsl::random_permutation_iterator.
  * 
+ * - Sample permutation in ppfilter_iterator_prototype.
+ *
  * @section todo_long_term Long Term
  * 
  * - Add debug stubs. One good thing to check for would be that
@@ -20,11 +33,7 @@
  * - Add a module for boost::filter_iterator explanation
  * (e.g. interoperability, constness, etc...).
  *
- * - Allow passing a RandomNumberGenerator to the constructor of
- * trsl::random_permutation_iterator.
- *
  * - Write an importance_sample_iterator.
- *
  *
  * @section todo_open_questions Open Questions
  * 
