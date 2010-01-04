@@ -94,9 +94,9 @@
  * Iterators (begin/end), and provides on-the-fly iteration through a
  * sample of the population.
  *
- * Let us assume a particle filter implementation, in which we find a
+ * Let us assume a particle filter implementation, which manages a
  * population of particles (<tt>struct Particle { weight; x; y;
- * }</tt>) in a container <tt>ParticleCollection</tt>. The following
+ * }</tt>) stored in a container <tt>ParticleCollection</tt>. The following
  * bit of code shows an example of how to iterate through a sample of
  * the population after having implemented
  * <tt>ParticleCollection::sample_begin(size_t)</tt> and
