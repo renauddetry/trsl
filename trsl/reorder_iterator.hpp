@@ -1,7 +1,7 @@
 // (C) Copyright Toon Knapen    2001.
 // (C) Copyright David Abrahams 2003.
 // (C) Copyright Roland Richter 2003.
-// (C) Copyright Renaud Detry   2007-2009.
+// (C) Copyright Renaud Detry   2007-2010.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -48,8 +48,8 @@ namespace trsl
     
   namespace detail
   {
-    /** @brief Used internally. */
     
+    /** @brief Used internally. */
     template<class ElementIterator, class OrderTag, class DerivedType>
     struct reorder_iterator_base
     {      
@@ -77,6 +77,7 @@ namespace trsl
       type;
     };
     
+    /** @brief Used internally. */
     template<class ElementIterator, class IndexContainer, class IndexType>
     void
     fill_index_container(IndexContainer& collection,
@@ -89,6 +90,7 @@ namespace trsl
         collection[i] = i;
     }
     
+    /** @brief Used internally. */
     template<class ElementIterator, class IndexContainer, class IndexType>
     void
     fill_index_container(IndexContainer& collection,
@@ -206,12 +208,11 @@ namespace trsl
     {}
     
     /**
-     * @brief Allows conversion from a reorder_iterator to
-     * a const reorder_iterator, won't allow conversion
-     * from a const reorder_iterator to a
-     * reorder_iterator.
+     * @brief Allows conversion from an iterator to
+     * a const iterator, won't allow conversion
+     * from a const iterator to an iterator.
      *
-     * By &ldquo;const reorder_iterator&rdquo;, we mean that the @p
+     * By &ldquo;const iterator&rdquo;, we mean that the @p
      * ElementIterator is const, e.g.
      * <tt>std::vector<Particle>::const_iterator</tt>.
      */
@@ -234,7 +235,7 @@ namespace trsl
       {}
     
     /**
-     * @brief Returns a reorder_iterator pointing to
+     * @brief Returns an iterator pointing to
      * the begining of the permutation.
      */
     DerivedType begin() const
@@ -246,7 +247,7 @@ namespace trsl
     }
     
     /**
-     * @brief Returns a reorder_iterator pointing to
+     * @brief Returns an iterator pointing to
      * the end of the permutation.
      */
     DerivedType end() const
@@ -261,7 +262,7 @@ namespace trsl
      * @brief Returns the index of the element in the input population that the iterator is
      * currently pointing to.
      *
-     * If ElementIterator is not random access, then this function complexity is linear in the number of elements in the input range.
+     * If ElementIterator is not random access, then the complexity of this function is linear in the number of elements in the input range.
      */
     index_t src_index() const
     {
@@ -269,7 +270,7 @@ namespace trsl
     }
     
     /**
-     * @brief Returns an ElementIterator pointing to the element the reorder_iterator is
+     * @brief Returns an ElementIterator pointing to the element the iterator is
      * currently pointing to.
      */
     ElementIterator src_iterator() const

@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2009.
+// (C) Copyright Renaud Detry   2007-2010.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -19,6 +19,7 @@ namespace trsl
 
   namespace detail {
   
+    /** @brief Used internally. */
     template
     <
       class RandomIterator,
@@ -47,7 +48,7 @@ namespace trsl
    * @brief Provides an iterator over a sorted permutation of a range.
    *
    * This class inherits from reorder_iterator. It adds constructors
-   * which compute a sorted permutation of the input range.
+   * which compute a sorted permutation of an input range.
    *
    * Template type parameters @p ElementIterator and @p OrderTag are
    * described in reorder_iterator.
@@ -101,7 +102,7 @@ namespace trsl
      *
      * The @p permutationSize should be smaller or equal to the size
      * of the population. It can also be set to trsl::same_size, which
-     * will sort all elements between @p first and @p last. If @p
+     * will sort <i>all</i> elements between @p first and @p last. If @p
      * permutationSize is neither an integer smaller or equal to the
      * size of the input range, nor trsl::same_size, a
      * bad_parameter_value is thrown.
@@ -115,13 +116,16 @@ namespace trsl
                                      std::less<element_t>())) {}
 
     /**
-     * @brief Constructs a reorder_iterator that will iterate through
-     * the first @p permutationSize elements of a sorted permutation of
-     * the population referenced by @p first and @p last.
+     * @brief Constructs an iterator that will iterate through a
+     * sorted (custom order) permutation of the population
+     * referenced by @p first and @p last.
      *
-     * The @p permutationSize should be smaller or equal to the size of
-     * the population. If it is not the case, a bad_parameter_value is
-     * thrown.
+     * The @p permutationSize should be smaller or equal to the size
+     * of the population. It can also be set to trsl::same_size, which
+     * will sort <i>all</i> elements between @p first and @p last. If @p
+     * permutationSize is neither an integer smaller or equal to the
+     * size of the input range, nor trsl::same_size, a
+     * bad_parameter_value is thrown.
      *
      * A comparator is provided through @p comp. <tt>Comparator</tt>
      * has to model <a

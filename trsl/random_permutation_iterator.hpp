@@ -1,4 +1,4 @@
-// (C) Copyright Renaud Detry   2007-2009.
+// (C) Copyright Renaud Detry   2007-2010.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,21 @@
 namespace trsl
 {
 
+  /**
+   * @brief Provides an iterator over a random permutation of a range.
+   *
+   * This class inherits from reorder_iterator. It adds constructors
+   * which compute a random permutation of an input range.
+   *
+   * Template type parameters @p ElementIterator and @p OrderTag are
+   * described in reorder_iterator.
+   *
+   * random_permutation_iterator inherits methods from
+   * reorder_iterator (begin(), end(), src_index(), src_iterator()).
+   * See reorder_iterator for a description of these methods.
+   *
+   * Helper functions: trsl::make_random_permutation_iterator.
+   */
   template
   <
     class ElementIterator,
@@ -49,22 +64,20 @@ namespace trsl
     random_permutation_iterator() {}
     
     /**
-     * @brief Constructs a reorder_iterator that will iterate through a
+     * @brief Constructs an iterator that will iterate through a
      * random subset of size @p permutationSize of a random permutation
      * of the population referenced by @p first and @p last.
      *
-     * The @p permutationSize should be smaller or equal to the
-     * size of the population. If it is not the case, a bad_parameter_value
-     * is thrown.
+     * The @p permutationSize should be smaller or equal to the size
+     * of the population. It can also be set to trsl::same_size, which
+     * will shuffle <i>all</i> elements between @p first and @p last. If @p
+     * permutationSize is neither an integer smaller or equal to the
+     * size of the input range, nor trsl::same_size, a
+     * bad_parameter_value is thrown.
      *
      * Performing a random permutation requires a series of random
-     * integers, these are provided by rand_gen::uniform_int; see @ref
+     * integers. With this constructor, these are provided by rand_gen::uniform_int; see @ref
      * random for further details.
-     *
-     * Creating such a reorder_iterator and iterating through it is
-     * generally much faster than re-ordering the population itself (or
-     * a copy thereof), especially when elements are large, have a
-     * complex copy-constructor, or a tall class hierarchy.
      */
     random_permutation_iterator(ElementIterator first,
                                 ElementIterator last,
@@ -75,22 +88,20 @@ namespace trsl
                                      rand_gen::uniform_int)) {}
 
     /**
-     * @brief Constructs a reorder_iterator that will iterate through a
+     * @brief Constructs an iterator that will iterate through a
      * random subset of size @p permutationSize of a random permutation
      * of the population referenced by @p first and @p last.
      *
-     * The @p permutationSize should be smaller or equal to the
-     * size of the population. If it is not the case, a bad_parameter_value
-     * is thrown.
+     * The @p permutationSize should be smaller or equal to the size
+     * of the population. It can also be set to trsl::same_size, which
+     * will shuffle <i>all</i> elements between @p first and @p last. If @p
+     * permutationSize is neither an integer smaller or equal to the
+     * size of the input range, nor trsl::same_size, a
+     * bad_parameter_value is thrown.
      *
      * Performing a random permutation requires a series of random
-     * integers, these are provided by rand_gen::uniform_int; see @ref
-     * random for further details.
-     *
-     * Creating such a reorder_iterator and iterating through it is
-     * generally much faster than re-ordering the population itself (or
-     * a copy thereof), especially when elements are large, have a
-     * complex copy-constructor, or a tall class hierarchy.
+     * integers. These are provided by @p rng, which must be such that rng(N) is
+     * a valid expression that returns a random number in <tt>[0, N-1]</tt>.
      */
     template<class RandomNumberGenerator>
     random_permutation_iterator(ElementIterator first,
@@ -142,6 +153,17 @@ namespace trsl
     }
   };
   
+  /**
+   * @brief Helper function for creating a random_permutation_iterator.
+   *
+   * See @p trsl::random_permutation_iterator for a description
+   * of arguments.
+   *
+   * Iterators created with this function have default order type (see
+   * OrderType in reorder_iterator). If one wishes to select a
+   * non-default order type, random_permutation_iterator must be used
+   * explicitly.
+   */
   template<class ElementIterator>
   random_permutation_iterator<ElementIterator>
   make_random_permutation_iterator
@@ -153,6 +175,17 @@ namespace trsl
     (first, last, permutationSize);
   }
 
+  /**
+   * @brief Helper function for creating a random_permutation_iterator.
+   *
+   * See @p trsl::random_permutation_iterator for a description
+   * of arguments.
+   *
+   * Iterators created with this function have default order type (see
+   * OrderType in reorder_iterator). If one wishes to select a
+   * non-default order type, random_permutation_iterator must be used
+   * explicitly.
+   */
   template<class ElementIterator, class RandomNumberGenerator>
   random_permutation_iterator<ElementIterator>
   make_random_permutation_iterator

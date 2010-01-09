@@ -4,7 +4,7 @@
 for c in [ "deque", "list", "vector",
            "set", "multiset" ]:
   f = open("trsl/stl_%s.hpp" % c.lower(), 'w')
-  f.write("""// (C) Copyright Renaud Detry   2008-2009.
+  f.write("""// (C) Copyright Renaud Detry   2008-2010.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
