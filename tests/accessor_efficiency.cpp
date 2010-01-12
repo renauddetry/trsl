@@ -151,7 +151,7 @@ int main()
 
   trsl_loop
     <std::const_mem_fun_ref_t<double, Particle> >
-    (std::mem_fun_ref(&Particle::getWeight), "mp_weight_accessor");
+    (std::mem_fun_ref(&Particle::getWeight), "const_mem_fun_ref_t");
 
   std::cout << "stl_loop:" << std::endl;
 
@@ -173,7 +173,7 @@ int main()
 
   stl_loop
   <std::const_mem_fun_ref_t<double, Particle> >
-    (std::mem_fun_ref(&Particle::getWeight), "mp_weight_accessor");
+    (std::mem_fun_ref(&Particle::getWeight), "const_mem_fun_ref_t");
 
   std::cout << "drop_in_call" << std::endl;
     

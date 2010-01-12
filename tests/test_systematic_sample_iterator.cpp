@@ -322,8 +322,8 @@ int main()
   {
     // Test conversion to const
     trsl::systematic_sample_iterator
-    <int const *, trsl::unit_weight_accessor<double> > i1 = trsl::systematic_sample_iterator
-    <int*, trsl::unit_weight_accessor<double> >();
+    <int const *, trsl::unit_weight_accessor<> > i1 = trsl::systematic_sample_iterator
+    <int*, trsl::unit_weight_accessor<> >();
     
     // Test that begin/end are the same iterator type.
     // (Also tests empty range.)

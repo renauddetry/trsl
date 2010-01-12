@@ -176,7 +176,7 @@ namespace trsl
   systematic_sample_iterator
   <
     typename Container::iterator,
-    unit_weight_accessor<double>,
+    unit_weight_accessor<>,
     double
   >
   make_systematic_sample_iterator
@@ -187,7 +187,7 @@ namespace trsl
     systematic_sample_iterator
     <
       typename Container::iterator,
-      unit_weight_accessor<double>,
+      unit_weight_accessor<>,
       double
     >
     (c, sampleSize);
@@ -198,7 +198,7 @@ namespace trsl
   systematic_sample_iterator
   <
     typename Container::const_iterator,
-    unit_weight_accessor<double>,
+    unit_weight_accessor<>,
     double
   >
   make_systematic_sample_iterator
@@ -209,7 +209,7 @@ namespace trsl
     systematic_sample_iterator
     <
       typename Container::const_iterator,
-      unit_weight_accessor<double>,
+      unit_weight_accessor<>,
       double
     >
     (c, sampleSize);
@@ -220,7 +220,7 @@ namespace trsl
   systematic_sample_iterator
   <
     typename Container::iterator,
-    unit_weight_accessor<double>,
+    unit_weight_accessor<>,
     double
   >
   make_systematic_sample_iterator
@@ -233,7 +233,7 @@ namespace trsl
     systematic_sample_iterator
     <
       typename Container::iterator,
-      unit_weight_accessor<double>,
+      unit_weight_accessor<>,
       double
     >
     (c, sampleSize, rng, uniform01);
@@ -244,7 +244,7 @@ namespace trsl
   systematic_sample_iterator
   <
     typename Container::const_iterator,
-    unit_weight_accessor<double>,
+    unit_weight_accessor<>,
     double
   >
   make_systematic_sample_iterator
@@ -257,7 +257,7 @@ namespace trsl
     systematic_sample_iterator
     <
       typename Container::const_iterator,
-      unit_weight_accessor<double>,
+      unit_weight_accessor<>,
       double
     >
     (c, sampleSize, rng, uniform01);

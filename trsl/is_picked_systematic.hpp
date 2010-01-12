@@ -57,8 +57,8 @@ namespace trsl {
    * Defaults to <tt>double</tt>.
    *
    * @param WeightAccessor Type of the accessor that will allow to
-   * extract weights from elements. Defaults to mp_weight_accessor,
-   * see @ref accessor for further details on accessors.
+   * extract weights from elements.
+   * See @ref accessor for further details on accessors.
    *
    * <b>References:</b>
    *
@@ -111,11 +111,7 @@ namespace trsl {
      * @param populationWeight Total weight of the
      * population, within <tt>]0, infinity[</tt>. Generally equal to 1.
      *
-     * @param wac Weight accessor. Defaults to
-     * mp_weight_accessor. Note that if you don't pass explicitly a
-     * mp_weight_accessor(<tt>&ElementType::GETWEIGHTMETHOD</tt>), the
-     * default constructor for mp_weight_accessor will setup to always
-     * return 1, ignoring element weights. See @ref accessor for
+     * @param wac Weight accessor. See @ref accessor for
      * further details.
      *
      * The population weight has to be strictly larger than 0. Also,
@@ -151,11 +147,7 @@ namespace trsl {
      *
      * @param uniform01 Random number in <tt>[0,1[</tt>.
      *
-     * @param wac Weight accessor. Defaults to
-     * mp_weight_accessor. Note that if you don't pass explicitly a
-     * mp_weight_accessor(<tt>&ElementType::GETWEIGHTMETHOD</tt>), the
-     * default constructor for mp_weight_accessor will setup to always
-     * return 1, ignoring element weights. See @ref accessor for
+     * @param wac Weight accessor. See @ref accessor for
      * further details.
      *
      * The population weight has to be strictly larger than 0. Also,

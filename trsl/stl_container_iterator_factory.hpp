@@ -24,7 +24,7 @@ namespace trsl
     ::trsl::systematic_sample_iterator
     <
       typename Container::iterator,
-      unit_weight_accessor<double>
+      unit_weight_accessor<>
     >
     systematic_sample_iterator;
     
@@ -32,7 +32,7 @@ namespace trsl
     ::trsl::systematic_sample_iterator
     <
       typename Container::const_iterator,
-      unit_weight_accessor<double>
+      unit_weight_accessor<>
     >
     const_systematic_sample_iterator;
     

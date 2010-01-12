@@ -10,7 +10,9 @@
  *
  * - Changed trsl::is_picked_systematic template parameters.
  *
- * - Tests and examples use std::const_mem_fun_ref_t instead of trsl::mp_weight_accessor.
+ * - Added trsl::identity_weight_accessor.
+ *
+ * - Removed trsl::mp_weight_accessor. Tests and examples use std::const_mem_fun_ref_t instead.
  *
  * - trsl::random_permutation_iterator allows passing a random number generator.
  *

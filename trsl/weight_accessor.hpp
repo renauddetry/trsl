@@ -8,6 +8,9 @@
 #ifndef TRSL_WEIGHT_ACCESSOR_HPP
 #define TRSL_WEIGHT_ACCESSOR_HPP
 
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+
 namespace trsl {
   
   /**
@@ -19,9 +22,12 @@ namespace trsl {
    * This accessor is of type <em>functor</em>, see @ref accessor for
    * more details.
    */
-  template<typename WeightType>
+  template<typename WeightType = double>
   struct unit_weight_accessor
   {
+  private:
+    BOOST_STATIC_ASSERT((boost::is_floating_point<WeightType>::value));
+  public:
     /**
      * @brief Functor implementation.
      *
@@ -38,48 +44,31 @@ namespace trsl {
   };
 
   /**
-   * @brief Method Pointer weight accessor.
+   * @brief Weight accessor that returns the value of the given element.
    *
-   * Weight accessor for element classes that provide access to
-   * their weight through a method signed <tt>WeightType
-   * (ElementType::*)() const</tt>.
-   *
-   * This class is very similar to
-   * <tt>std::const_mem_fun_ref_t</tt>. The only difference is in its constructor which doesn't have to be explicit.
-   *
-   * See @ref accessor for more details.
+   * This accessor can be passed to sample from a population of
+   * elements that can be casted to a float value representing their weight.
+   * This accessor is of type <em>functor</em>, see @ref accessor for
+   * more details.
    */
-  template<typename WeightType, typename ElementType>
-  class mp_weight_accessor
+  template<typename WeightType = double>
+  struct identity_weight_accessor
   {
+  private:
+    BOOST_STATIC_ASSERT((boost::is_floating_point<WeightType>::value));
   public:
-    /** @brief Pointer to a const method of ElementType that returns double */
-    typedef WeightType (ElementType::*WeightAccessorMethodPointer)() const;
-    
-    /**
-     * @brief Constructor from a WeightAccessorMethodPointer.
-     *
-     * @param wptr Pointer to the method of ElementType that
-     * returns the element weight. If no pointer is passed, operator()
-     * will return 1 all the time.
-     *
-     */
-    mp_weight_accessor(WeightAccessorMethodPointer wptr) :
-      wptr_(wptr) {}
-    
     /**
      * @brief Functor implementation.
      *
-     * @return <tt>e.*wptr_()</tt>.
-     */ 
+     * @return e.
+     */
+    template<typename ElementType>
     WeightType operator()(ElementType const& e) const
-      {
-        return (e.*wptr_)();
-      }
-  private:
-    WeightAccessorMethodPointer wptr_;
+    {
+      return e;
+    }
   };
-
+  
 }
 
 #endif // include guard
