@@ -19,7 +19,7 @@ using namespace trsl::example;
 typedef trsl::systematic_sample_iterator
 <
   std::list<Particle>::const_iterator,
-  trsl::mp_weight_accessor<double, Particle>
+  std::const_mem_fun_ref_t<double, Particle>
 >
 sample_iterator;
 
@@ -58,7 +58,8 @@ int main()
   std::cout << "Mean weight: " << 1.0/POPULATION_SIZE << std::endl;
   for (sample_iterator
          sb = sample_iterator(const_pop.begin(), const_pop.end(),
-                              SAMPLE_SIZE, 1.0, &Particle::getWeight),
+                              SAMPLE_SIZE, 1.0,
+                              std::mem_fun_ref(&Particle::getWeight)),
          si = sb;
        si != si.end(); ++si)
   {

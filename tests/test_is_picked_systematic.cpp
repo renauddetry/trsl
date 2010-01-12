@@ -31,7 +31,7 @@ int main()
     // Type definitions, once and for all.
 
     typedef trsl::is_picked_systematic<
-      trsl::mp_weight_accessor<double, PickCountParticle>
+      std::const_mem_fun_ref_t<double, Particle>
     > is_picked;
 
     typedef trsl::persistent_filter_iterator
@@ -51,7 +51,8 @@ int main()
     {
       ParticleArray sample;
       // Create the systemtatic sampling functor.
-      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+      is_picked predicate(SAMPLE_SIZE, 1.0,
+                          std::mem_fun_ref(&Particle::getWeight));
       
       sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
       sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
@@ -74,8 +75,10 @@ int main()
     {
       ParticleArray sample;
       // Create the systemtatic sampling functor.
-      is_picked predicate1(SAMPLE_SIZE, 1.0, .3, &PickCountParticle::getWeight);
-      is_picked predicate2(SAMPLE_SIZE, 1.0, .3, &PickCountParticle::getWeight);
+      is_picked predicate1(SAMPLE_SIZE, 1.0, .3,
+                           std::mem_fun_ref(&Particle::getWeight));
+      is_picked predicate2(SAMPLE_SIZE, 1.0, .3,
+                           std::mem_fun_ref(&Particle::getWeight));
       
       if ( !(&*sample_iterator(predicate1, const_pop.begin(), const_pop.end()) ==
              &*sample_iterator(predicate2, const_pop.begin(), const_pop.end())) )
@@ -96,7 +99,7 @@ int main()
     // Type definitions, once and for all.
 
     typedef trsl::is_picked_systematic<
-      trsl::mp_weight_accessor<double, PickCountParticle>
+      std::const_mem_fun_ref_t<double, Particle>
     > is_picked;
     
     typedef trsl::persistent_filter_iterator
@@ -125,7 +128,8 @@ int main()
       for (unsigned round = 0; round < N_ROUNDS; round++)
       {
         // Create the systemtatic sampling functor.
-        is_picked predicate(SAMPLE_SIZE, 1.0, uniform_01(rng), &PickCountParticle::getWeight);
+        is_picked predicate(SAMPLE_SIZE, 1.0, uniform_01(rng),
+                            std::mem_fun_ref(&Particle::getWeight));
         
         sample_iterator sb = sample_iterator(predicate,
                                              population.begin(),
@@ -183,7 +187,7 @@ int main()
     // Type definitions, once and for all.
 
     typedef trsl::is_picked_systematic<
-      trsl::mp_weight_accessor<double, PickCountParticle>
+      std::const_mem_fun_ref_t<double, Particle>
     > is_picked;
     
     typedef trsl::persistent_filter_iterator
@@ -203,7 +207,8 @@ int main()
     {
       ParticleArray sample;
       // Create the systemtatic sampling functor.
-      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+      is_picked predicate(SAMPLE_SIZE, 1.0,
+                          std::mem_fun_ref(&Particle::getWeight));
       
       sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
       sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
@@ -224,7 +229,7 @@ int main()
     // Type definitions, once and for all.
 
     typedef trsl::is_picked_systematic<
-      trsl::mp_weight_accessor<double, PickCountParticle>
+      std::const_mem_fun_ref_t<double, Particle>
     > is_picked;
     
     typedef trsl::persistent_filter_iterator
@@ -244,7 +249,8 @@ int main()
     {
       ParticleArray sample;
       // Create the systemtatic sampling functor.
-      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+      is_picked predicate(SAMPLE_SIZE, 1.0,
+                          std::mem_fun_ref(&Particle::getWeight));
       
       sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
       sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
@@ -286,7 +292,8 @@ int main()
     {
       ParticleArray sample;
       // Create the systemtatic sampling functor.
-      is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+      is_picked predicate(SAMPLE_SIZE, 1.0,
+                          std::mem_fun_ref(&Particle::getWeight));
       
       sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
       sample_iterator previous = sb;

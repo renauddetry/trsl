@@ -10,9 +10,9 @@
  *
  * - Changed trsl::is_picked_systematic template parameters.
  *
- * - trsl::mp_weight_accessor is not default-constructible anymore.
+ * - Tests and examples use std::const_mem_fun_ref_t instead of trsl::mp_weight_accessor.
  *
- * - trsl::random_permutation_iterator now allows passing a random number generator.
+ * - trsl::random_permutation_iterator allows passing a random number generator.
  *
  * - Added classes trsl::random_permutation_iterator and trsl::sort_iterator which effectively replace functions of the same names.
  *

@@ -74,25 +74,6 @@
  * <dd><tt>std::mem_fun_ref(&Particle::getWeight)</tt></dd>
  * </dl>
  * 
- * Method pointer is currently the default in
- * trsl::is_picked_systematic (but subject to change, see @ref
- * accessor_discussion).  The implementation used in TRSL is not
- * std::const_mem_fun_ref_t however, but trsl::mp_weight_accessor
- * which allows a default construction without implying segfault when
- * called &mdash; that comes with a price, see
- * trsl::mp_weight_accessor.
- * 
- * <dl>
- * <dt>Accessor Type</dt>
- * <dd><tt>trsl::mp_weight_accessor<double, Particle></tt></dd>
- * <dt>Accessor object, to pass to the object that needs access</dt>
- * <dd><tt>&Particle::getWeight</tt> (implicit conversion)</dd>
- * </dl>
- * 
- * The pointer to <tt>getWeight</tt> implicitly constructs a
- * trsl::mp_weight_accessor. (Why does the std counterpart have an
- * explicit constructor?)
- * 
  * @section accessor_discussion Discussion
  * 
  * I had the impression that GCC was able to inline fuctions

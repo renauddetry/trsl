@@ -150,8 +150,8 @@ int main()
     (wac_functor_no_inline(), "wac_functor_no_inline");
 
   trsl_loop
-    <trsl::mp_weight_accessor<double, PickCountParticle> >
-    (&PickCountParticle::getWeight, "mp_weight_accessor");
+    <std::const_mem_fun_ref_t<double, Particle> >
+    (std::mem_fun_ref(&Particle::getWeight), "mp_weight_accessor");
 
   std::cout << "stl_loop:" << std::endl;
 
@@ -172,8 +172,8 @@ int main()
     (wac_functor_no_inline(), "wac_functor_no_inline");
 
   stl_loop
-    <trsl::mp_weight_accessor<double, PickCountParticle> >
-    (&PickCountParticle::getWeight, "mp_weight_accessor");
+  <std::const_mem_fun_ref_t<double, Particle> >
+    (std::mem_fun_ref(&Particle::getWeight), "mp_weight_accessor");
 
   std::cout << "drop_in_call" << std::endl;
     

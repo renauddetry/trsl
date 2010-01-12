@@ -21,7 +21,7 @@
 namespace trsl {
   namespace test {
   
-
+    using trsl::example::Particle;
 #define TEST_VERBOSE 0
 
 #define TRSL_TEST_DRED         "\033[1;31m"
@@ -36,13 +36,13 @@ namespace trsl {
 #define TRSL_NVP(x) #x << ": " << x
 
     inline std::ostream&
-    operator<<(std::ostream& out, const trsl::example::Particle& p)
+    operator<<(std::ostream& out, const Particle& p)
     {
       out << "[(" << p.getX() << "," << p.getY() << ") " << p.getWeight() << "]";
       return out;
     }
 
-    class PickCountParticle : public trsl::example::Particle
+    class PickCountParticle : public Particle
     {
     public:
       PickCountParticle(double weight, double x, double y) :

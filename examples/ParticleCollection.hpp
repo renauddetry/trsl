@@ -23,11 +23,11 @@ namespace trsl {
     public:
       typedef trsl::systematic_sample_iterator<
         std::vector<Particle>::iterator,
-        trsl::mp_weight_accessor<double, Particle>
+        std::const_mem_fun_ref_t<double, Particle>
       > sample_iterator;
       typedef trsl::systematic_sample_iterator<
         std::vector<Particle>::const_iterator,
-        trsl::mp_weight_accessor<double, Particle>
+        std::const_mem_fun_ref_t<double, Particle>
       > const_sample_iterator;
 
       ParticleCollection(): totalWeight_(0) {}
@@ -43,13 +43,15 @@ namespace trsl {
       sample_iterator sample_begin(size_t sampleSize)
         {
           return sample_iterator(particles_.begin(), particles_.end(),
-                                 sampleSize, totalWeight_, &Particle::getWeight);
+                                 sampleSize, totalWeight_,
+                                 std::mem_fun_ref(&Particle::getWeight));
         }
 
       const_sample_iterator sample_begin(size_t sampleSize) const
         {
           return const_sample_iterator(particles_.begin(), particles_.end(),
-                                       sampleSize, totalWeight_, &Particle::getWeight);
+                                       sampleSize, totalWeight_,
+                                       std::mem_fun_ref(&Particle::getWeight));
         }
 
     private:

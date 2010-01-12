@@ -37,7 +37,7 @@ int main()
     typedef trsl::systematic_sample_iterator
     <
       ParticleArray::const_iterator,
-      trsl::mp_weight_accessor<double, PickCountParticle>
+      std::const_mem_fun_ref_t<double, Particle>
     >
     sample_iterator;
 
@@ -56,7 +56,8 @@ int main()
       ParticleArray sample;
       
       sample_iterator si(const_pop.begin(), const_pop.end(),
-                         SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+                         SAMPLE_SIZE, 1.0,
+                         std::mem_fun_ref(&Particle::getWeight));
       clock_t start = clock();
       for (; si != si.end(); ++si)
       {
@@ -85,10 +86,12 @@ int main()
         uniform_int2(rng, boost::uniform_int<>());
       
       if ( !(&*sample_iterator(const_pop.begin(), const_pop.end(),
-                               SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight,
+                               SAMPLE_SIZE, 1.0,
+                               std::mem_fun_ref(&Particle::getWeight),
                                uniform_int1, .3) ==
              &*sample_iterator(const_pop.begin(), const_pop.end(),
-                               SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight,
+                               SAMPLE_SIZE, 1.0,
+                               std::mem_fun_ref(&Particle::getWeight),
                                uniform_int2, .3)) )
       {
         TRSL_TEST_FAILURE;
@@ -109,7 +112,7 @@ int main()
     typedef trsl::systematic_sample_iterator
     <
       std::vector<PickCountParticle>::iterator,
-      trsl::mp_weight_accessor<double, PickCountParticle>
+      std::const_mem_fun_ref_t<double, Particle>
     >
     sample_iterator;
 
@@ -140,7 +143,7 @@ int main()
       {        
         for (sample_iterator si(population.begin(), population.end(),
                                 SAMPLE_SIZE, 1.0,
-                                &PickCountParticle::getWeight,
+                                std::mem_fun_ref(&Particle::getWeight),
                                 uniform_int,
                                 uniform_01());
              si != si.end(); ++si)
@@ -195,7 +198,7 @@ int main()
     typedef trsl::systematic_sample_iterator
     <
       ParticleArray::const_iterator,
-      trsl::mp_weight_accessor<double, PickCountParticle>
+      std::const_mem_fun_ref_t<double, Particle>
     >
     sample_iterator;
     
@@ -215,7 +218,8 @@ int main()
       
       sample_iterator sb =
         sample_iterator(const_pop.begin(), const_pop.end(),
-                        SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+                        SAMPLE_SIZE, 1.0,
+                        std::mem_fun_ref(&Particle::getWeight));
       if (sb != sb.end())
       {
         TRSL_TEST_FAILURE;
@@ -235,7 +239,7 @@ int main()
     typedef trsl::systematic_sample_iterator
     <
       ParticleArray::const_iterator,
-      trsl::mp_weight_accessor<double, PickCountParticle>
+      std::const_mem_fun_ref_t<double, Particle>
     >
     sample_iterator;
     
@@ -255,7 +259,8 @@ int main()
       
       sample_iterator sb =
         sample_iterator(const_pop.begin(), const_pop.end(),
-                        SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+                        SAMPLE_SIZE, 1.0,
+                        std::mem_fun_ref(&Particle::getWeight));
       sample_iterator se = sb.end();
       sample_iterator sp = sb;
       
@@ -297,7 +302,8 @@ int main()
       
       sample_iterator sb =
         sample_iterator(const_pop.begin(), const_pop.end(),
-                        SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
+                        SAMPLE_SIZE, 1.0,
+                        std::mem_fun_ref(&Particle::getWeight));
       sample_iterator previous = sb;
       sample_iterator se = sb.end();
       for (sample_iterator
