@@ -66,7 +66,7 @@ namespace trsl
     
     /** @internal @brief Used internally */
     template<class ElementIterator, class OrderTag, class DerivedType>
-    struct reorder_iterator_base
+    struct prototype_reord_iter_base
     {      
       typedef ElementIterator element_iterator;
       typedef OrderTag order_tag;
@@ -135,18 +135,18 @@ namespace trsl
      * The index array is stored within the iterator, by means of a <a
      * href="http://www.boost.org/libs/smart_ptr/shared_ptr.htm"
      * >boost::shared_ptr</a>; thus, all copies of a reorder iterator
-     * share the same array. One drawback is that reorder_iterator
-     * copy is somewhat slower than ElementIterator copy. Incrementation
+     * share the same array. One drawback is that the copy of a reorder iterator
+     * is somewhat slower than ElementIterator copy. Incrementation
      * is still plainly fast, nevertheless.
      *
-     * Another difference with boost::permutation_iterator is that while boost::permutation_iterator requires the input range to model <em>Random Access Iterator</em>, reorder_iterator only requires <em>Forward Iterators</em>. Thus, reorder_iterator can be applied to e.g. <tt>std::list</tt> iterators.
+     * Another difference with boost::permutation_iterator is that while boost::permutation_iterator requires the input range to model <em>Random Access Iterator</em>, this iterator only requires <em>Forward Iterators</em>. Thus, it can be applied to e.g. <tt>std::list</tt> iterators.
      *
-     * When the input range is a Random Access Iterator, the internal array contains element indices with a <tt>std::vector<size_t></tt>. Else, it contains iterators of the input range, in a <tt>std::vector<ElementIterator></tt>. Below, indices and iterators contained in reorder_iterator's internal array are referred to as <em>positions</em>.
+     * When the input range is a Random Access Iterator, the internal array contains element indices with a <tt>std::vector<size_t></tt>. Else, it contains iterators of the input range, in a <tt>std::vector<ElementIterator></tt>. Below, indices or iterators contained in the internal array are referred to as @em positions.
      *
      * When iterating over a permutation of a population range using a
      * position range, the iteration is actually performed over the position
      * range; the population range is only used when
-     * dereferencing. Thus, every trsl::reorder_iterator knows where it
+     * dereferencing. Thus, every iterator knows where it
      * begins and where it ends, hence provided begin() and end()
      * methods.
      *
@@ -163,15 +163,15 @@ namespace trsl
       class OrderTag,
       class DerivedType
     >
-    class reorder_iterator :
-      public detail::reorder_iterator_base
+    class prototype_reord_iter :
+      public detail::prototype_reord_iter_base
       <
         ElementIterator,
         OrderTag,
         DerivedType
       >::type
     {
-      typedef detail::reorder_iterator_base
+      typedef detail::prototype_reord_iter_base
       <
         ElementIterator, OrderTag, DerivedType
       >
@@ -183,7 +183,7 @@ namespace trsl
 //    BOOST_STATIC_ASSERT(
 //                        (boost::is_base_of
 //                         <
-//                           reorder_iterator
+//                           prototype_reord_iter
 //                           <
 //                             ElementIterator, OrderTag, DerivedType
 //                           >,
@@ -201,7 +201,7 @@ namespace trsl
       typedef typename base_t::position_container_ptr position_container_ptr;
       typedef typename base_t::position_iterator position_iterator;
       
-      reorder_iterator() :
+      prototype_reord_iter() :
         m_elt_iter(),
         m_index_collection(new position_container)
       {}
@@ -211,8 +211,8 @@ namespace trsl
        * of the range that begins at @p first, follwing the order defined
        * by @p position_collection.
        */
-      explicit reorder_iterator(ElementIterator first,
-                                const position_container_ptr& position_collection) :
+      explicit prototype_reord_iter(ElementIterator first,
+                                    const position_container_ptr& position_collection) :
         super_t(position_collection->begin()),
         m_elt_iter(first),
         m_index_collection(position_collection)
@@ -228,7 +228,7 @@ namespace trsl
        * <tt>std::vector<Particle>::const_iterator</tt>.
        */
       template<class OtherDerivedType>
-      reorder_iterator
+      prototype_reord_iter
       (OtherDerivedType const& r,
        typename boost::enable_if_convertible<OtherDerivedType, DerivedType>::type* = 0) :
         super_t(r.base()), m_elt_iter(r.m_elt_iter),
@@ -237,8 +237,8 @@ namespace trsl
       
       
       template<class OtherElementIterator, class OtherDerivedType>
-      reorder_iterator
-      (reorder_iterator<OtherElementIterator, OrderTag, OtherDerivedType> const& r,
+      prototype_reord_iter
+      (prototype_reord_iter<OtherElementIterator, OrderTag, OtherDerivedType> const& r,
        typename boost::enable_if_convertible<OtherElementIterator, ElementIterator>::type* = 0,
        typename boost::enable_if_convertible<OtherDerivedType, DerivedType>::type* = 0) :
       super_t(r.base()), m_elt_iter(r.m_elt_iter),
@@ -320,7 +320,7 @@ namespace trsl
       { return *(*this->base()); }
       
 #ifndef BOOST_NO_MEMBER_TEMPLATE_FRIENDS
-      template <class, class, class> friend class reorder_iterator;
+      template <class, class, class> friend class prototype_reord_iter;
 #else
     public:
 #endif 

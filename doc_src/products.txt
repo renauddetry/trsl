@@ -40,16 +40,15 @@
  *
  * @section products_reorder Range Reordering
  *
- * Iteration through an index-based reordering of a range can be
- * obtained with trsl::reorder_iterator. TRSL provides several
- * functions that generate reorder iterators for common reorderings.
+ * Iteration through reordering of a range can be
+ * obtained with the iterators detailed below.
  *
  * @subsection products_permutation Random Permutation
  *
  * trsl::random_reord_iter provides an iterator over a
  * random permutation of a range.
  *
- * <dl><dt><b>Implementation:</b></dt><dd>trsl::reorder_iterator, trsl::random_reord_iter.</dd></dl>
+ * <dl><dt><b>Implementation:</b></dt><dd>trsl::random_reord_iter.</dd></dl>
  *
  * @sa @ref trsl_example2.cpp "trsl_example2.cpp" for a basic example.
  *
@@ -58,7 +57,7 @@
  * trsl::sorted_reord_iter provides an iterator over a sorted permutation
  * of a range.
  *
- * <dl><dt><b>Implementation:</b></dt><dd>trsl::reorder_iterator, trsl::sorted_reord_iter.</dd></dl>
+ * <dl><dt><b>Implementation:</b></dt><dd>trsl::sorted_reord_iter.</dd></dl>
  *
  * <hr>
  */

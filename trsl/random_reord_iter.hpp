@@ -8,7 +8,7 @@
 #ifndef TRSL_RANDOM_PERMUTATION_ITERATOR_HPP
 #define TRSL_RANDOM_PERMUTATION_ITERATOR_HPP
 
-#include <trsl/reorder_iterator.hpp>
+#include <trsl/prototype_reord_iter.hpp>
 #include <trsl/common.hpp>
 #include <trsl/error_handling.hpp>
 
@@ -18,11 +18,11 @@ namespace trsl
   /**
    * @brief Provides an iterator over a random permutation of a range.
    *
-   * This class inherits from reorder_iterator. It adds constructors
+   * This class inherits from prototype_reord_iter. It adds constructors
    * which compute a random permutation of an input range.
    *
    * Template type parameters @p ElementIterator and @p OrderTag are
-   * described in reorder_iterator.
+   * described in prototype_reord_iter.
    *
    * Helper functions: trsl::make_random_reord_iter.
    */
@@ -32,14 +32,14 @@ namespace trsl
     class OrderTag = typename default_order_tag<ElementIterator>::type
   >
   class random_reord_iter :
-    public detail::reorder_iterator
+    public detail::prototype_reord_iter
     <
       ElementIterator,
       OrderTag,
       random_reord_iter<ElementIterator, OrderTag>
     >
   {
-    typedef detail::reorder_iterator
+    typedef detail::prototype_reord_iter
     <
       ElementIterator,
       OrderTag,
@@ -115,9 +115,9 @@ namespace trsl
     super_t(r) {}
     
     /**
-     * @brief @copybrief detail::reorder_iterator::src_index()
+     * @brief @copybrief detail::prototype_reord_iter::src_index()
      *
-     * @copydetails detail::reorder_iterator::src_index()
+     * @copydetails detail::prototype_reord_iter::src_index()
      */
     this_t begin() const
     {
@@ -125,9 +125,9 @@ namespace trsl
     }
     
     /**
-     * @brief @copybrief detail::reorder_iterator::src_index()
+     * @brief @copybrief detail::prototype_reord_iter::src_index()
      *
-     * @copydetails detail::reorder_iterator::src_index()
+     * @copydetails detail::prototype_reord_iter::src_index()
      */
     this_t end() const
     {
@@ -135,9 +135,9 @@ namespace trsl
     }
     
     /**
-     * @brief @copybrief detail::reorder_iterator::src_index()
+     * @brief @copybrief detail::prototype_reord_iter::src_index()
      *
-     * @copydetails detail::reorder_iterator::src_index()
+     * @copydetails detail::prototype_reord_iter::src_index()
      */
     index_t src_index() const
     {
@@ -145,9 +145,9 @@ namespace trsl
     }
     
     /**
-     * @brief @copybrief detail::reorder_iterator::src_index()
+     * @brief @copybrief detail::prototype_reord_iter::src_index()
      *
-     * @copydetails detail::reorder_iterator::src_index()
+     * @copydetails detail::prototype_reord_iter::src_index()
      */
     ElementIterator src_iterator() const
     {
@@ -197,7 +197,7 @@ namespace trsl
    * of arguments.
    *
    * Iterators created with this function have default order type (see
-   * OrderType in reorder_iterator). If one wishes to select a
+   * OrderType in prototype_reord_iter). If one wishes to select a
    * non-default order type, random_reord_iter must be used
    * explicitly.
    */
@@ -219,7 +219,7 @@ namespace trsl
    * of arguments.
    *
    * Iterators created with this function have default order type (see
-   * OrderType in reorder_iterator). If one wishes to select a
+   * OrderType in prototype_reord_iter). If one wishes to select a
    * non-default order type, random_reord_iter must be used
    * explicitly.
    */

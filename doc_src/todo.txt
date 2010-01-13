@@ -27,7 +27,7 @@
  * - Add debug stubs. One good thing to check for would be that
  * is_picked_systematic doesn't return more elements than requested,
  * and that it has returned the exact number of elements upon
- * destruction.  This will call for an extra bool <em>beenCalled</em>
+ * destruction.  This will call for an extra bool @em beenCalled
  * to prevent errors in temporary instantiations of
  * is_picked_systematic.
  * 

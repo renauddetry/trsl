@@ -19,7 +19,7 @@ namespace trsl {
    * This accessor can be passed to sample from a population of
    * equal-weight elements. The total weight of the population should
    * naturally be set to the number of elements in the population.
-   * This accessor is of type <em>functor</em>, see @ref accessor for
+   * This accessor is of type @em functor, see @ref accessor for
    * more details.
    */
   template<typename WeightType = double>
@@ -48,7 +48,7 @@ namespace trsl {
    *
    * This accessor can be passed to sample from a population of
    * elements that can be casted to a float value representing their weight.
-   * This accessor is of type <em>functor</em>, see @ref accessor for
+   * This accessor is of type @em functor, see @ref accessor for
    * more details.
    */
   template<typename WeightType = double>
