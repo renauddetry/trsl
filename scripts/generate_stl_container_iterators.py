@@ -14,15 +14,16 @@ for c in [ "deque", "list", "vector",
 #ifndef TRSL_STL_%s_HPP
 #define TRSL_STL_%s_HPP
 
-#include <trsl/stl_container_iterator_factory.hpp>
+#include <trsl/detail/stl_container_iterator_factory.hpp>
 #include <%s>
 
 namespace trsl
 {
+  /** @brief Defines convenience types */
   template<class ElementType>
-  struct stl_%s : public stl_container_iterator_factory< std::%s<ElementType> >
+  struct stl_%s : public detail::stl_container_iterator_factory< std::%s<ElementType> >
   {
-    typedef stl_container_iterator_factory< std::%s<ElementType> > super_t;
+    typedef detail::stl_container_iterator_factory< std::%s<ElementType> > super_t;
 """ % (c.upper(), c.upper(), c.lower().replace("multi", ""),
        c.lower(), c.lower(), c.lower()))
   for i in [ "systematic_sample_iterator",

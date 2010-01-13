@@ -8,15 +8,16 @@
 #ifndef TRSL_STL_DEQUE_HPP
 #define TRSL_STL_DEQUE_HPP
 
-#include <trsl/stl_container_iterator_factory.hpp>
+#include <trsl/detail/stl_container_iterator_factory.hpp>
 #include <deque>
 
 namespace trsl
 {
+  /** @brief Defines convenience types */
   template<class ElementType>
-  struct stl_deque : public stl_container_iterator_factory< std::deque<ElementType> >
+  struct stl_deque : public detail::stl_container_iterator_factory< std::deque<ElementType> >
   {
-    typedef stl_container_iterator_factory< std::deque<ElementType> > super_t;
+    typedef detail::stl_container_iterator_factory< std::deque<ElementType> > super_t;
 
     // systematic_sample_iterator
     

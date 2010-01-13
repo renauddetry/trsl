@@ -18,6 +18,7 @@ namespace trsl
 {
   namespace detail
   {
+    /** @internal @brief Used internally */
     template <class Predicate, class Iterator>
     persistent_filter_iterator<Predicate,Iterator>
     make_persistent_filter_iterator(Predicate f, Iterator x)
@@ -26,7 +27,7 @@ namespace trsl
     }
     
     
-    /** @brief Used internally. */
+    /** @internal @brief Used internally */
     template<class Predicate, class ElementIterator, class DerivedType>
     struct ppfilter_iterator_base_prototype
     {

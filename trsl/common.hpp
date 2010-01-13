@@ -14,7 +14,7 @@
 
 namespace trsl {
   
-  /** @brief Implementation details. */
+  /** @internal @brief Used internally */
   namespace detail {
         
     template<typename RandomAccessIterator, typename RandomNumberGenerator>
@@ -55,7 +55,6 @@ namespace trsl {
 
     /**
      * @brief Returns an integer in <tt>[0,n[</tt>.
-     * Used internally.
      */
     inline unsigned int uniform_int(unsigned int n)
     {
@@ -68,7 +67,6 @@ namespace trsl {
   
     /**
      * @brief Returns a float in <tt>[0,1[</tt>.
-     * Used internally.
      */
     template<typename Real>
     inline Real uniform_01()

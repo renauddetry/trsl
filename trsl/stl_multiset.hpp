@@ -8,15 +8,16 @@
 #ifndef TRSL_STL_MULTISET_HPP
 #define TRSL_STL_MULTISET_HPP
 
-#include <trsl/stl_container_iterator_factory.hpp>
+#include <trsl/detail/stl_container_iterator_factory.hpp>
 #include <set>
 
 namespace trsl
 {
+  /** @brief Defines convenience types */
   template<class ElementType>
-  struct stl_multiset : public stl_container_iterator_factory< std::multiset<ElementType> >
+  struct stl_multiset : public detail::stl_container_iterator_factory< std::multiset<ElementType> >
   {
-    typedef stl_container_iterator_factory< std::multiset<ElementType> > super_t;
+    typedef detail::stl_container_iterator_factory< std::multiset<ElementType> > super_t;
 
     // systematic_sample_iterator
     

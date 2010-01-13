@@ -8,15 +8,16 @@
 #ifndef TRSL_STL_LIST_HPP
 #define TRSL_STL_LIST_HPP
 
-#include <trsl/stl_container_iterator_factory.hpp>
+#include <trsl/detail/stl_container_iterator_factory.hpp>
 #include <list>
 
 namespace trsl
 {
+  /** @brief Defines convenience types */
   template<class ElementType>
-  struct stl_list : public stl_container_iterator_factory< std::list<ElementType> >
+  struct stl_list : public detail::stl_container_iterator_factory< std::list<ElementType> >
   {
-    typedef stl_container_iterator_factory< std::list<ElementType> > super_t;
+    typedef detail::stl_container_iterator_factory< std::list<ElementType> > super_t;
 
     // systematic_sample_iterator
     

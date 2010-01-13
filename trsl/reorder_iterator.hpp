@@ -29,11 +29,26 @@ namespace trsl
 
   boost::none_t const same_size = boost::none;
   
+  /**
+   * @brief Indicates that @em positions should be implemented with iterators.
+   */
   struct iterator_order_tag {};
+  /**
+   * @brief Indicates that @em positions should be implemented with integers.
+   */
   struct index_order_tag {};
+  /**
+   * @brief default_order_tag<ElementIterator>::type is index_order_tag if
+   * ElementIterator is
+   * random access. Else, it corresponds to iterator_order_tag.
+   */
   template<class ElementIterator>
   struct default_order_tag
   {
+    /**
+     * @brief Defined as index_order_tag if ElementIterator is
+     * random access. Else, it corresponds to iterator_order_tag.
+     */
     typedef typename boost::mpl::if_
     <
       boost::is_convertible
@@ -49,7 +64,7 @@ namespace trsl
   namespace detail
   {
     
-    /** @brief Used internally. */
+    /** @internal @brief Used internally */
     template<class ElementIterator, class OrderTag, class DerivedType>
     struct reorder_iterator_base
     {      
@@ -77,7 +92,7 @@ namespace trsl
       type;
     };
     
-    /** @brief Used internally. */
+    /** @internal @brief Used internally */
     template<class ElementIterator, class IndexContainer, class IndexType>
     void
     fill_index_container(IndexContainer& collection,
@@ -90,7 +105,7 @@ namespace trsl
         collection[i] = i;
     }
     
-    /** @brief Used internally. */
+    /** @internal @brief Used internally */
     template<class ElementIterator, class IndexContainer, class IndexType>
     void
     fill_index_container(IndexContainer& collection,

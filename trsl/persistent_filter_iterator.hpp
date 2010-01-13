@@ -31,7 +31,7 @@ namespace trsl
 
   namespace detail
   {
-    /** @brief Used internally. */
+    /** @internal @brief Used internally */
     template <class Predicate, class Iterator>
     struct persistent_filter_iterator_base
     {

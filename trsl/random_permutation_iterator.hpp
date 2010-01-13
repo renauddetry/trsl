@@ -56,6 +56,7 @@ namespace trsl
   
   public:
 
+    typedef random_permutation_iterator<ElementIterator, OrderTag> this_t;
     typedef ElementIterator element_iterator;
     typedef OrderTag order_tag;
     typedef typename super_t::index_t index_t;
@@ -116,6 +117,46 @@ namespace trsl
     (random_permutation_iterator<OtherElementIterator, OrderTag> const& r,
      typename boost::enable_if_convertible<OtherElementIterator, ElementIterator>::type* = 0) :
     super_t(r) {}
+    
+    /**
+     * @brief @copybrief trsl::reorder_iterator::src_index()
+     *
+     * @copydetails trsl::reorder_iterator::src_index()
+     */
+    this_t begin() const
+    {
+      return super_t::begin();
+    }
+    
+    /**
+     * @brief @copybrief trsl::reorder_iterator::src_index()
+     *
+     * @copydetails trsl::reorder_iterator::src_index()
+     */
+    this_t end() const
+    {
+      return super_t::end();
+    }
+    
+    /**
+     * @brief @copybrief trsl::reorder_iterator::src_index()
+     *
+     * @copydetails trsl::reorder_iterator::src_index()
+     */
+    index_t src_index() const
+    {
+      return super_t::src_index();
+    }
+    
+    /**
+     * @brief @copybrief trsl::reorder_iterator::src_index()
+     *
+     * @copydetails trsl::reorder_iterator::src_index()
+     */
+    ElementIterator src_iterator() const
+    {
+      return super_t::src_iterator();
+    }
     
   protected:
     template<class RandomNumberGenerator>

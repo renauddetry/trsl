@@ -308,7 +308,7 @@ namespace trsl {
    * When sampling from a population, elements with a large weight may be selected several times.
    * This function checks if the element pointed by @p *i has been selected already, e.g. at <tt>*(i-1)</tt>.
    *
-   * @param Iterator Will typically be trsl::pp_filter_iterator or trsl::persitent_filter_iterator.
+   * @tparam Iterator Will typically be trsl::pp_filter_iterator or trsl::persitent_filter_iterator.
    *
    * @param i Instance of pp_filter_iterator or persitent_filter_iterator. Should not be the end.
    */

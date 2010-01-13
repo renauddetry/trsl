@@ -8,15 +8,16 @@
 #ifndef TRSL_STL_SET_HPP
 #define TRSL_STL_SET_HPP
 
-#include <trsl/stl_container_iterator_factory.hpp>
+#include <trsl/detail/stl_container_iterator_factory.hpp>
 #include <set>
 
 namespace trsl
 {
+  /** @brief Defines convenience types */
   template<class ElementType>
-  struct stl_set : public stl_container_iterator_factory< std::set<ElementType> >
+  struct stl_set : public detail::stl_container_iterator_factory< std::set<ElementType> >
   {
-    typedef stl_container_iterator_factory< std::set<ElementType> > super_t;
+    typedef detail::stl_container_iterator_factory< std::set<ElementType> > super_t;
 
     // systematic_sample_iterator
     

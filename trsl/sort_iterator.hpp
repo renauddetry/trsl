@@ -19,7 +19,7 @@ namespace trsl
 
   namespace detail {
   
-    /** @brief Used internally. */
+    /** @internal @brief Used internally */
     template
     <
       class RandomIterator,
