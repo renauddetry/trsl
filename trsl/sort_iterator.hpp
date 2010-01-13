@@ -53,10 +53,6 @@ namespace trsl
    * Template type parameters @p ElementIterator and @p OrderTag are
    * described in reorder_iterator.
    *
-   * sort_iterator inherits methods from
-   * reorder_iterator (begin(), end(), src_index(), src_iterator()).
-   * See reorder_iterator for a description of these methods.
-   *
    * Helper functions: trsl::make_sort_iterator.
    */
   template
@@ -65,7 +61,7 @@ namespace trsl
     class OrderTag = typename default_order_tag<ElementIterator>::type
   >
   class sort_iterator :
-    public reorder_iterator
+    public detail::reorder_iterator
     <
       ElementIterator,
       OrderTag,
@@ -73,7 +69,7 @@ namespace trsl
     >
   {
     typedef 
-    reorder_iterator
+    detail::reorder_iterator
     <
       ElementIterator,
       OrderTag,
@@ -86,6 +82,7 @@ namespace trsl
     
   public:
     
+    typedef sort_iterator<ElementIterator, OrderTag> this_t;
     typedef ElementIterator element_iterator;
     typedef OrderTag order_tag;
     typedef typename super_t::index_t index_t;
@@ -155,6 +152,46 @@ namespace trsl
      typename boost::enable_if_convertible<OtherElementIterator, ElementIterator>::type* = 0) :
     super_t(r) {}
 
+    /**
+     * @brief @copybrief detail::reorder_iterator::src_index()
+     *
+     * @copydetails detail::reorder_iterator::src_index()
+     */
+    this_t begin() const
+    {
+      return super_t::begin();
+    }
+    
+    /**
+     * @brief @copybrief detail::reorder_iterator::src_index()
+     *
+     * @copydetails detail::reorder_iterator::src_index()
+     */
+    this_t end() const
+    {
+      return super_t::end();
+    }
+    
+    /**
+     * @brief @copybrief detail::reorder_iterator::src_index()
+     *
+     * @copydetails detail::reorder_iterator::src_index()
+     */
+    index_t src_index() const
+    {
+      return super_t::src_index();
+    }
+    
+    /**
+     * @brief @copybrief detail::reorder_iterator::src_index()
+     *
+     * @copydetails detail::reorder_iterator::src_index()
+     */
+    ElementIterator src_iterator() const
+    {
+      return super_t::src_iterator();
+    }
+    
   protected:
     template<class ElementComparator>
     static position_container_ptr

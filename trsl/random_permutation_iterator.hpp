@@ -24,10 +24,6 @@ namespace trsl
    * Template type parameters @p ElementIterator and @p OrderTag are
    * described in reorder_iterator.
    *
-   * random_permutation_iterator inherits methods from
-   * reorder_iterator (begin(), end(), src_index(), src_iterator()).
-   * See reorder_iterator for a description of these methods.
-   *
    * Helper functions: trsl::make_random_permutation_iterator.
    */
   template
@@ -36,14 +32,14 @@ namespace trsl
     class OrderTag = typename default_order_tag<ElementIterator>::type
   >
   class random_permutation_iterator :
-    public reorder_iterator
+    public detail::reorder_iterator
     <
       ElementIterator,
       OrderTag,
       random_permutation_iterator<ElementIterator, OrderTag>
     >
   {
-    typedef reorder_iterator
+    typedef detail::reorder_iterator
     <
       ElementIterator,
       OrderTag,
@@ -119,9 +115,9 @@ namespace trsl
     super_t(r) {}
     
     /**
-     * @brief @copybrief trsl::reorder_iterator::src_index()
+     * @brief @copybrief detail::reorder_iterator::src_index()
      *
-     * @copydetails trsl::reorder_iterator::src_index()
+     * @copydetails detail::reorder_iterator::src_index()
      */
     this_t begin() const
     {
@@ -129,9 +125,9 @@ namespace trsl
     }
     
     /**
-     * @brief @copybrief trsl::reorder_iterator::src_index()
+     * @brief @copybrief detail::reorder_iterator::src_index()
      *
-     * @copydetails trsl::reorder_iterator::src_index()
+     * @copydetails detail::reorder_iterator::src_index()
      */
     this_t end() const
     {
@@ -139,9 +135,9 @@ namespace trsl
     }
     
     /**
-     * @brief @copybrief trsl::reorder_iterator::src_index()
+     * @brief @copybrief detail::reorder_iterator::src_index()
      *
-     * @copydetails trsl::reorder_iterator::src_index()
+     * @copydetails detail::reorder_iterator::src_index()
      */
     index_t src_index() const
     {
@@ -149,9 +145,9 @@ namespace trsl
     }
     
     /**
-     * @brief @copybrief trsl::reorder_iterator::src_index()
+     * @brief @copybrief detail::reorder_iterator::src_index()
      *
-     * @copydetails trsl::reorder_iterator::src_index()
+     * @copydetails detail::reorder_iterator::src_index()
      */
     ElementIterator src_iterator() const
     {
