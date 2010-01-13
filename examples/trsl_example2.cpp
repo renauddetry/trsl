@@ -6,9 +6,9 @@
 //#define TRSL_USE_BSD_BETTER_RANDOM_GENERATOR
 //#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
 
-#include <trsl/sort_iterator.hpp>
+#include <trsl/sorted_reord_iter.hpp>
 #include <trsl/is_picked_systematic.hpp>
-#include <trsl/random_permutation_iterator.hpp>
+#include <trsl/random_reord_iter.hpp>
 #include <trsl/systematic_sample_iterator.hpp>
 #include <trsl/ppfilter_iterator.hpp>
 
@@ -171,7 +171,7 @@ int main()
     // Get a permutation of the population //
     //-------------------------------------//
 
-    typedef trsl::random_permutation_iterator
+    typedef trsl::random_reord_iter
       <population_iterator> permutation_iterator;
   
     {
@@ -203,7 +203,7 @@ int main()
     // Sort the population //
     //---------------------//
 
-    typedef trsl::sort_iterator
+    typedef trsl::sorted_reord_iter
       <population_iterator> permutation_iterator;
   
     {

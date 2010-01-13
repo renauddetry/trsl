@@ -53,19 +53,19 @@ namespace trsl
    * Template type parameters @p ElementIterator and @p OrderTag are
    * described in reorder_iterator.
    *
-   * Helper functions: trsl::make_sort_iterator.
+   * Helper functions: trsl::make_sorted_reord_iter.
    */
   template
   <
     class ElementIterator,
     class OrderTag = typename default_order_tag<ElementIterator>::type
   >
-  class sort_iterator :
+  class sorted_reord_iter :
     public detail::reorder_iterator
     <
       ElementIterator,
       OrderTag,
-      sort_iterator<ElementIterator, OrderTag>
+      sorted_reord_iter<ElementIterator, OrderTag>
     >
   {
     typedef 
@@ -73,7 +73,7 @@ namespace trsl
     <
       ElementIterator,
       OrderTag,
-      sort_iterator<ElementIterator, OrderTag>
+      sorted_reord_iter<ElementIterator, OrderTag>
     >
     super_t;
     
@@ -82,7 +82,7 @@ namespace trsl
     
   public:
     
-    typedef sort_iterator<ElementIterator, OrderTag> this_t;
+    typedef sorted_reord_iter<ElementIterator, OrderTag> this_t;
     typedef ElementIterator element_iterator;
     typedef OrderTag order_tag;
     typedef typename super_t::index_t index_t;
@@ -90,7 +90,7 @@ namespace trsl
     
     typedef typename std::iterator_traits<ElementIterator>::value_type element_t;
     
-    sort_iterator() {}
+    sorted_reord_iter() {}
     
     /**
      * @brief Constructs an iterator that will iterate through a
@@ -104,7 +104,7 @@ namespace trsl
      * size of the input range, nor trsl::same_size, a
      * bad_parameter_value is thrown.
      */
-    sort_iterator(ElementIterator first,
+    sorted_reord_iter(ElementIterator first,
                   ElementIterator last,
                   boost::optional<unsigned> permutationSize = same_size) :
       super_t(first,
@@ -139,7 +139,7 @@ namespace trsl
      * <em>not</em>.
      */
     template<class ElementComparator>
-    sort_iterator(ElementIterator first,
+    sorted_reord_iter(ElementIterator first,
                   ElementIterator last,
                   boost::optional<unsigned> permutationSize,
                   ElementComparator comp) :
@@ -147,8 +147,8 @@ namespace trsl
               new_position_container(first, last, permutationSize, comp)) {}
     
     template<class OtherElementIterator>
-    sort_iterator
-    (sort_iterator<OtherElementIterator, OrderTag> const& r,
+    sorted_reord_iter
+    (sorted_reord_iter<OtherElementIterator, OrderTag> const& r,
      typename boost::enable_if_convertible<OtherElementIterator, ElementIterator>::type* = 0) :
     super_t(r) {}
 
@@ -210,7 +210,7 @@ namespace trsl
         {
           size_t size = position_collection->size();
           if (*permutationSize > size)
-            throw bad_parameter_value("sort_iterator: "
+            throw bad_parameter_value("sorted_reord_iter: "
                                       "parameter permutationSize out of range.");
           std::partial_sort(position_collection->begin(),
                             position_collection->begin()+*permutationSize,
@@ -232,47 +232,47 @@ namespace trsl
   };
 
   /**
-   * @brief Helper function for creating a sort_iterator.
+   * @brief Helper function for creating a sorted_reord_iter.
    *
-   * See @p trsl::sort_iterator for a description
+   * See @p trsl::sorted_reord_iter for a description
    * of arguments.
    *
    * Iterators created with this function have default order type (see
    * OrderType in reorder_iterator). If one wishes to select a
-   * non-default order type, sort_iterator must be used
+   * non-default order type, sorted_reord_iter must be used
    * explicitly.
    */
   template<class ElementIterator>
-  sort_iterator<ElementIterator>
-  make_sort_iterator
+  sorted_reord_iter<ElementIterator>
+  make_sorted_reord_iter
   (ElementIterator first,
    ElementIterator last,
    boost::optional<unsigned> permutationSize)
   {
-    return sort_iterator<ElementIterator>
+    return sorted_reord_iter<ElementIterator>
     (first, last, permutationSize);
   }
 
   /**
-   * @brief Helper function for creating a sort_iterator.
+   * @brief Helper function for creating a sorted_reord_iter.
    *
-   * See @p trsl::sort_iterator for a description
+   * See @p trsl::sorted_reord_iter for a description
    * of arguments.
    *
    * Iterators created with this function have default order type (see
    * OrderType in reorder_iterator). If one wishes to select a
-   * non-default order type, sort_iterator must be used
+   * non-default order type, sorted_reord_iter must be used
    * explicitly.
    */
   template<class ElementIterator, class ElementComparator>
-  sort_iterator<ElementIterator>
-  make_sort_iterator
+  sorted_reord_iter<ElementIterator>
+  make_sorted_reord_iter
   (ElementIterator first,
    ElementIterator last,
    boost::optional<unsigned> permutationSize,
    ElementComparator comp)
   {
-    return sort_iterator<ElementIterator>
+    return sorted_reord_iter<ElementIterator>
     (first, last, permutationSize, comp);
   }
   

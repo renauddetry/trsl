@@ -3,7 +3,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <trsl/random_permutation_iterator.hpp>
+#include <trsl/random_reord_iter.hpp>
 #include <tests/common.hpp>
 
 using namespace trsl::test;
@@ -42,7 +42,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::random_permutation_iterator
+    typedef trsl::random_reord_iter
       <ParticleArray::iterator> permutation_iterator;
 
     //-----------------------//

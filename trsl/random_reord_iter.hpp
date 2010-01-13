@@ -24,26 +24,26 @@ namespace trsl
    * Template type parameters @p ElementIterator and @p OrderTag are
    * described in reorder_iterator.
    *
-   * Helper functions: trsl::make_random_permutation_iterator.
+   * Helper functions: trsl::make_random_reord_iter.
    */
   template
   <
     class ElementIterator,
     class OrderTag = typename default_order_tag<ElementIterator>::type
   >
-  class random_permutation_iterator :
+  class random_reord_iter :
     public detail::reorder_iterator
     <
       ElementIterator,
       OrderTag,
-      random_permutation_iterator<ElementIterator, OrderTag>
+      random_reord_iter<ElementIterator, OrderTag>
     >
   {
     typedef detail::reorder_iterator
     <
       ElementIterator,
       OrderTag,
-      random_permutation_iterator<ElementIterator, OrderTag>
+      random_reord_iter<ElementIterator, OrderTag>
     >
     super_t;
     
@@ -52,13 +52,13 @@ namespace trsl
   
   public:
 
-    typedef random_permutation_iterator<ElementIterator, OrderTag> this_t;
+    typedef random_reord_iter<ElementIterator, OrderTag> this_t;
     typedef ElementIterator element_iterator;
     typedef OrderTag order_tag;
     typedef typename super_t::index_t index_t;
     typedef typename super_t::position_t position_t;
     
-    random_permutation_iterator() {}
+    random_reord_iter() {}
     
     /**
      * @brief Constructs an iterator that will iterate through a
@@ -76,7 +76,7 @@ namespace trsl
      * integers. With this constructor, these are provided by rand_gen::uniform_int; see @ref
      * random for further details.
      */
-    random_permutation_iterator(ElementIterator first,
+    random_reord_iter(ElementIterator first,
                                 ElementIterator last,
                                 boost::optional<unsigned> permutationSize = same_size) :
       super_t(first,
@@ -101,7 +101,7 @@ namespace trsl
      * a valid expression that returns a random number in <tt>[0, N-1]</tt>.
      */
     template<class RandomNumberGenerator>
-    random_permutation_iterator(ElementIterator first,
+    random_reord_iter(ElementIterator first,
                                 ElementIterator last,
                                 boost::optional<unsigned> permutationSize,
                                 RandomNumberGenerator& rng) :
@@ -109,8 +109,8 @@ namespace trsl
               new_position_container(first, last, permutationSize, rng)) {}
     
     template<class OtherElementIterator>
-    random_permutation_iterator
-    (random_permutation_iterator<OtherElementIterator, OrderTag> const& r,
+    random_reord_iter
+    (random_reord_iter<OtherElementIterator, OrderTag> const& r,
      typename boost::enable_if_convertible<OtherElementIterator, ElementIterator>::type* = 0) :
     super_t(r) {}
     
@@ -171,7 +171,7 @@ namespace trsl
       {
         size_t size = position_collection->size();
         if (*permutationSize > size)
-          throw bad_parameter_value("random_permutation_iterator: "
+          throw bad_parameter_value("random_reord_iter: "
                                     "parameter permutationSize out of range.");
         detail::partial_random_shuffle(position_collection->begin(),
                                        position_collection->begin()+*permutationSize,
@@ -191,47 +191,47 @@ namespace trsl
   };
   
   /**
-   * @brief Helper function for creating a random_permutation_iterator.
+   * @brief Helper function for creating a random_reord_iter.
    *
-   * See @p trsl::random_permutation_iterator for a description
+   * See @p trsl::random_reord_iter for a description
    * of arguments.
    *
    * Iterators created with this function have default order type (see
    * OrderType in reorder_iterator). If one wishes to select a
-   * non-default order type, random_permutation_iterator must be used
+   * non-default order type, random_reord_iter must be used
    * explicitly.
    */
   template<class ElementIterator>
-  random_permutation_iterator<ElementIterator>
-  make_random_permutation_iterator
+  random_reord_iter<ElementIterator>
+  make_random_reord_iter
   (ElementIterator first,
    ElementIterator last,
    boost::optional<unsigned> permutationSize = same_size)
   {
-    return random_permutation_iterator<ElementIterator>
+    return random_reord_iter<ElementIterator>
     (first, last, permutationSize);
   }
 
   /**
-   * @brief Helper function for creating a random_permutation_iterator.
+   * @brief Helper function for creating a random_reord_iter.
    *
-   * See @p trsl::random_permutation_iterator for a description
+   * See @p trsl::random_reord_iter for a description
    * of arguments.
    *
    * Iterators created with this function have default order type (see
    * OrderType in reorder_iterator). If one wishes to select a
-   * non-default order type, random_permutation_iterator must be used
+   * non-default order type, random_reord_iter must be used
    * explicitly.
    */
   template<class ElementIterator, class RandomNumberGenerator>
-  random_permutation_iterator<ElementIterator>
-  make_random_permutation_iterator
+  random_reord_iter<ElementIterator>
+  make_random_reord_iter
   (ElementIterator first,
    ElementIterator last,
    boost::optional<unsigned> permutationSize,
    RandomNumberGenerator& rng)
   {
-    return random_permutation_iterator<ElementIterator>
+    return random_reord_iter<ElementIterator>
     (first, last, permutationSize, rng);
   }
   

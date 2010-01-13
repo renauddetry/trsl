@@ -3,7 +3,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <trsl/sort_iterator.hpp>
+#include <trsl/sorted_reord_iter.hpp>
 #include <tests/common.hpp>
 
 using namespace trsl::test;
@@ -35,7 +35,7 @@ int main()
     
     // Type definitions, once and for all.
     
-    typedef trsl::sort_iterator
+    typedef trsl::sorted_reord_iter
       <ParticleArray::const_iterator> permutation_iterator;
     
     //-----------------------//
@@ -165,8 +165,8 @@ int main()
   // ---------------------------------------------------- //
   {
     // Test conversion to const
-    trsl::sort_iterator
-    <int const *> i1 = trsl::sort_iterator
+    trsl::sorted_reord_iter
+    <int const *> i1 = trsl::sorted_reord_iter
     <int*>();
 
     // Test that begin/end are the same iterator type.

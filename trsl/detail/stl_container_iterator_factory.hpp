@@ -9,9 +9,9 @@
 #define TRSL_STL_CONTAINER_ITERATOR_FACTORY_HPP
 
 #include <trsl/systematic_sample_iterator.hpp>
-#include <trsl/random_permutation_iterator.hpp>
-#include <trsl/sort_iterator.hpp>
-#include <trsl/custom_permutation_iterator.hpp>
+#include <trsl/random_reord_iter.hpp>
+#include <trsl/sorted_reord_iter.hpp>
+#include <trsl/custom_reord_iter.hpp>
 
 namespace trsl
 {
@@ -39,41 +39,41 @@ namespace trsl
       >
       const_systematic_sample_iterator;
       
-      // random_permutation_iterator
+      // random_reord_iter
       
       typedef
-      ::trsl::random_permutation_iterator
+      ::trsl::random_reord_iter
       <typename Container::iterator>
-      random_permutation_iterator;
+      random_reord_iter;
       
       typedef
-      ::trsl::random_permutation_iterator
+      ::trsl::random_reord_iter
       <typename Container::const_iterator>
-      const_random_permutation_iterator;
+      const_random_reord_iter;
       
-      // sort_iterator
+      // sorted_reord_iter
       
       typedef
-      ::trsl::sort_iterator
+      ::trsl::sorted_reord_iter
       <typename Container::iterator>
-      sort_iterator;
+      sorted_reord_iter;
       
       typedef
-      ::trsl::sort_iterator
+      ::trsl::sorted_reord_iter
       <typename Container::const_iterator>
-      const_sort_iterator;
+      const_sorted_reord_iter;
       
-      // custom_permutation_iterator
+      // custom_reord_iter
       
       typedef
-      ::trsl::custom_permutation_iterator
+      ::trsl::custom_reord_iter
       <typename Container::iterator>
-      custom_permutation_iterator;
+      custom_reord_iter;
       
       typedef
-      ::trsl::custom_permutation_iterator
+      ::trsl::custom_reord_iter
       <typename Container::const_iterator>
-      const_custom_permutation_iterator;
+      const_custom_reord_iter;
     };
   }
 } // namespace trsl

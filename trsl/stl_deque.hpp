@@ -29,35 +29,35 @@ namespace trsl
     typename super_t::const_systematic_sample_iterator
     const_systematic_sample_iterator;
 
-    // random_permutation_iterator
+    // random_reord_iter
     
     typedef
-    typename super_t::random_permutation_iterator
-    random_permutation_iterator;
+    typename super_t::random_reord_iter
+    random_reord_iter;
     
     typedef
-    typename super_t::const_random_permutation_iterator
-    const_random_permutation_iterator;
+    typename super_t::const_random_reord_iter
+    const_random_reord_iter;
 
-    // sort_iterator
+    // sorted_reord_iter
     
     typedef
-    typename super_t::sort_iterator
-    sort_iterator;
+    typename super_t::sorted_reord_iter
+    sorted_reord_iter;
     
     typedef
-    typename super_t::const_sort_iterator
-    const_sort_iterator;
+    typename super_t::const_sorted_reord_iter
+    const_sorted_reord_iter;
 
-    // custom_permutation_iterator
+    // custom_reord_iter
     
     typedef
-    typename super_t::custom_permutation_iterator
-    custom_permutation_iterator;
+    typename super_t::custom_reord_iter
+    custom_reord_iter;
     
     typedef
-    typename super_t::const_custom_permutation_iterator
-    const_custom_permutation_iterator;
+    typename super_t::const_custom_reord_iter
+    const_custom_reord_iter;
   };
     
 } // namespace trsl

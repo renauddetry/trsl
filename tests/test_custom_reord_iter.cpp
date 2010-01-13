@@ -3,7 +3,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <trsl/custom_permutation_iterator.hpp>
+#include <trsl/custom_reord_iter.hpp>
 #include <tests/common.hpp>
 
 using namespace trsl::test;
@@ -16,7 +16,7 @@ int main()
   srand(random_seed);
 
   typedef
-  trsl::custom_permutation_iterator< std::vector<unsigned>::const_iterator >
+  trsl::custom_reord_iter< std::vector<unsigned>::const_iterator >
   permutation_iterator;
   
   std::vector<unsigned> inputRange;
@@ -46,8 +46,8 @@ int main()
   // ---------------------------------------------------- //
   {
     // Test conversion to const
-    trsl::custom_permutation_iterator
-    <int const *> i1 = trsl::custom_permutation_iterator
+    trsl::custom_reord_iter
+    <int const *> i1 = trsl::custom_reord_iter
     <int*>();
     
     // Test that begin/end are the same iterator type.

@@ -10,35 +10,34 @@
  *
  * - Changed trsl::is_picked_systematic template parameters.
  *
- * - Added trsl::identity_weight_accessor.
- *
- * - Removed trsl::mp_weight_accessor. Tests and examples use std::const_mem_fun_ref_t instead.
- *
- * - trsl::random_permutation_iterator allows passing a random number generator.
- *
- * - Added classes trsl::random_permutation_iterator and trsl::sort_iterator which effectively replace functions of the same names.
- *
- * - Added trsl::custom_permutation_iterator.
- *
- * - Moved TRSL_VERSION to trsl/version.hpp. Added TRSL_VERSION_NR in trsl/version.hpp.
- *
  * - Renamed trsl::is_picked_systematic::isFirstPick to
  *   trsl::is_picked_systematic::is_first_pick.
  *
  * - Added trsl::is_first_pick to avoid awkward statements like <tt>i.predicate().is_first_pick(*i)</tt>.
  *
- * - Modified trsl::reorder_iterator to support Forward Iterators.
+ * - Added trsl::identity_weight_accessor.
  *
- * - Added <tt>src_index()</tt> and <tt>src_iterator()</tt> to trsl::reorder_iterator.
+ * - Removed trsl::mp_weight_accessor. Tests and examples use std::const_mem_fun_ref_t instead.
+ *
+ * - Added classes trsl::random_reord_iter and trsl::sorted_reord_iter which effectively replace
+ *   functions
+ *   trsl::random_permutation_iterator and trsl::sort_iterator.
+ *
+ * - Added trsl::custom_reord_iter.
+ *
+ * - trsl::random_reord_iter allows passing a random number generator.
+ *
+ * - Reorder iterators (trsl::random_reord_iter, trsl::sorted_reord_iter, trsl::custom_reord_iter)
+ *   support Forward Iterators as input.
+ *
+ * - Moved TRSL_VERSION to trsl/version.hpp. Added TRSL_VERSION_NR in trsl/version.hpp.
+ *
+ * - Added <tt>src_index()</tt> and <tt>src_iterator()</tt> to reorder iterators.
  *
  * - Added <tt>src_index()</tt> and <tt>src_iterator()</tt> to trsl::ppfilter_iterator.
  *
  * - Changed "double quotes" include directives to use angle brackets
-     instead.
- *
- * - Removed unnecessary include of
- *   trsl/persistent_filter_iterator.hpp from
- *   trsl/is_picked_systematic.hpp.
+ *   instead.
  *
  * - For systematic sampling, trsl::ppfilter_iterator should be used
  *   by default, and trsl::persistent_filter_iterator should be used

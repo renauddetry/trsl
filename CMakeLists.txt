@@ -20,12 +20,12 @@ ADD_EXECUTABLE(test_is_picked_systematic
                tests/test_is_picked_systematic.cpp)
 ADD_EXECUTABLE(test_systematic_sample_iterator
                tests/test_systematic_sample_iterator)
-ADD_EXECUTABLE(test_random_permutation_iterator
-               tests/test_random_permutation_iterator.cpp)
-ADD_EXECUTABLE(test_sort_iterator
-               tests/test_sort_iterator.cpp)
-ADD_EXECUTABLE(test_custom_permutation_iterator
-               tests/test_custom_permutation_iterator.cpp)
+ADD_EXECUTABLE(test_random_reord_iter
+               tests/test_random_reord_iter.cpp)
+ADD_EXECUTABLE(test_sorted_reord_iter
+               tests/test_sorted_reord_iter.cpp)
+ADD_EXECUTABLE(test_custom_reord_iter
+               tests/test_custom_reord_iter.cpp)
 ADD_EXECUTABLE(accessor_efficiency
                tests/accessor_efficiency.cpp tests/accessor_no_inline.cpp)
 ADD_EXECUTABLE(reorder_iterator_efficiency

@@ -40,7 +40,7 @@ namespace trsl {
    * the input population is presented is following a pattern. If a
    * pattern is likely to occur in the population, the user may want to
    * pipe the sample iterator <em>after</em> a
-   * trsl::random_permutation_iterator, or use is_picked_systematic with
+   * trsl::random_reord_iter, or use is_picked_systematic with
    * ppfilter_iterator.  The resulting iterator effectively implements
    * <em>probability sampling</em>.  The price to pay for probability
    * sampling is a <em>Random Access Iterator</em>. While

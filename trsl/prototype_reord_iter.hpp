@@ -151,11 +151,10 @@ namespace trsl
      * methods.
      *
      * TRSL provides several functions that generate reoder iterators
-     * for common reorderings. See random_permutation_iterator,
-     * sort_iterator, custom_permutation_iterator.
+     * for common reorderings. See random_reord_iter,
+     * sorted_reord_iter, custom_reord_iter.
      *
-     * @param ElementIterator (template parameter) Corresponds to the type of the iterator through which input elements are referenced to 
-     * custom_permutation_iterator::custom_permutation_iterator().
+     * @param ElementIterator (template parameter) Corresponds to the type of the source iterator.
      * It should model <em>Forward Iterator</em>.
      */
     template

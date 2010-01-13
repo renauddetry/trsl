@@ -27,9 +27,9 @@ namespace trsl
 """ % (c.upper(), c.upper(), c.lower().replace("multi", ""),
        c.lower(), c.lower(), c.lower()))
   for i in [ "systematic_sample_iterator",
-             "random_permutation_iterator",
-             "sort_iterator",
-             "custom_permutation_iterator" ]:
+             "random_reord_iter",
+             "sorted_reord_iter",
+             "custom_reord_iter" ]:
     f.write("""
     // %s
     

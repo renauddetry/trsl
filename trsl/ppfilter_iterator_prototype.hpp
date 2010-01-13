@@ -11,7 +11,7 @@
 #include <trsl/error_handling.hpp>
 #include <trsl/common.hpp>
 
-#include <trsl/random_permutation_iterator.hpp>
+#include <trsl/random_reord_iter.hpp>
 #include <trsl/persistent_filter_iterator.hpp>
 
 namespace trsl
@@ -34,7 +34,7 @@ namespace trsl
       typedef Predicate predicate_t;
       typedef ElementIterator element_iterator;
     
-      typedef random_permutation_iterator<ElementIterator> upstream_iterator;
+      typedef random_reord_iter<ElementIterator> upstream_iterator;
       typedef persistent_filter_iterator<
         Predicate, upstream_iterator> downstream_iterator;
     
@@ -52,7 +52,7 @@ namespace trsl
   /**
    * @brief Random permutation, persistent filter iterator.
    *
-   * This class pipes a random_permutation_iterator (upstream) with
+   * This class pipes a random_reord_iter (upstream) with
    * a persistent_filter_iterator (downstream).  It is intended to be
    * used with is_picked_systematic. Systematic sampling of a random
    * permutation achieves <em>probability sampling</em>.
@@ -90,7 +90,7 @@ namespace trsl
                                          ElementIterator first,
                                          ElementIterator last) :
       super_t(detail::make_persistent_filter_iterator
-              (f, make_random_permutation_iterator(first, last))),
+              (f, make_random_reord_iter(first, last))),
       predicate_(f)
     {}
 
@@ -103,7 +103,7 @@ namespace trsl
                                          ElementIterator last,
                                          RandomNumberGenerator& rng) :
       super_t(detail::make_persistent_filter_iterator
-              (f, make_random_permutation_iterator(first, last,
+              (f, make_random_reord_iter(first, last,
                                                    same_size,
                                                    rng))),
       predicate_(f)
