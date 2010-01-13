@@ -48,15 +48,15 @@ namespace trsl {
    * ppfilter_iterator requires e.g. <tt>std::vector</tt> or
    * <tt>std::deque</tt>.
    *
-   * @param ElementType Type of the elements in the 
+   * @tparam ElementType Type of the elements in the 
    * population. Constness and
    * reference modifiers are handled internally; this parameter should be
    * a bare type, e.g. <tt>Particle</tt> (<em>not</em> <tt>const Particle&</tt>).
    *
-   * @param WeightType Element weight type, should be a floating point type.
+   * @tparam WeightType Element weight type, should be a floating point type.
    * Defaults to <tt>double</tt>.
    *
-   * @param WeightAccessor Type of the accessor that will allow to
+   * @tparam WeightAccessor Type of the accessor that will allow to
    * extract weights from elements.
    * See @ref accessor for further details on accessors.
    *

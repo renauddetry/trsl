@@ -99,7 +99,7 @@ namespace trsl
      *
      * The @p permutationSize should be smaller or equal to the size
      * of the population. It can also be set to trsl::same_size, which
-     * will sort <i>all</i> elements between @p first and @p last. If @p
+     * will sort @em all elements between @p first and @p last. If @p
      * permutationSize is neither an integer smaller or equal to the
      * size of the input range, nor trsl::same_size, a
      * bad_parameter_value is thrown.
@@ -119,7 +119,7 @@ namespace trsl
      *
      * The @p permutationSize should be smaller or equal to the size
      * of the population. It can also be set to trsl::same_size, which
-     * will sort <i>all</i> elements between @p first and @p last. If @p
+     * will sort @em all elements between @p first and @p last. If @p
      * permutationSize is neither an integer smaller or equal to the
      * size of the input range, nor trsl::same_size, a
      * bad_parameter_value is thrown.

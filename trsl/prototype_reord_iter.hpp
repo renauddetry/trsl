@@ -154,7 +154,7 @@ namespace trsl
      * for common reorderings. See random_reord_iter,
      * sorted_reord_iter, custom_reord_iter.
      *
-     * @param ElementIterator (template parameter) Corresponds to the type of the source iterator.
+     * @tparam ElementIterator Corresponds to the type of the iterator referencing the input range.
      * It should model <em>Forward Iterator</em>.
      */
     template
@@ -319,11 +319,11 @@ namespace trsl
       typename super_t::reference dereference(iterator_order_tag) const
       { return *(*this->base()); }
       
-  #ifndef BOOST_NO_MEMBER_TEMPLATE_FRIENDS
+#ifndef BOOST_NO_MEMBER_TEMPLATE_FRIENDS
       template <class, class, class> friend class reorder_iterator;
-  #else
+#else
     public:
-  #endif 
+#endif 
       ElementIterator m_elt_iter;
     protected:
       position_container_ptr m_index_collection;

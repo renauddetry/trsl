@@ -20,7 +20,7 @@ namespace trsl
    *
    * This class inherits from reorder_iterator. It adds a constructor
    * which takes as arguments (1) an iterator pointing to an input
-   * range and (2) an array of <i>positions</i> (see reorder_iterator)
+   * range and (2) an array of @em positions (see reorder_iterator)
    * defining a permutation of the input range. The elements returned
    * by custom_reord_iter are ordered as defined by the
    * array of positions. See reorder_iterator for more details on how
@@ -73,7 +73,7 @@ namespace trsl
      * @param first Iterator pointing to the first element of the
      * input range. It must be of type @p ElementIterator.
      *
-     * @param position_collection Collection of <i>positions</i>. This
+     * @param position_collection Collection of @em positions. This
      * is currently a  <tt>boost::shared_ptr< std::vector< position_t >
      * ></tt>, where @p position_t depends on @p OrderTag.  If @p OrderTag is
      * @p iterator_order_tag, then @p position_t is @p ElementIterator. If
