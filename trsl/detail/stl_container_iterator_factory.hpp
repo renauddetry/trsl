@@ -6,7 +6,7 @@
 #ifndef TRSL_STL_CONTAINER_ITERATOR_FACTORY_HPP
 #define TRSL_STL_CONTAINER_ITERATOR_FACTORY_HPP
 
-#include <trsl/systematic_sample_iterator.hpp>
+#include <trsl/perm_syst_sample_iter.hpp>
 #include <trsl/random_reord_iter.hpp>
 #include <trsl/sorted_reord_iter.hpp>
 #include <trsl/custom_reord_iter.hpp>
@@ -18,23 +18,23 @@ namespace trsl
     template<class Container>
     struct stl_container_iterator_factory
     {    
-      // systematic_sample_iterator
+      // perm_syst_sample_iter
       
       typedef
-      ::trsl::systematic_sample_iterator
+      ::trsl::perm_syst_sample_iter
       <
       typename Container::iterator,
       unit_weight_accessor<>
       >
-      systematic_sample_iterator;
+      perm_syst_sample_iter;
       
       typedef
-      ::trsl::systematic_sample_iterator
+      ::trsl::perm_syst_sample_iter
       <
       typename Container::const_iterator,
       unit_weight_accessor<>
       >
-      const_systematic_sample_iterator;
+      const_perm_syst_sample_iter;
       
       // random_reord_iter
       

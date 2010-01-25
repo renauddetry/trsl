@@ -23,7 +23,7 @@ doc:
 
 test: build
 	./$(BUILD_DIR)/test_is_picked_systematic
-	./$(BUILD_DIR)/test_systematic_sample_iterator
+	./$(BUILD_DIR)/test_perm_syst_sample_iter
 	./$(BUILD_DIR)/test_custom_reord_iter
 	./$(BUILD_DIR)/test_random_reord_iter
 	./$(BUILD_DIR)/test_sorted_reord_iter

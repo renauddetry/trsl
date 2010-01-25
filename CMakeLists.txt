@@ -18,8 +18,8 @@ ADD_EXECUTABLE(${PROJECT_NAMESPACE}_example2
                examples/${PROJECT_NAMESPACE}_example2.cpp)
 ADD_EXECUTABLE(test_is_picked_systematic
                tests/test_is_picked_systematic.cpp)
-ADD_EXECUTABLE(test_systematic_sample_iterator
-               tests/test_systematic_sample_iterator)
+ADD_EXECUTABLE(test_perm_syst_sample_iter
+               tests/test_perm_syst_sample_iter)
 ADD_EXECUTABLE(test_random_reord_iter
                tests/test_random_reord_iter.cpp)
 ADD_EXECUTABLE(test_sorted_reord_iter

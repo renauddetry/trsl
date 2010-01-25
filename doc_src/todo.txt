@@ -9,7 +9,7 @@
  *
  * @section todo_short_term Short Term
  *
- * - Create make_systematic_sample_iterator tests
+ * - Create make_perm_syst_sample_iter tests
  *
  * - Rethink iterator names
  *

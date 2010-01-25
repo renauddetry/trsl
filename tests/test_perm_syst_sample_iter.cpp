@@ -7,7 +7,7 @@
 //#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
 
 #include <tests/common.hpp>
-#include <trsl/systematic_sample_iterator.hpp>
+#include <trsl/perm_syst_sample_iter.hpp>
 #include <trsl/stl_list.hpp>
 #include <trsl/stl_vector.hpp>
 #include <trsl/stl_deque.hpp>
@@ -34,7 +34,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::systematic_sample_iterator
+    typedef trsl::perm_syst_sample_iter
     <
       ParticleArray::const_iterator,
       std::const_mem_fun_ref_t<double, Particle>
@@ -109,7 +109,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::systematic_sample_iterator
+    typedef trsl::perm_syst_sample_iter
     <
       std::vector<PickCountParticle>::iterator,
       std::const_mem_fun_ref_t<double, Particle>
@@ -195,7 +195,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::systematic_sample_iterator
+    typedef trsl::perm_syst_sample_iter
     <
       ParticleArray::const_iterator,
       std::const_mem_fun_ref_t<double, Particle>
@@ -236,7 +236,7 @@ int main()
     
     // Type definitions, once and for all.
 
-    typedef trsl::systematic_sample_iterator
+    typedef trsl::perm_syst_sample_iter
     <
       ParticleArray::const_iterator,
       std::const_mem_fun_ref_t<double, Particle>
@@ -321,8 +321,8 @@ int main()
   // ---------------------------------------------------- //
   {
     // Test conversion to const
-    trsl::systematic_sample_iterator
-    <int const *, trsl::unit_weight_accessor<> > i1 = trsl::systematic_sample_iterator
+    trsl::perm_syst_sample_iter
+    <int const *, trsl::unit_weight_accessor<> > i1 = trsl::perm_syst_sample_iter
     <int*, trsl::unit_weight_accessor<> >();
     
     // Test that begin/end are the same iterator type.

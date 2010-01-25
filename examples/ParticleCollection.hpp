@@ -9,7 +9,7 @@
 #define TRSL_PARTICLECOLLECTION_HPP
 
 #include <vector>
-#include <trsl/systematic_sample_iterator.hpp>
+#include <trsl/perm_syst_sample_iter.hpp>
 #include <examples/Particle.hpp>
 
 namespace trsl {
@@ -21,11 +21,11 @@ namespace trsl {
     class ParticleCollection
     {
     public:
-      typedef trsl::systematic_sample_iterator<
+      typedef trsl::perm_syst_sample_iter<
         std::vector<Particle>::iterator,
         std::const_mem_fun_ref_t<double, Particle>
       > sample_iterator;
-      typedef trsl::systematic_sample_iterator<
+      typedef trsl::perm_syst_sample_iter<
         std::vector<Particle>::const_iterator,
         std::const_mem_fun_ref_t<double, Particle>
       > const_sample_iterator;

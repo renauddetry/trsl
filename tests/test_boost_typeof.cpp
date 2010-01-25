@@ -7,7 +7,7 @@
 //#define TRSL_USE_SYSTEMATIC_INTUITIVE_ALGORITHM
 
 #include <tests/common.hpp>
-#include <trsl/systematic_sample_iterator.hpp>
+#include <trsl/perm_syst_sample_iter.hpp>
 #include <boost/typeof/typeof.hpp>
 
 using namespace trsl::test;
@@ -31,7 +31,7 @@ int main()
     
     // No need to define ugly types!
 
-    //typedef trsl::systematic_sample_iterator
+    //typedef trsl::perm_syst_sample_iter
     //<
     //  ParticleArray::const_iterator,
     //  std::const_mem_fun_ref_t<double, Particle>
@@ -53,7 +53,7 @@ int main()
       ParticleArray sample;
       
       BOOST_AUTO(si,
-                 trsl::make_systematic_sample_iterator
+                 trsl::make_perm_syst_sample_iter
                  (const_pop.begin(),
                   const_pop.end(),
                   SAMPLE_SIZE,
@@ -86,11 +86,11 @@ int main()
         uniform_int1(rng, boost::uniform_int<>()),
         uniform_int2(rng, boost::uniform_int<>());
       
-      if ( !(&*trsl::make_systematic_sample_iterator
+      if ( !(&*trsl::make_perm_syst_sample_iter
              (const_pop.begin(), const_pop.end(),
               SAMPLE_SIZE, 1.0, std::mem_fun_ref(&Particle::getWeight),
               uniform_int1, .3) ==
-             &*trsl::make_systematic_sample_iterator
+             &*trsl::make_perm_syst_sample_iter
              (const_pop.begin(), const_pop.end(),
               SAMPLE_SIZE, 1.0, std::mem_fun_ref(&Particle::getWeight),
               uniform_int2, .3)) )
@@ -110,7 +110,7 @@ int main()
     
     // No need to define ugly types!
 
-    //typedef trsl::systematic_sample_iterator
+    //typedef trsl::perm_syst_sample_iter
     //<
     //  std::vector<PickCountParticle>::iterator,
     //  std::const_mem_fun_ref_t<double, Particle>
@@ -143,7 +143,7 @@ int main()
       for (unsigned round = 0; round < N_ROUNDS; round++)
       {        
         for (BOOST_AUTO(si,
-                        trsl::make_systematic_sample_iterator
+                        trsl::make_perm_syst_sample_iter
                         (population.begin(), population.end(),
                          SAMPLE_SIZE, 1.0,
                          std::mem_fun_ref(&Particle::getWeight),
@@ -198,7 +198,7 @@ int main()
     
     // No need to define ugly types!
 
-    //typedef trsl::systematic_sample_iterator
+    //typedef trsl::perm_syst_sample_iter
     //<
     //  ParticleArray::const_iterator,
     //  std::const_mem_fun_ref_t<double, Particle>
@@ -220,7 +220,7 @@ int main()
       ParticleArray sample;
       
       BOOST_AUTO(sb,
-                 trsl::make_systematic_sample_iterator
+                 trsl::make_perm_syst_sample_iter
                  (const_pop.begin(), const_pop.end(),
                   SAMPLE_SIZE, 1.0,
                   std::mem_fun_ref(&Particle::getWeight)));
@@ -240,7 +240,7 @@ int main()
     
     // No need to define ugly types!
 
-    //typedef trsl::systematic_sample_iterator
+    //typedef trsl::perm_syst_sample_iter
     //<
     //  ParticleArray::const_iterator,
     //  std::const_mem_fun_ref_t<double, Particle>
@@ -262,7 +262,7 @@ int main()
       ParticleArray sample;
       
       BOOST_AUTO(sb,
-                 trsl::make_systematic_sample_iterator
+                 trsl::make_perm_syst_sample_iter
                  (const_pop.begin(), const_pop.end(),
                   SAMPLE_SIZE, 1.0,
                   std::mem_fun_ref(&Particle::getWeight)));
@@ -306,7 +306,7 @@ int main()
       ParticleArray sample;
       
       BOOST_AUTO(sb,
-                 trsl::make_systematic_sample_iterator
+                 trsl::make_perm_syst_sample_iter
                  (const_pop.begin(), const_pop.end(),
                   SAMPLE_SIZE, 1.0,
                   std::mem_fun_ref(&Particle::getWeight)));

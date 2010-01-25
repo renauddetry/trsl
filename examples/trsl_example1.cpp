@@ -3,7 +3,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <trsl/systematic_sample_iterator.hpp>
+#include <trsl/perm_syst_sample_iter.hpp>
 #include <examples/Particle.hpp>
 
 #include <vector>
@@ -16,7 +16,7 @@
 
 using namespace trsl::example;
 
-typedef trsl::systematic_sample_iterator
+typedef trsl::perm_syst_sample_iter
 <
   std::list<Particle>::const_iterator,
   std::const_mem_fun_ref_t<double, Particle>

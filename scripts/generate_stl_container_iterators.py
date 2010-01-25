@@ -26,7 +26,7 @@ namespace trsl
     typedef detail::stl_container_iterator_factory< std::%s<ElementType> > super_t;
 """ % (c.upper(), c.upper(), c.lower().replace("multi", ""),
        c.lower(), c.lower(), c.lower()))
-  for i in [ "systematic_sample_iterator",
+  for i in [ "perm_syst_sample_iter",
              "random_reord_iter",
              "sorted_reord_iter",
              "custom_reord_iter" ]:

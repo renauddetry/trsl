@@ -9,7 +9,7 @@
 #include <trsl/sorted_reord_iter.hpp>
 #include <trsl/is_picked_systematic.hpp>
 #include <trsl/random_reord_iter.hpp>
-#include <trsl/systematic_sample_iterator.hpp>
+#include <trsl/perm_syst_sample_iter.hpp>
 #include <trsl/ppfilter_iterator.hpp>
 
 #include <boost/random/uniform_real.hpp>
@@ -140,10 +140,10 @@ int main()
       std::cout << std::endl;
     }
     {
-      // Using systematic_sample_iterator, which combines
+      // Using perm_syst_sample_iter, which combines
       // is_picked_systematic and ppfilter_iterator
 
-      typedef trsl::systematic_sample_iterator
+      typedef trsl::perm_syst_sample_iter
       <
         population_iterator,
         std::pointer_to_unary_function<float, double>

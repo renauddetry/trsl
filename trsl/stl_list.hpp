@@ -19,15 +19,15 @@ namespace trsl
   {
     typedef detail::stl_container_iterator_factory< std::list<ElementType> > super_t;
 
-    // systematic_sample_iterator
+    // perm_syst_sample_iter
     
     typedef
-    typename super_t::systematic_sample_iterator
-    systematic_sample_iterator;
+    typename super_t::perm_syst_sample_iter
+    perm_syst_sample_iter;
     
     typedef
-    typename super_t::const_systematic_sample_iterator
-    const_systematic_sample_iterator;
+    typename super_t::const_perm_syst_sample_iter
+    const_perm_syst_sample_iter;
 
     // random_reord_iter
     

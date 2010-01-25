@@ -26,7 +26,7 @@ namespace trsl
       class WeightType,
       class Implementor
     >
-    struct systematic_sample_iterator_base
+    struct perm_syst_sample_iter_base
     {
       typedef is_picked_systematic
       <
@@ -54,21 +54,21 @@ namespace trsl
     class WeightAccessor,
     class WeightType = double
   >
-  class systematic_sample_iterator :
-    public detail::systematic_sample_iterator_base
+  class perm_syst_sample_iter :
+    public detail::perm_syst_sample_iter_base
     <
       ElementIterator,
       WeightAccessor,
       WeightType,
-      systematic_sample_iterator<ElementIterator, WeightAccessor, WeightType>
+      perm_syst_sample_iter<ElementIterator, WeightAccessor, WeightType>
     >::type
   {
-    typedef detail::systematic_sample_iterator_base
+    typedef detail::perm_syst_sample_iter_base
     <
       ElementIterator,
       WeightAccessor,
       WeightType,
-      systematic_sample_iterator<ElementIterator, WeightAccessor, WeightType>
+      perm_syst_sample_iter<ElementIterator, WeightAccessor, WeightType>
     >
     base_t;
     typedef typename base_t::type super_t;
@@ -80,9 +80,9 @@ namespace trsl
     typedef WeightType weight_t;
     typedef typename base_t::predicate_t predicate_t;
     
-    systematic_sample_iterator() {}
+    perm_syst_sample_iter() {}
     
-    explicit systematic_sample_iterator(ElementIterator first,
+    explicit perm_syst_sample_iter(ElementIterator first,
                                         ElementIterator last,
                                         unsigned sampleSize,
                                         WeightType populationWeight,
@@ -90,7 +90,7 @@ namespace trsl
       super_t(predicate_t(sampleSize, populationWeight, wac), first, last) {}
 
     template<class RandomNumberGenerator>
-    explicit systematic_sample_iterator(ElementIterator first,
+    explicit perm_syst_sample_iter(ElementIterator first,
                                         ElementIterator last,
                                         unsigned sampleSize,
                                         WeightType populationWeight,
@@ -101,7 +101,7 @@ namespace trsl
               first, last, rng) {}
     
     template<class Container>
-    explicit systematic_sample_iterator(Container& c,
+    explicit perm_syst_sample_iter(Container& c,
                                         unsigned sampleSize) :
       super_t(predicate_t(sampleSize, c.size()), c.begin(), c.end())
     {
@@ -112,7 +112,7 @@ namespace trsl
     }
 
     template<class Container, class RandomNumberGenerator>
-    explicit systematic_sample_iterator(Container& c,
+    explicit perm_syst_sample_iter(Container& c,
                                         unsigned sampleSize,
                                         RandomNumberGenerator& rng,
                                         WeightType uniform01) :
@@ -125,8 +125,8 @@ namespace trsl
     }
     
     template<class OtherElementIterator>
-    systematic_sample_iterator
-    (systematic_sample_iterator<OtherElementIterator, WeightAccessor, WeightType> const& r,
+    perm_syst_sample_iter
+    (perm_syst_sample_iter<OtherElementIterator, WeightAccessor, WeightType> const& r,
      typename boost::enable_if_convertible
      <OtherElementIterator, ElementIterator>::type* = 0) :
       super_t(r) {}
@@ -138,8 +138,8 @@ namespace trsl
     class WeightAccessor,
     class WeightType
   >
-  systematic_sample_iterator<ElementIterator, WeightAccessor, WeightType>
-  make_systematic_sample_iterator
+  perm_syst_sample_iter<ElementIterator, WeightAccessor, WeightType>
+  make_perm_syst_sample_iter
   (ElementIterator first,
    ElementIterator last,
    unsigned sampleSize,
@@ -147,7 +147,7 @@ namespace trsl
    WeightAccessor wac)
   {
     return
-    systematic_sample_iterator<ElementIterator, WeightAccessor, WeightType>
+    perm_syst_sample_iter<ElementIterator, WeightAccessor, WeightType>
     (first, last, sampleSize, populationWeight, wac);
   }
 
@@ -158,8 +158,8 @@ namespace trsl
     class WeightType,
     class RandomNumberGenerator
   >
-  systematic_sample_iterator<ElementIterator, WeightAccessor, WeightType>
-  make_systematic_sample_iterator
+  perm_syst_sample_iter<ElementIterator, WeightAccessor, WeightType>
+  make_perm_syst_sample_iter
   (ElementIterator first,
    ElementIterator last,
    unsigned sampleSize,
@@ -169,24 +169,24 @@ namespace trsl
    WeightType uniform01)
   {
     return
-    systematic_sample_iterator<ElementIterator, WeightAccessor, WeightType>
+    perm_syst_sample_iter<ElementIterator, WeightAccessor, WeightType>
     (first, last, sampleSize, populationWeight, wac, rng, uniform01);
   }
 
   template
   <class Container>
-  systematic_sample_iterator
+  perm_syst_sample_iter
   <
     typename Container::iterator,
     unit_weight_accessor<>,
     double
   >
-  make_systematic_sample_iterator
+  make_perm_syst_sample_iter
   (Container& c,
    unsigned sampleSize)
   {
     return
-    systematic_sample_iterator
+    perm_syst_sample_iter
     <
       typename Container::iterator,
       unit_weight_accessor<>,
@@ -197,18 +197,18 @@ namespace trsl
 
   template
   <class Container>
-  systematic_sample_iterator
+  perm_syst_sample_iter
   <
     typename Container::const_iterator,
     unit_weight_accessor<>,
     double
   >
-  make_systematic_sample_iterator
+  make_perm_syst_sample_iter
   (Container const& c,
    unsigned sampleSize)
   {
     return
-    systematic_sample_iterator
+    perm_syst_sample_iter
     <
       typename Container::const_iterator,
       unit_weight_accessor<>,
@@ -219,20 +219,20 @@ namespace trsl
   
   template
   <class Container, class RandomNumberGenerator>
-  systematic_sample_iterator
+  perm_syst_sample_iter
   <
     typename Container::iterator,
     unit_weight_accessor<>,
     double
   >
-  make_systematic_sample_iterator
+  make_perm_syst_sample_iter
   (Container& c,
    unsigned sampleSize,
    RandomNumberGenerator& rng,
    double uniform01)
   {
     return
-    systematic_sample_iterator
+    perm_syst_sample_iter
     <
       typename Container::iterator,
       unit_weight_accessor<>,
@@ -243,20 +243,20 @@ namespace trsl
 
   template
   <class Container, class RandomNumberGenerator>
-  systematic_sample_iterator
+  perm_syst_sample_iter
   <
     typename Container::const_iterator,
     unit_weight_accessor<>,
     double
   >
-  make_systematic_sample_iterator
+  make_perm_syst_sample_iter
   (Container const& c,
    unsigned sampleSize,
    RandomNumberGenerator& rng,
    double uniform01)
   {
     return
-    systematic_sample_iterator
+    perm_syst_sample_iter
     <
       typename Container::const_iterator,
       unit_weight_accessor<>,
