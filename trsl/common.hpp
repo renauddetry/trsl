@@ -14,7 +14,6 @@
 
 namespace trsl {
   
-  /** @internal @brief Used internally */
   namespace detail {
         
     template<typename RandomAccessIterator, typename RandomNumberGenerator>

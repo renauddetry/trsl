@@ -27,6 +27,10 @@
 namespace trsl
 {
 
+  /**
+   * @brief Indicates that a range length parameter should be computed from the
+   * input range length.
+   */
   boost::none_t const same_size = boost::none;
   
   /**
@@ -63,8 +67,6 @@ namespace trsl
     
   namespace detail
   {
-    
-    /** @internal @brief Used internally */
     template<class ElementIterator, class OrderTag, class DerivedType>
     struct prototype_reord_iter_base
     {      
@@ -92,7 +94,6 @@ namespace trsl
       type;
     };
     
-    /** @internal @brief Used internally */
     template<class ElementIterator, class IndexContainer, class IndexType>
     void
     fill_index_container(IndexContainer& collection,
@@ -105,7 +106,6 @@ namespace trsl
         collection[i] = i;
     }
     
-    /** @internal @brief Used internally */
     template<class ElementIterator, class IndexContainer, class IndexType>
     void
     fill_index_container(IndexContainer& collection,
@@ -117,46 +117,6 @@ namespace trsl
         collection.push_back(i);
     }    
   
-    /**
-     * @brief Used internally.
-     *
-     * This class is a fork of <a
-     * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
-     * >boost::permutation_iterator</a>.  With <a
-     * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
-     * >boost::permutation_iterator</a>, the user provides a population,
-     * and a range of index that defines a permutation over the
-     * population. It allows for much flexibility, but leaves the user
-     * responsible for storing an array of index. This
-     * class allows to store the array internally, in the same way as <a
-     * href="http://www.boost.org/libs/utility/shared_container_iterator.html"
-     * >boost::shared_container_iterator</a>.
-     *
-     * The index array is stored within the iterator, by means of a <a
-     * href="http://www.boost.org/libs/smart_ptr/shared_ptr.htm"
-     * >boost::shared_ptr</a>; thus, all copies of a reorder iterator
-     * share the same array. One drawback is that the copy of a reorder iterator
-     * is somewhat slower than ElementIterator copy. Incrementation
-     * is still plainly fast, nevertheless.
-     *
-     * Another difference with boost::permutation_iterator is that while boost::permutation_iterator requires the input range to model <em>Random Access Iterator</em>, this iterator only requires <em>Forward Iterators</em>. Thus, it can be applied to e.g. <tt>std::list</tt> iterators.
-     *
-     * When the input range is a Random Access Iterator, the internal array contains element indices with a <tt>std::vector<size_t></tt>. Else, it contains iterators of the input range, in a <tt>std::vector<ElementIterator></tt>. Below, indices or iterators contained in the internal array are referred to as @em positions.
-     *
-     * When iterating over a permutation of a population range using a
-     * position range, the iteration is actually performed over the position
-     * range; the population range is only used when
-     * dereferencing. Thus, every iterator knows where it
-     * begins and where it ends, hence provided begin() and end()
-     * methods.
-     *
-     * TRSL provides several functions that generate reoder iterators
-     * for common reorderings. See random_reord_iter,
-     * sorted_reord_iter, custom_reord_iter.
-     *
-     * @tparam ElementIterator Corresponds to the type of the iterator referencing the input range.
-     * It should model <em>Forward Iterator</em>.
-     */
     template
     <
       class ElementIterator,
@@ -246,8 +206,8 @@ namespace trsl
         {}
       
       /**
-       * @brief Returns an iterator pointing to
-       * the begining of the permutation.
+       * @brief Returns an iterator pointing to the begining of the
+       * reordered range.
        */
       DerivedType begin() const
       {
@@ -258,8 +218,8 @@ namespace trsl
       }
       
       /**
-       * @brief Returns an iterator pointing to
-       * the end of the permutation.
+       * @brief Returns an iterator pointing to the end of the
+       * reordered range.
        */
       DerivedType end() const
       {
@@ -270,10 +230,12 @@ namespace trsl
       }
       
       /**
-       * @brief Returns the index of the element in the input population that the iterator is
-       * currently pointing to.
+       * @brief Returns the index that the current element has in the
+       * input range.
        *
-       * If ElementIterator is not random access, then the complexity of this function is linear in the number of elements in the input range.
+       * If ElementIterator is not random access, the complexity of
+       * this function is linear in the number of elements in the
+       * input range.
        */
       index_t src_index() const
       {
@@ -281,7 +243,8 @@ namespace trsl
       }
       
       /**
-       * @brief Returns an ElementIterator pointing to the element the iterator is
+       * @brief Returns an iterator of the input range (@p
+       * ElementIterator) which points to the element this iterator is
        * currently pointing to.
        */
       ElementIterator src_iterator() const

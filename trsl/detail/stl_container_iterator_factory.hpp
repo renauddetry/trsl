@@ -3,8 +3,6 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-/** @file */
-
 #ifndef TRSL_STL_CONTAINER_ITERATOR_FACTORY_HPP
 #define TRSL_STL_CONTAINER_ITERATOR_FACTORY_HPP
 
@@ -17,7 +15,6 @@ namespace trsl
 {
   namespace detail {
     
-    /** @internal @brief Used internally */
     template<class Container>
     struct stl_container_iterator_factory
     {    

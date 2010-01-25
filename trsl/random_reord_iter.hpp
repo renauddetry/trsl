@@ -14,7 +14,9 @@
 
 namespace trsl
 {
-
+  /**  @addtogroup products_reorder */
+  //@{
+  
   /**
    * @brief Provides an iterator over a random permutation of a range.
    *
@@ -115,9 +117,8 @@ namespace trsl
     super_t(r) {}
     
     /**
-     * @brief @copybrief detail::prototype_reord_iter::src_index()
-     *
-     * @copydetails detail::prototype_reord_iter::src_index()
+     * @brief Returns an iterator pointing to the begining of the
+     * reordered range.
      */
     this_t begin() const
     {
@@ -125,9 +126,8 @@ namespace trsl
     }
     
     /**
-     * @brief @copybrief detail::prototype_reord_iter::src_index()
-     *
-     * @copydetails detail::prototype_reord_iter::src_index()
+     * @brief Returns an iterator pointing to the end of the
+     * reordered range.
      */
     this_t end() const
     {
@@ -135,9 +135,12 @@ namespace trsl
     }
     
     /**
-     * @brief @copybrief detail::prototype_reord_iter::src_index()
+     * @brief Returns the index that the current element has in the
+     * input range.
      *
-     * @copydetails detail::prototype_reord_iter::src_index()
+     * If ElementIterator is not random access, the complexity of
+     * this function is linear in the number of elements in the
+     * input range.
      */
     index_t src_index() const
     {
@@ -145,16 +148,16 @@ namespace trsl
     }
     
     /**
-     * @brief @copybrief detail::prototype_reord_iter::src_index()
-     *
-     * @copydetails detail::prototype_reord_iter::src_index()
+     * @brief Returns an iterator of the input range (@p
+     * ElementIterator) which points to the element this iterator is
+     * currently pointing to.
      */
     ElementIterator src_iterator() const
     {
       return super_t::src_iterator();
     }
     
-  protected:
+  private:
     template<class RandomNumberGenerator>
     static position_container_ptr
     new_position_container(ElementIterator first,
@@ -235,6 +238,7 @@ namespace trsl
     (first, last, permutationSize, rng);
   }
   
+  //@}
 } // namespace trsl
 
 #endif // include guard

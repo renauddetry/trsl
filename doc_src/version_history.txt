@@ -5,6 +5,7 @@
 
 /**
  * @defgroup version_history Version History
+ * @ingroup evolution
  *
  * @section version_history_svn SVN (not released yet)
  *

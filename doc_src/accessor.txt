@@ -4,7 +4,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 /**
- * @defgroup accessor Accessors
+ * @defgroup accessor Accessor
+ * @ingroup concepts
  *
  * Accessors are usually called at least once for each element of the
  * accessed collection. Hence, they should be designed carefully in

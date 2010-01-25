@@ -119,3 +119,12 @@
  * Several concept implementations (e.g. accessors) are inspired from <a
  * href="http://libkdtree.alioth.debian.org">libkdtree++</a>.
  */
+/**
+ * @defgroup products Products
+ */
+/**
+ * @defgroup concepts Concepts
+ */
+/**
+ * @defgroup evolution Evolution
+ */

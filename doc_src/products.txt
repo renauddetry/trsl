@@ -4,13 +4,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 /**
- * @defgroup products Products
+ * @addtogroup products
  *
- * This module presents the functionalities offered by TRSL.
+ * @brief This section describes the functionalities offered by TRSL.
  *
- * <hr>
+ * TRSL functionalities are organized under @ref products_systematic_sampling
+ * and @ref products_reorder.
  *
- * @section products_systematic_sampling Systematic Sampling
+ * @defgroup products_systematic_sampling Systematic Sampling
+ * @ingroup products
  *
  * Systematic sampling is provided through trsl::is_picked_systematic,
  * a predicate functor to use in combination with
@@ -36,14 +38,50 @@
  *
  * <dl><dt><b>Implementation:</b></dt><dd>trsl::is_picked_systematic, trsl::persistent_filter_iterator, trsl::ppfilter_iterator.</dd></dl>
  *
- * <hr>
+ * @defgroup products_reorder Range Reordering
+ * @ingroup products
  *
- * @section products_reorder Range Reordering
+ * This class is a fork of <a
+ * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
+ * >boost::permutation_iterator</a>.  With <a
+ * href="http://www.boost.org/libs/iterator/doc/permutation_iterator.html"
+ * >boost::permutation_iterator</a>, the user provides a population,
+ * and a range of index that defines a permutation over the
+ * population. It allows for much flexibility, but leaves the user
+ * responsible for storing an array of index. This
+ * class allows to store the array internally, in the same way as <a
+ * href="http://www.boost.org/libs/utility/shared_container_iterator.html"
+ * >boost::shared_container_iterator</a>.
+ *
+ * The index array is stored within the iterator, by means of a <a
+ * href="http://www.boost.org/libs/smart_ptr/shared_ptr.htm"
+ * >boost::shared_ptr</a>; thus, all copies of a reorder iterator
+ * share the same array. One drawback is that the copy of a reorder iterator
+ * is somewhat slower than ElementIterator copy. Incrementation
+ * is still plainly fast, nevertheless.
+ *
+ * Another difference with boost::permutation_iterator is that while boost::permutation_iterator requires the input range to model <em>Random Access Iterator</em>, this iterator only requires <em>Forward Iterators</em>. Thus, it can be applied to e.g. <tt>std::list</tt> iterators.
+ *
+ * When the input range is a Random Access Iterator, the internal array contains element indices with a <tt>std::vector<size_t></tt>. Else, it contains iterators of the input range, in a <tt>std::vector<ElementIterator></tt>. Below, indices or iterators contained in the internal array are referred to as @em positions.
+ *
+ * When iterating over a permutation of a population range using a
+ * position range, the iteration is actually performed over the position
+ * range; the population range is only used when
+ * dereferencing. Thus, every iterator knows where it
+ * begins and where it ends, hence provided begin() and end()
+ * methods.
+ *
+ * TRSL provides several functions that generate reoder iterators
+ * for common reorderings. See random_reord_iter,
+ * sorted_reord_iter, custom_reord_iter.
+ *
+ * @tparam ElementIterator Corresponds to the type of the iterator referencing the input range.
+ * It should model <em>Forward Iterator</em>.
  *
  * Iteration through reordering of a range can be
  * obtained with the iterators detailed below.
  *
- * @subsection products_permutation Random Permutation
+ * @section products_permutation Random Permutation
  *
  * trsl::random_reord_iter provides an iterator over a
  * random permutation of a range.
@@ -52,12 +90,10 @@
  *
  * @sa @ref trsl_example2.cpp "trsl_example2.cpp" for a basic example.
  *
- * @subsection products_sorting Sorted Permutation
+ * @section products_sorting Sorted Permutation
  *
  * trsl::sorted_reord_iter provides an iterator over a sorted permutation
  * of a range.
  *
  * <dl><dt><b>Implementation:</b></dt><dd>trsl::sorted_reord_iter.</dd></dl>
- *
- * <hr>
  */

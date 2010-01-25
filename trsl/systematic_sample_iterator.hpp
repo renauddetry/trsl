@@ -19,7 +19,6 @@ namespace trsl
   
   namespace detail
   {
-    /** @internal @brief Used internally */
     template
     <
       class ElementIterator,
