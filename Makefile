@@ -33,4 +33,4 @@ clean:
 
 publish: doc
 	ssh renauddetry,trsl@shell.sourceforge.net create
-	rsync -rl --delete --delete-excluded documentation/html/ renauddetry@shell.sourceforge.net:/home/groups/t/tr/trsl/htdocs
+	rsync -rl --delete --delete-excluded documentation/html/ renauddetry@shell.sourceforge.net:/home/project-web/trsl/htdocs
