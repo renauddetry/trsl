@@ -18,6 +18,10 @@
  * @section News
  *
  * <dl>
+ * <dt>2011-04-06</dt>
+ * <dd>Released TRSL 0.2.2. This release contains minor updates,
+ *     see @ref version_history for a list of changes.
+ * </dd>
  * <dt>2008-05-21</dt>
  * <dd>The Boost Software License is now <a
  * href="http://www.opensource.org/licenses/bsl1.0.html">Open
@@ -70,9 +74,9 @@
  *
  * </dl>
  *
- * TRSL is meant to be OS Portable. However, I could only test it with
- * GCC 4 (Linux and MacOS X) and ICC 10 (Linux). If anyone tries it with a
- * different compiler, <a
+ * TRSL is meant to be OS Portable. It has been tested on Linux and MacOS X with
+ * GCC 4 and LLVM 2.8 (with clang). If anyone tries it with a
+ * different compiler/platform, <a
  * href="http://sourceforge.net/forum/?group_id=212585" >please
  * comment</a>!
  *

@@ -6,7 +6,7 @@
 /**
  * @defgroup version_history Version History
  *
- * @section version_history_svn SVN (not released yet)
+ * @section version_history_v022 Version 0.2.2
  *
  * - Added TRSL_VERSION_NR.
  *
