@@ -65,14 +65,19 @@ namespace trsl {
     typedef WeightType (ElementType::*WeightAccessorMethodPointer)() const;
     
     /**
+     * @brief Default constructor, accessor will return 1 all the time.
+     */
+    mp_weight_accessor() :
+      wptr_(NULL) {}
+
+    /**
      * @brief Constructor from a WeightAccessorMethodPointer.
      *
      * @param wptr Pointer to the method of ElementType that
-     * returns the element weight. If no pointer is passed, operator()
-     * will return 1 all the time.
+     * returns the element weight.
      *
      */
-    mp_weight_accessor(WeightAccessorMethodPointer wptr = NULL) :
+    mp_weight_accessor(WeightAccessorMethodPointer wptr) :
       wptr_(wptr) {}
     
     /**
