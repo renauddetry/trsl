@@ -15,7 +15,7 @@ public:
   HeavyPickCountParticle(const PickCountParticle &p) :
     PickCountParticle(p) {}
 private:
-  double payload[0];
+  //double payload[0];
 };
 
 

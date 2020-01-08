@@ -276,7 +276,6 @@ int main()
       is_picked predicate(SAMPLE_SIZE, 1.0, &PickCountParticle::getWeight);
       
       sample_iterator sb = sample_iterator(predicate, const_pop.begin(), const_pop.end());
-      sample_iterator previous = sb;
       sample_iterator se = sample_iterator(predicate, const_pop.end(),   const_pop.end());
       for (sample_iterator
              si = sb,

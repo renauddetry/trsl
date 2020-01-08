@@ -54,7 +54,6 @@ namespace trsl {
       unsigned getPickCount() const { return pickCount_; }
     private:
       unsigned pickCount_;
-      double dump[16];
     };
 
     template<typename ContainerType>
