@@ -20,6 +20,7 @@
 #include <vector>
 #include <algorithm>
 #include <boost/iterator.hpp>
+#include <boost/detail/iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/shared_ptr.hpp>
