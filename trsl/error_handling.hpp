@@ -17,6 +17,7 @@ namespace trsl {
   {
   public:
     runtime_error(const std::string& s) : std::runtime_error(s) {}
+    runtime_error(const char* s) : std::runtime_error(s) {}
   };
 
   /**
@@ -27,6 +28,7 @@ namespace trsl {
   {
   public:
     bad_parameter_value(const std::string& s) : runtime_error(s) {}
+    bad_parameter_value(const char* s) : runtime_error(s) {}
   };
 
 }
