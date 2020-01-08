@@ -6,8 +6,8 @@
 /**
  * @mainpage
  *
- * <center><a href="http://trsl.sourceforge.net/"
- * >http://trsl.sourceforge.net/</a></center>
+ * <center><a href="http://renaud-detry.net/trsl"
+ * >http://renaud-detry.net/trsl</a></center>
  *
  * TRSL is a C++ library that implements several sampling schemes
  * behind an (STL-like) iterator interface. The library may be used
@@ -54,37 +54,16 @@
  *
  * @section index_services Source
  *
- * TRSL is in a usable state. However, as its version number suggests,
- * it is likely to grow and change interface in the future.
+ * TRSL is in a usable state. However, it is likely to grow and change interface in the future.
  *
- * <dl>
- *
- * <dt><b>Downloads</b></dt>
- *
- * <dd>Releases are available at the Sourceforge <a
- * href="http://sourceforge.net/project/platformdownload.php?group_id=212585"
- * >download page</a>. The latest sources are available through
- * Subversion:<br><tt>svn co
- * https://trsl.svn.sourceforge.net/svnroot/trsl/trunk trsl</tt></dd>
- *
- * <dt><b>Project Services</b></dt>
- *
- * <dd>Sourceforge <a href="http://sourceforge.net/projects/trsl"
- * >project page</a>.</dd>
- *
- * </dl>
+ * The latest sources are available through <a href="https://github.com/renauddetry/trsl">GitHub</a>.
  *
  * TRSL is meant to be OS Portable. It has been tested on Linux and MacOS X with
- * GCC 4 and LLVM 2.8 (with clang). If anyone tries it with a
- * different compiler/platform, <a
- * href="http://sourceforge.net/forum/?group_id=212585" >please
- * comment</a>!
+ * GCC 4 and LLVM 2.8 (with clang).
  *
  * @section index_feedback Feedback
  *
- * The preferred method of communication is currently the Sourceforge <a
- * href="http://sourceforge.net/forum/?group_id=212585" >forums</a>
- * (anonymous posts allowed).
+ * The preferred method of communication is currently via <a href="https://github.com/renauddetry/trsl">GitHub</a> issues.
  *
  * @section index_products Products
  *
@@ -111,7 +90,7 @@
  *
  * @section index_author Authors
  *
- * TRSL is developped by <a href="http://sourceforge.net/users/renauddetry/"
+ * TRSL is developped by <a href="http://renaud-detry.net"
  * >Renaud Detry</a>.
  *
  * @section index_credits Credits
