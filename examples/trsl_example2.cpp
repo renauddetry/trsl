@@ -20,10 +20,13 @@
 
 // In this example, population elements are floats, and an element's
 // weight is the element itself. The weight accessor is:
-double wac(float x)
+struct wac
 {
-  return x;
-}
+  double operator()(float const& e) const
+    {
+      return e;
+    }
+};
 
 int main()
 {
@@ -80,7 +83,7 @@ int main()
     typedef trsl::is_picked_systematic<
       float,
       double,
-      std::pointer_to_unary_function<float, double>
+      wac
       > is_picked;
   
     typedef trsl::persistent_filter_iterator
@@ -90,7 +93,7 @@ int main()
                         std::accumulate(populationIteratorBegin,
                                         populationIteratorEnd,
                                         float(0)),
-                        std::ptr_fun(wac));
+                        wac());
   
     sample_iterator sampleIteratorBegin(predicate,
                                         populationIteratorBegin,
@@ -114,7 +117,7 @@ int main()
     typedef trsl::is_picked_systematic<
     float,
     double,
-    std::pointer_to_unary_function<float, double>
+    wac
     > is_picked;
     
     typedef trsl::ppfilter_iterator
@@ -124,7 +127,7 @@ int main()
                         std::accumulate(populationIteratorBegin,
                                         populationIteratorEnd,
                                         float(0)),
-                        std::ptr_fun(wac));
+                        wac());
     
     sample_iterator sampleIteratorBegin(predicate,
                                         populationIteratorBegin,
